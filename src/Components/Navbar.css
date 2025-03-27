@@ -1,0 +1,242 @@
+.conav{
+    font-weight: 400;
+    color: white;
+  }
+  
+  .conspan{
+    font-weight: 700;
+  }
+  
+  .nav{
+  
+    padding: .4rem;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+  
+  .alink{
+  
+    color: black;
+    text-decoration: none;
+    margin-right: 2rem;
+   
+  }
+  .alink:hover{
+  color:#007BFF
+  }
+  
+  .hamburguesa{;
+    position:relative;
+    z-index:3;
+    right: 30px;
+    .nav-icon-5{
+        width: 35px;
+        height: 30px;
+        margin: 10px 10px;
+        position: relative;
+        cursor: pointer;
+        display: inline-block;
+       
+      }
+      .nav-icon-5 span{
+        background-color: black;
+        position: absolute;
+        border-radius: 2px;
+        transition: .3s cubic-bezier(.8, .5, .2, 1.4);
+        width:100%;
+        height: 4px;
+        transition-duration: 500ms
+        
+      }
+      .nav-icon-5 span:nth-child(1){
+        top:0px;
+        left: 0px;
+      }
+      .nav-icon-5 span:nth-child(2){
+        top:13px;
+        left: 0px;
+        opacity:1;
+      }
+      .nav-icon-5 span:nth-child(3){
+        bottom:0px;
+        left: 0px;
+      }
+      .nav-icon-5:not(.open):hover span:nth-child(1){
+        transform: rotate(-3deg) scaleY(1.1);
+      }
+      .nav-icon-5:not(.open):hover span:nth-child(2){
+        transform: rotate(3deg) scaleY(1.1);
+      }
+      .nav-icon-5:not(.open):hover span:nth-child(3){
+        transform: rotate(-4deg) scaleY(1.1);
+      }
+      .nav-icon-5.open span:nth-child(1){
+        transform: rotate(45deg);
+        top: 13px;
+      }
+      .nav-icon-5.open span:nth-child(2){
+        opacity:0;
+      }
+      .nav-icon-5.open span:nth-child(3){
+        transform: rotate(-50deg);
+        top: 13px;
+      }
+      
+  }
+  
+  .logo {
+  height: 60px; /* Ajusta la altura de la imagen */
+  margin-right: 20px; /* Agrega un margen a la derecha de la imagen */
+  border-radius: 10%; /* Ajusta el radio de la imagen, el borde */
+  z-index:3;
+  }
+  
+  .links{
+  position: absolute; /* Asegúrate de que esté posicionado */
+  top: -700px;
+  left: -2000px;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  transition: all .5s ease;
+  
+    
+    a{
+        color: black;
+        font-family: 2rem;
+        display: block;
+  
+    }
+    @media(min-width: 768px){
+        display: flex;
+        position: initial;
+        margin: 0%;
+        a{
+            font-family: 1rem;
+            color: black;
+            display: inline;
+        }
+    }  
+  }
+  
+  .links.active{
+  width: 100%;
+  display: block;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 30%;
+  left: 0;
+  right: 0%;
+  text-align: center;
+  z-index:3;
+    a{
+      font-size: 2rem;
+      margin-top: 1rem;
+        color: white;
+       }
+  
+  }
+  
+  .ocultar{
+    @media(min-width: 768px){
+        display: none;
+        
+    
+  
+    }
+  }
+  
+  .initial{
+  position: absolute;
+  background-color: #4d148c;
+  top: -1000;
+  left: -1000;
+  width: 10%;
+  height: 7%;
+  z-index: -1;
+  transition: all .6s ease;/* Efecto de transición */
+  }
+  
+  .initial.active{      /* Aparece el menu en responsive */
+  border-radius: 0 0 80% 0; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index:2;
+  
+  
+  }
+  
+  .translate-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #000;
+    cursor: pointer;
+    z-index: 9999;
+    padding: 0; /* Eliminar el padding adicional */
+    border-radius: 50%; /* Hacer el borde redondeado si es un icono circular */
+    width: 30px; /* Ajusta el tamaño según el icono */
+    height: 30px; /* Ajusta el tamaño según el icono */
+    display: flex;
+    justify-content: center; /* Centrar el contenido del icono */
+    align-items: center; /* Centrar el contenido del icono */
+  }
+  
+  /* Efecto hover */
+  .translate-btn:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Color de fondo suave */
+    color: #007BFF; /* Cambiar color del texto a azul */
+    transform: scale(1.1); /* Agrandar ligeramente el botón */
+    
+  }
+  
+  /* Efecto cuando el botón está en foco (cuando se hace clic o se selecciona) */
+  
+  /* Contenedor de la luna y login */
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    z-index:9999;
+  }
+  
+  /* Botón de la luna */
+  .dark-mode-button {
+    background-color: black;  /* Fondo negro */
+    color: white;             /* Texto blanco */
+    border: none;             /* Eliminar borde */
+    margin: 0;                /* Eliminar margen */
+    cursor: pointer;
+    padding: 4px;            /* Agregar un poco de espacio dentro del botón */
+    border-radius: 10px;       /* Bordes redondeados opcionales */
+  }
+  .dark-mode-button:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Color de fondo suave */
+    color: #007BFF; /* Cambiar color del texto a azul */
+    transform: scale(1.1); /* Agrandar ligeramente el botón */
+  }
+  
+  /* Estilo del icono */
+  .dark-mode-icon {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Modo Blanco y Negro */
+  .monochrome-mode {
+    filter: grayscale(100%);
+  }
+  
+  
+  
