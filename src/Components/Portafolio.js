@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import ProjectForm from './ProjectForm';
+import SkillsForm from "./SkillsForm";
 
 function Portafolio(){
   const [recitext,setRecitext] = useState('');
@@ -13,6 +14,9 @@ return (
   <div>
     <ProjectForm onTextChange={handleTextChange}/>
     <p> Descripción Del Proyecto:{recitext} </p>
+
+    
+    <SkillsForm />
   </div>
 )
 

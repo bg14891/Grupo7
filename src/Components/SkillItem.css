@@ -1,0 +1,27 @@
+/* Estilos para cada habilidad en la lista */
+.skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+  }
+  
+  .skill-name {
+    font-weight: bold;
+  }
+  
+  .skill-level {
+    font-style: italic;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
