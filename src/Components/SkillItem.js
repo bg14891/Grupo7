@@ -67,8 +67,7 @@ function SkillItem({ index, skill, onDelete, onEdit }) {
       ) : (
         <div className="skill-info">
           <span>{skill.name}</span>
-          <span>{`Categoría: ${skill.category}`}</span>
-          <span>{`Nivel: `}</span>
+          <span>{`Nivel:`}</span>
           <div className="stars-container">
             {[...Array(5)].map((_, idx) => {
               return (
