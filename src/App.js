@@ -14,7 +14,6 @@ import UpdateProfile from "./Components/UpdateProfile";
 import Signup from "./Components/Signup";
 import { useAuth } from "./contexts/AuthContext";
 
-
 // Componente para rutas privadas
 function PrivateRoute() {
   const { currentUser } = useAuth();

@@ -1,132 +1,230 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import localforage from 'localforage';
 import './Proyect.css';
-import previe from '../Components/imagenes/preview.png'
+import jsPDF from 'jspdf'; //  para la generación de PDF
+import html2canvas from 'html2canvas';//  para el renderizado de HTML a canvas
+import preview from './imagenes/preview.png';
 
+function ProjectForm() {
+    const [arrastrar, setArrastrar] = useState(false);
+    const [files, setFiles] = useState([]);
+    const [imagesUrl, setImagesUrl] = useState([]);
+    const [formData, setFormData] = useState({
+        nombre: '',
+        descripcion: '',
+        tecnologias: '',
+        imagenes: []
+    });
 
-function ProjectForm({onTextChange}) {
-  const [arrastrar, setarrastrar] = useState(false);
-  const [files, setFiles] = useState([]);
-  const [imagesUrl, setImagesUrl] = useState([]);
-  const [textarea, settextarea] = useState('');
+    const fileInputRef = useRef(null); // Referencia para el input de archivos
 
-  /*useEffect(() => {
-    console.log('TextChange prop received in ProjectForm:', onTextChange); // Verificar la prop
-  }, [onTextChange]); */
+    useEffect(() => { // Carga los datos guardados al montar el componente
+        const cargarDatos = async () => { 
+            try {
+                const datosGuardados = await localforage.getItem('proyecto');// Obtiene los datos guardados/
+                if (datosGuardados) {//si hay datos guardados, los establece en el estado
+                    setFormData(datosGuardados);//
+                    setImagesUrl(datosGuardados.imagenes || []); // Inicializa con imágenes guardadas
+                }
+            } catch (error) {
+                console.error('Error cargando datos:', error);
+            }
+        };
+        cargarDatos();
+    }, []); 
 
-  
-  const handleChange = (e) => {
-    settextarea(e.target.value);
-    //console.log('TextChange received:', onTextChange); // Verifica la prop recibida
-    //console.log('Value to send:', e.target.value); // Verificar el valor del evento
-    onTextChange(e.target.value);
-  };
-  
+    useEffect(() => {
+        // Genera URLs para las nuevas imágenes y combínalas con las existentes (base64)
+        const newFilesPreviews = files.map(file => URL.createObjectURL(file));
+        setImagesUrl([...formData.imagenes, ...newFilesPreviews]);
 
+        return () => {
+            // Revoca las URLs de las nuevas imágenes al desmontar
+            newFilesPreviews.forEach(preview => URL.revokeObjectURL(preview));
+        };
+    }, [files, formData.imagenes]);
 
-
-  useEffect(() => {
-    if (files.length === 0) {
-      setImagesUrl([]); // Limpia la vista previa si no hay archivos
-      return;
-    }
-    const imagesPreview = files.map((file) => URL.createObjectURL(file));
-    setImagesUrl(imagesPreview);
-    return () => {
-      imagesUrl.forEach((image) => URL.revokeObjectURL(image));
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
     };
-  }, [files]);
 
-  function handleDragOver(event) {
-    event.preventDefault();
-    setarrastrar(true);
-  }
+    const convertirImagenesABase64 = (files) => {
+        return Promise.all(
+            files.map(file => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+            })
+        );
+    };
 
-  function handleDragLeave() {
-    setarrastrar(false);
-  }
 
-  function handleDrop(event) {{/*su función es evitar el comportamiento predeterminado del navegador cuando se suelta un archivo*/}
-    event.preventDefault();
-    setarrastrar(false);
-    handleFiles(Array.from(event.dataTransfer.files));   
-  }
+                // Genera un PDF con los datos del proyecto
+    const guardarProyectoComoPDF = async () => { 
+        const input = document.getElementById('project-form-pdf'); // Obtiene el formulario
 
-  function handleFiles(fileList) {/* permite que el area pueda  capturar las imagenes  */
-    if (!fileList.every((file) => file.type.startsWith('image/'))) {
-      setFiles([]);
-      return;
-    }
-    setFiles(fileList);
-    }
-  
+        html2canvas(input) // Convierte el formulario a un canvas
+            .then((canvas) => {// Genera el PDF con el canvas
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'PNG', 0, 0);
+                pdf.save('proyecto.pdf');// Guarda el PDF con el nombre 'proyecto.pdf'
+            });
+    };
 
-  function handleFileChange(event) {
-    handleFiles(Array.from(event.target.files));
-  }
+    const handleSubmit = async (e) => { // Maneja el envío del formulario
+        e.preventDefault();
 
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
+        try { // Convierte las imágenes a base64 y guarda los datos en localforage 
+            const imagenesBase64 = await convertirImagenesABase64(files);
+            const datosCompletos = {// Combina los datos del formulario con las imágenes en base64
+                ...formData,
+                imagenes: [...formData.imagenes, ...imagenesBase64]// Guarda los datos en localforage
+            };
 
-  return (
-    <div className="container">
-      <h1>Seccion De Proyectos</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form">
-          <label htmlFor="nombre">Nombre Del Proyecto:</label>
-          <input type="text" id="nombre" name="nombre" />
+            await localforage.setItem('proyecto', datosCompletos);
+            setFormData({       // Limpia el formulario después de guardar
+                nombre: '',
+                descripcion: '',
+                tecnologias: '',
+                imagenes: []
+                
+            });
+            setImagesUrl([]); 
+            setFiles([]); 
+            
+            alert('Datos guardados exitosamente!');
+            guardarProyectoComoPDF();
+            
+        } catch (error) {
+            console.error('Error guardando datos:', error);
+            alert('Error al guardar los datos');
+        }
+    };
+
+    const handleDragOver = (e) => { // Previene el comportamiento por defecto del navegador
+        e.preventDefault();
+        setArrastrar(true);
+    };
+
+    const handleDragLeave = () => { // Cambia el color de fondo al salir del área de arrastre
+        setArrastrar(false);
+    };
+
+    const handleDrop = (e) => {  
+        e.preventDefault();
+        setArrastrar(false);
+        handleFiles(Array.from(e.dataTransfer.files));
+    };
+// Filtra los archivos de imagen y los añade al estado
+    const handleFiles = (fileList) => { 
+        const validFiles = fileList.filter(file => file.type.startsWith('image/'));
+        if (validFiles.length === 0) {
+            alert('Por favor, selecciona solo archivos de imagen.');
+            return;
+        }
+        setFiles(prev => [...prev, ...validFiles]);// Añade los archivos al estado
+        if (fileInputRef.current) { 
+            fileInputRef.current.value = ''; 
+        }
+    };
+
+    const handleFileChange = (e) => {
+        handleFiles(Array.from(e.target.files));
+    };
+
+    return (
+        <div className="container">
+            <h1>Seccion De Proyectos</h1>
+            <form onSubmit={handleSubmit} id="project-form-pdf">
+                <div className="form">
+                    <label htmlFor="nombre">Nombre Del Proyecto:</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        value={formData.nombre}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="descripcion">Descripción:</label>
+                    <textarea
+                        id="descripcion"
+                        name="descripcion"
+                        value={formData.descripcion}
+                        onChange={handleInputChange}
+                    ></textarea>
+                </div>
+                <div className="form">
+                    <label htmlFor="tecnologias">Tecnologías Usadas:</label>
+                    <input
+                        type="text"
+                        id="tecnologias"
+                        name="tecnologias"
+                        value={formData.tecnologias}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div className="form">
+                    <label htmlFor="url" className="imgbtn">
+                        Selecciona Imágenes
+                    </label>
+                    <input
+                        ref={fileInputRef}
+                        className="img"
+                        accept="image/*"
+                        multiple
+                        type="file"
+                        id="url"
+                        name="imagen"
+                        onChange={handleFileChange}
+                    />
+                </div>
+
+                {imagesUrl.length > 0 && (
+                    <div className="contenedor-imagenes">
+                        {imagesUrl.map((image, index) => (
+                            <img
+                                src={image}
+                                key={index}
+                                alt={`preview-${index}`}
+                                className="imagen-estilizada"
+                            />
+                        ))}
+                    </div>
+                )}
+
+                <div
+                    className="area"
+                    style={{ backgroundColor: arrastrar ? 'lightgray' : 'white' }} // Cambia el color de fondo al arrastrar
+                    onDragOver={handleDragOver} // Previene el comportamiento por defecto del navegador
+                    onDragLeave={handleDragLeave}// Cambia el color de fondo al salir del área de arrastre
+                    onDrop={handleDrop}// Maneja el evento de soltar los archivos
+                >
+                    <img className="preview" id="prw" src={preview} alt="preview" 
+                     style={{
+                      opacity: 0.5, // Ajusta la transparencia (0 a 1)
+                      display: 'block', // Necesario para centrar con margin: auto
+                      margin: 'auto', // Centra la imagen horizontalmente
+                      maxWidth: '100%', // Asegura que la imagen no exceda el ancho del contenedor
+                      maxHeight: '100%', // Asegura que la imagen no exceda el alto del contenedor
+                      objectFit: 'contain' // Asegura que la imagen se ajuste dentro del contenedor sin distorsionarse
+                  }}/>
+                </div>
+
+                <button type="submit">Subir</button>
+            </form>
         </div>
-        <div className="form">
-          <label htmlFor="descripcion">Descripción:</label>
-          <textarea id="descripcion" name="descripcion" value={textarea} onChange={handleChange}></textarea>
-        </div>
-        <div className="form">
-          <label htmlFor="tecnologias">Tecnologías Usadas:</label>
-          <input type="text" id="tecnologias" name="tecnologias" />
-        </div>
-        
-        <label For="url" className="imgbtn">
-              Selecciona una Imagen
-            </label>    
-        
-        {imagesUrl.length === 0 ? ( // si imgnURL esta vacia, se renderiza el form 
-          <div className="form">
-            <input
-              className="img"
-              accept="image/*"
-              multiple
-              type="file"
-              id="url"
-              name="imagen"
-              onChange={handleFileChange} 
-            />
-          </div>
-        ) : ( // si img no esta vacio se renderiza un div con estilos para img, el metodo .map,
-          <div className='contenedor-imagenes'> 
-            {imagesUrl.map((image, index) => (
-              <img src={image}
-               key={index} 
-               alt={`preview-${index}`} 
-               className="imagen-estilizada"/>
-
-            ))}
-          </div>
-          
-        )}
- 
-        <div // cambia de estado al area.
-          className="area"
-          style={{ backgroundColor: arrastrar ? 'lightgray' : 'white' }}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}>      
-          <img className="preview" id="prw" src= {''} alt="preview" />
-        </div>
-       
-        <button type="submit">Subir</button>
-      </form>
-    </div>
-  );
+    );  
 }
 
 export default ProjectForm;
