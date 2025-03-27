@@ -1,0 +1,62 @@
+.landing-page {
+  justify-content: center;
+  position: relative;
+  font-family: sans-serif;
+  text-align: center;
+
+}
+
+.encabezado {
+  background-color: #1178bd;
+  padding: 100px 20px;
+  
+  
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+ 
+}
+
+.tarjetas {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 20px;
+  }
+  .tarjeta {
+      width: 30%;
+    }
+    
+    .testimonios {
+      background-color: #e0e0e0;
+      padding: 50px 20px;
+    }
+    
+    .testimonio {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: white;
+      border-radius: 5px;
+    }
+    
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+    }  

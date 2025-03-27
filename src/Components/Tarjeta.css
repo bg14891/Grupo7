@@ -1,0 +1,51 @@
+/* Importacion de Fuente League Spartan de google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+
+
+.card{ 
+  position: relative;
+    width: 15rem;
+    margin-Right: 3rem;
+    border-radius: 5%;
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.2);
+    transition: all 400ms ease; /*efecto suave */
+}
+
+.card:hover{
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.4);/* Efecto de sombra*/
+    transform: translateY(-3%); /* Efecto hacia arriba de manera vertical*/
+}
+
+.card-text{
+    font-family: "League Spartan", serif;/* Fuente League Spartan */
+    font-weight: 600%;
+    text-align: center;
+}
+
+.bot{
+        flex-basis: 50%; /* 50% del ancho del contenedor */
+        display:flex; 
+        border: solid 2px;
+        border-radius: 20px;
+        background-color: #4d148c;
+        font-family: "League Spartan", serif;
+        font-weight: 500;
+        padding: 10px 30px 10px 30px ; 
+        margin-right: 30px;/* Margen derecho, lo ancho */
+        text-decoration: none; /* Sin subrayado */
+        text-align: center;
+        color: #fff;
+        cursor:pointer;/* Cambiar el cursor " mano" */
+        justify-content: center;
+        margin-left: 2rem;
+       }
+     
+       /* Efectos al boton*/
+       .bot:hover {
+         background-color: orangered; /* Cambiar el color de fondo cuando se coloca el cursor encima*/
+       }
+     
+       .bot:active {
+         background-color: #4d148c;/* Cambiar el color de fondo cuando se hace clic vuelve a morado*/
+       }

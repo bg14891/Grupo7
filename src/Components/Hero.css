@@ -1,0 +1,98 @@
+/* Importacion de Fuente League Spartan de google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+
+.contenedor{
+    position: relative;
+    display: flex; 
+    max-width: 100%; /* 100% del ancho de la ventana */
+    height: 80vh; /* 80% de la altura de la ventana vh ayuda ala resposive*/
+    background-image: url('../Components/imagenes/hover.jpg');
+    background-repeat: no-repeat; /* No repetir la imagen */
+    background-size: 40%; /* Tamaño de la imagen */
+    background-position: right; /* Posición de la imagen */
+    z-index: -2;
+} 
+
+ .Texto {
+  display: flex;
+  max-width: 1000px; /* 1000px de ancho */
+  margin: auto; /* Centrar horizontalmente */
+  height: 40%; /* 100% de la altura del contenedor */
+  justify-content: left; /* Centrar horizontalmente */
+  flex-basis: auto; 
+  
+}
+
+.box {
+ flex-basis: 50%; /* 50% del ancho del contenedor */
+ text-align: left; /* Alinear a la izquierda */
+ align-self: center; /* Centrar verticalmente */
+ color:#052376;
+ font-family: "League Spartan", serif;/* Fuente League Spartan */
+ font-weight: 600;
+  }
+
+  samp{
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: orangered;
+  }
+
+  h1{
+    font-family:"League Spartan", serif;
+    font-size: 40px;
+  }
+
+  p{
+    font-size: 1.25rem;
+    font-family: "League Spartan", serif;
+  }
+
+  .bn{
+   flex-basis: 50%; /* 50% del ancho del contenedor */
+   display:flex; 
+   border: solid 0.125rem;
+   border-radius: 1.25rem;
+   background-color: #4d148c;
+   font-family: "League Spartan", serif;
+   font-weight: 700;
+   padding: 0.625rem 1.875rem ; 
+   margin-top: -9rem; /* Mover hacia arriba */
+   text-decoration: none; /* Sin subrayado */
+   text-align: center;
+   color: #fff;
+   cursor:pointer;/* Cambiar el cursor " mano" */
+   position:absolute;
+   align-self: flex-start; /* Mover hacia la izquierda */
+  left: 30rem;
+   
+  }
+
+  /* Efectos al boton*/
+  .bn:hover {
+    background-color: orangered; /* Cambiar el color de fondo cuando se coloca el cursor encima*/
+  }
+
+  .bn:active {
+    background-color: #4d148c;/* Cambiar el color de fondo cuando se hace clic vuelve a morado*/
+  }
+
+  @media (max-width: 768px){
+    .bn{
+     flex-basis: 50%;
+     margin-top: -6rem;
+     left: 0;
+ 
+     }
+   }
+
+
+  @media (max-width: 480px){
+   .bn{
+      padding: 0.5em 1rem;
+      font-size: 0.9rem;
+
+    }
+  }
