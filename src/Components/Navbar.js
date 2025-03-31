@@ -7,39 +7,34 @@ import { MdDarkMode } from "react-icons/md";
 
 function Navbar() {
   const [clicked, setClicked] = useState(false);
-  const [language, setLanguage] = useState('es'); // El idioma por defecto es español
+  const [language, setLanguage] = useState('es');
   const [isMonochrome, setIsMonochrome] = useState(false);
 
-  const handleClick = () => {
-    setClicked(!clicked); // Cambia el estado del menú hamburguesa
-  };
-
-  const closeMenu = () => {
-    setClicked(false); // Cierra el menú cuando se hace clic en un enlace
-  };
-
+  const handleClick = () => setClicked(!clicked);
+  const closeMenu = () => setClicked(false);
   const toggleMonochrome = () => {
     setIsMonochrome(!isMonochrome);
     document.body.classList.toggle('monochrome-mode');
   };
+  const handleLanguageToggle = () => setLanguage(language === 'es' ? 'en' : 'es');
 
-  const handleLanguageToggle = () => {
-    setLanguage(language === 'es' ? 'en' : 'es'); // Cambia el idioma entre español e inglés
-  };
-
-  // Objeto con las traducciones de los textos
+  // Traducciones actualizadas con la traducción correcta para Landing Page
   const translations = {
     es: {
       inicio: 'Inicio',
+      landing: 'Página de Destino', // Cambiado a español
+      login: 'Iniciar Sesión',
       testimonio: 'Testimonio',
       portafolio: 'Portafolio',
-      nosotros: 'Nosotros',
+      nosotros: 'Nosotros'
     },
     en: {
       inicio: 'Home',
+      landing: 'Landing Page', // Mantenido en inglés
+      login: 'Login',
       testimonio: 'Testimony',
       portafolio: 'Portfolio',
-      nosotros: 'About Us',
+      nosotros: 'About Us'
     },
   };
 
@@ -47,15 +42,23 @@ function Navbar() {
     <>
       <nav className="nav">
         <img className="logo" src="../logo.jpg" alt="logo" />
-        <d className="right-section">
-        <button className="dark-mode-button" onClick={toggleMonochrome}>
-          <MdDarkMode className="dark-mode-icon" />
-        </button>
-        <Link className='alink' onClick={closeMenu} to='/Login'>Login</Link>
-        </d>
+        
+        <div className="right-section">
+          <button className="dark-mode-button" onClick={toggleMonochrome}>
+            <MdDarkMode className="dark-mode-icon" />
+          </button>
+        </div>
+
+        {/* Menú con el orden solicitado */}
         <div className={`links ${clicked ? 'active' : ''}`}>
           <Link className="alink" onClick={closeMenu} to="/">
             {translations[language].inicio}
+          </Link>
+          <Link className="alink" onClick={closeMenu} to="/Landing">
+            {translations[language].landing}
+          </Link>
+          <Link className="alink" onClick={closeMenu} to="/Login">
+            {translations[language].login}
           </Link>
           <Link className="alink" onClick={closeMenu} to="/Testimonio">
             {translations[language].testimonio}
@@ -66,12 +69,12 @@ function Navbar() {
           <Link className="alink" onClick={closeMenu} to="/Nosotros">
             {translations[language].nosotros}
           </Link>
-          </div>
-          {/* Botón de traducción */}
-          <button className="translate-btn" onClick={handleLanguageToggle}>
-            <BsTranslate />
-          </button>
-          
+        </div>
+
+        {/* Botón de traducción (se mantiene igual) */}
+        <button className="translate-btn" onClick={handleLanguageToggle}>
+          <BsTranslate />
+        </button>
 
         <div className="ocultar">
           <Hamburguesa clicked={clicked} handleClick={handleClick} />
@@ -83,4 +86,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
