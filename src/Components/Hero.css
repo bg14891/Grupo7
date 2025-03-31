@@ -1,98 +1,204 @@
-/* Importacion de Fuente League Spartan de google fonts*/
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
-
-.contenedor{
-    position: relative;
-    display: flex; 
-    max-width: 100%; /* 100% del ancho de la ventana */
-    height: 80vh; /* 80% de la altura de la ventana vh ayuda ala resposive*/
-    background-image: url('../Components/imagenes/hover.jpg');
-    background-repeat: no-repeat; /* No repetir la imagen */
-    background-size: 40%; /* Tamaño de la imagen */
-    background-position: right; /* Posición de la imagen */
-    z-index: -2;
-} 
-
- .Texto {
+.hero-container {
+  min-height: 100vh;
+  background: linear-gradient(to right, #8A2BE2, #FF1493);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  padding: 5rem 3rem;
   display: flex;
-  max-width: 1000px; /* 1000px de ancho */
-  margin: auto; /* Centrar horizontalmente */
-  height: 40%; /* 100% de la altura del contenedor */
-  justify-content: left; /* Centrar horizontalmente */
-  flex-basis: auto; 
-  
+  align-items: center;
+  justify-content: center;
 }
 
-.box {
- flex-basis: 50%; /* 50% del ancho del contenedor */
- text-align: left; /* Alinear a la izquierda */
- align-self: center; /* Centrar verticalmente */
- color:#052376;
- font-family: "League Spartan", serif;/* Fuente League Spartan */
- font-weight: 600;
-  }
+.hero-content {
+  max-width: 1300px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+}
 
-  samp{
-  font-size: 1.875rem;
+.hero-text-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-main-title {
+  font-size: 3.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  color: #ffffff;
+}
+
+.hero-highlight {
+  color: #FACC15;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #fef2f2;
+  margin-bottom: 2.5rem;
+}
+
+.hero-features-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+.feature-box {
+  flex: 1 1 220px;
+  max-width: 260px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  padding: 1.7rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-box img {
+  width: 55px;
+  height: 55px;
+  margin-bottom: 1rem;
+}
+
+.feature-box h3 {
+  font-size: 1.3rem;
+  color: #fde68a;
+  margin-bottom: 0.6rem;
+}
+
+.feature-box p {
+  font-size: 1rem;
+  color: #f8fafc;
+}
+
+.hero-cta-buttons {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.hero-btn {
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 2px;
-  color: orangered;
+  padding: 1rem 2.2rem;
+  border-radius: 0.8rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hero-btn-primary {
+  background-color: #6D28D9;
+  color: #ffffff;
+}
+
+.hero-btn-primary:hover {
+  background-color: #5B21B6;
+}
+
+.hero-btn-secondary {
+  background-color: #DB2777;
+  color: #ffffff;
+}
+
+.hero-btn-secondary:hover {
+  background-color: #BE185D;
+}
+
+.hero-image-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.4);
+  max-width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.hero-image-container:hover {
+  transform: scale(1.02);
+}
+
+.hero-platform-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.hero-image-overlay {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(5px);
+}
+
+.hero-counter-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FACC15;
+}
+
+.hero-image-overlay p {
+  color: #F3E8FF;
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 960px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 
-  h1{
-    font-family:"League Spartan", serif;
-    font-size: 40px;
+  .hero-image-section {
+    order: -1;
+    margin-bottom: 2rem;
   }
 
-  p{
-    font-size: 1.25rem;
-    font-family: "League Spartan", serif;
+  .hero-main-title {
+    font-size: 3rem;
   }
 
-  .bn{
-   flex-basis: 50%; /* 50% del ancho del contenedor */
-   display:flex; 
-   border: solid 0.125rem;
-   border-radius: 1.25rem;
-   background-color: #4d148c;
-   font-family: "League Spartan", serif;
-   font-weight: 700;
-   padding: 0.625rem 1.875rem ; 
-   margin-top: -9rem; /* Mover hacia arriba */
-   text-decoration: none; /* Sin subrayado */
-   text-align: center;
-   color: #fff;
-   cursor:pointer;/* Cambiar el cursor " mano" */
-   position:absolute;
-   align-self: flex-start; /* Mover hacia la izquierda */
-  left: 30rem;
-   
+  .hero-cta-buttons {
+    justify-content: center;
   }
 
-  /* Efectos al boton*/
-  .bn:hover {
-    background-color: orangered; /* Cambiar el color de fondo cuando se coloca el cursor encima*/
+  .feature-box {
+    margin: 0 auto;
   }
-
-  .bn:active {
-    background-color: #4d148c;/* Cambiar el color de fondo cuando se hace clic vuelve a morado*/
-  }
-
-  @media (max-width: 768px){
-    .bn{
-     flex-basis: 50%;
-     margin-top: -6rem;
-     left: 0;
- 
-     }
-   }
-
-
-  @media (max-width: 480px){
-   .bn{
-      padding: 0.5em 1rem;
-      font-size: 0.9rem;
-
-    }
-  }
+}
