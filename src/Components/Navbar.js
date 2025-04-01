@@ -4,6 +4,7 @@ import Hamburguesa from './Hamburguesa.js';
 import { Link } from 'react-router-dom';
 import { BsTranslate } from 'react-icons/bs';
 import { MdDarkMode } from "react-icons/md";
+import LandingPage from './LandingPage.js';
 
 function Navbar() {
   const [clicked, setClicked] = useState(false);
@@ -22,7 +23,7 @@ function Navbar() {
   const translations = {
     es: {
       inicio: 'Inicio',
-      landing: 'Página de Destino', // Cambiado a español
+      LandingPage: 'Página de Destino', // Cambiado a español
       login: 'Iniciar Sesión',
       testimonio: 'Testimonio',
       portafolio: 'Portafolio',
@@ -30,7 +31,7 @@ function Navbar() {
     },
     en: {
       inicio: 'Home',
-      landing: 'Landing Page', // Mantenido en inglés
+      LandingPage: 'Landing Page', // Mantenido en inglés
       login: 'Login',
       testimonio: 'Testimony',
       portafolio: 'Portfolio',
@@ -54,10 +55,10 @@ function Navbar() {
           <Link className="alink" onClick={closeMenu} to="/">
             {translations[language].inicio}
           </Link>
-          <Link className="alink" onClick={closeMenu} to="/Landing">
-            {translations[language].landing}
+          <Link className="alink" onClick={closeMenu} to="/Pagina de Destino">
+            {translations[language].LandingPage}
           </Link>
-          <Link className="alink" onClick={closeMenu} to="/Login">
+          <Link className="alink" onClick={closeMenu} to="/login">
             {translations[language].login}
           </Link>
           <Link className="alink" onClick={closeMenu} to="/Testimonio">
