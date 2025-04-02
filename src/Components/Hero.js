@@ -4,10 +4,12 @@ import "./Hero.css";
 const Hero = () => {
   const imageUrl = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80";
 
+  // SOLUCIÓN: Codificamos el espacio como %20 para que la ruta funcione
   const handleExploreClick = () => {
-    window.location.href = "/landing-page";
+    window.location.href = "/Pagina%20de%20Destino"; // Codificación URL válida
   };
 
+  // Mantenemos el botón de portafolio igual
   const handlePortfolioClick = () => {
     window.location.href = "/portafolio";
   };
