@@ -9,6 +9,12 @@
   background-attachment: fixed;
 }
 
+/* Modo oscuro */
+body.monochrome-mode .contenedor-con-degradado {
+  background: none;  /* Elimina el fondo degradado */
+  background-color: #121212;  /* Fondo negro */
+}
+
 /* Contenedor principal de tarjetas */
 .contenedor-tarjetas {
   display: flex;
@@ -33,10 +39,15 @@
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.tarjeta-lila:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: rgba(230, 218, 255, 0.9);
+/* Modo oscuro para las tarjetas */
+body.monochrome-mode .tarjeta-lila {
+  background: rgba(40, 40, 40, 0.8); /* Fondo oscuro en modo oscuro */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.monochrome-mode .tarjeta-lila:hover {
+  background: rgba(40, 40, 40, 0.9); /* Fondo oscuro cuando se pasa el ratón */
 }
 
 /* Contenedor de imagen */
@@ -49,6 +60,10 @@
   overflow: hidden;
 }
 
+body.monochrome-mode .contenedor-imagen-grande {
+  background: rgba(255, 255, 255, 0.1); /* Fondo más oscuro para la imagen */
+}
+
 .imagen-proporcional {
   max-height: 90%;
   max-width: 90%;
@@ -57,8 +72,8 @@
   border-radius: 4px;
 }
 
-.tarjeta-lila:hover .imagen-proporcional {
-  transform: scale(1.05);
+body.monochrome-mode .imagen-proporcional {
+  filter: brightness(0.7); /* Hace que las imágenes se vean más oscuras en modo oscuro */
 }
 
 /* Contenido centrado */
@@ -80,6 +95,11 @@
   flex-grow: 1;
 }
 
+/* Modo oscuro para el texto */
+body.monochrome-mode .texto-tarjeta {
+  color: #f1f1f1; /* Texto claro en modo oscuro */
+}
+
 /* Botón destacado */
 .boton-destacado {
   background-color: #8e6bc9; /* Lila medio */
@@ -95,32 +115,38 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.boton-destacado:hover {
-  background-color: #7d55b7;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+/* Modo oscuro para el botón */
+body.monochrome-mode .boton-destacado {
+  background-color: #666;
+  color: #f1f1f1;
+}
+
+body.monochrome-mode .boton-destacado:hover {
+  background-color: #555;
 }
 
 /* Responsive */
 @media (max-width: 1200px) {
   .tarjeta-lila {
-      width: 340px;
+    width: 340px;
   }
 }
 
 @media (max-width: 768px) {
   .contenedor-tarjetas {
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
   }
-  
+
   .tarjeta-lila {
-      width: 90%;
-      max-width: 400px;
+    width: 90%;
+    max-width: 400px;
   }
-  
+
   .contenedor-imagen-grande {
-      height: 220px;
+    height: 220px;
   }
 }
+
+

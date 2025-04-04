@@ -5,6 +5,7 @@ import './Tarjeta.css';
 
 function Tarjeta() {
     return (
+
         <div className="contenedor-con-degradado">
             <div className="contenedor-tarjetas">
                 {/* Tarjeta 1 */}
