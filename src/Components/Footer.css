@@ -1,4 +1,4 @@
-/* Fondo con degradado morado-rosado (igual que en el hero) */
+orado-rosado (igual que en el hero) */
 .footer-wrapper {
   background: linear-gradient(135deg, #6a0dad 0%, #c71585 100%);
   padding: 3rem 0;
@@ -77,3 +77,50 @@
     margin-bottom: 1rem;
   }
 }
+
+/* Modo oscuro global */
+body.monochrome-mode .footer-wrapper {
+  background: linear-gradient(135deg, #1f1f1f 0%, #333333 100%); /* Fondo degradado oscuro */
+}
+
+body.monochrome-mode .main-container {
+  background-color: #2c2c2c; /* Fondo oscuro para el contenedor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más profunda */
+}
+
+body.monochrome-mode .footer-section {
+  background-color: rgba(147, 112, 219, 0.15); /* Fondo más oscuro para las secciones */
+}
+
+body.monochrome-mode .footer-section h5 {
+  color: #ffffff; /* Títulos en blanco */
+}
+
+body.monochrome-mode .footer-section ul li a {
+  color: #f1f1f1; /* Enlaces claros en modo oscuro */
+}
+
+body.monochrome-mode .footer-section ul li a:hover {
+  color: #90caf9; /* Enlaces al pasar el mouse */
+}
+
+body.monochrome-mode .social-icon a {
+  color: #f1f1f1; /* Iconos sociales en blanco */
+}
+
+body.monochrome-mode .bi-facebook {
+  color: #8b9dc3; /* Color de icono de Facebook ajustado */
+}
+
+body.monochrome-mode .bi-instagram {
+  color: #f5a9b8; /* Color de icono de Instagram ajustado */
+}
+
+body.monochrome-mode .bi-twitter-x {
+  color: #b0b0b0; /* Color de icono de Twitter ajustado */
+}
+
+body.monochrome-mode .bi-github {
+  color: #b0b0b0; /* Color de icono de GitHub ajustado */
+}
+

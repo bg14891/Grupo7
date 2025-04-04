@@ -31,9 +31,8 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    border-radius: 10px; /* Opcional: para bordes redondeados */
-    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5); /* Opcional: sombra para destacar la imagen */
-
+    border-radius: 10px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5);
 }
   
 /* Estilo de la imagen */
@@ -122,13 +121,13 @@
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     border: none;
-    padding: 10px; /* Reduce el tamaño del padding */
+    padding: 10px;
     cursor: pointer;
-    border-radius: 50%; /* Asegura que los botones sean redondos */
+    border-radius: 50%;
     z-index: 1;
-    font-size: 1.2em; /* Tamaño de fuente más pequeño */
-    width: 50px; /* Establece un ancho fijo para los botones */
-    height: 50px; /* Establece una altura fija para los botones */
+    font-size: 1.2em;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,16 +135,63 @@
 }
 
 .nav-button.left {
-    left: 20px; /* Ajustar la distancia a la izquierda */
+    left: 20px;
 }
 
 .nav-button.right {
-    right: 20px; /* Ajustar la distancia a la derecha */
+    right: 20px;
 }
 
 .nav-button:hover {
     background-color: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1); /* Efecto de escalado al pasar el ratón */
+    transform: scale(1.1);
 }
 
+/* ─────────────────────────────── */
+/*         MODO OSCURO             */
+/* ─────────────────────────────── */
 
+/* Fondo oscuro para el slider */
+body.monochrome-mode .slider {
+    background-color: #121212;
+}
+
+/* Modo oscuro para el contenido del slider */
+body.monochrome-mode .slider_content {
+    background: none;
+}
+
+/* Modo oscuro para el contenedor de la imagen */
+body.monochrome-mode .slider-image-container {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Modo oscuro para la imagen */
+body.monochrome-mode .slider-image {
+    filter: brightness(0.8) contrast(1.2);
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Modo oscuro para el texto sobre la imagen */
+body.monochrome-mode .slider-text-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f1f1f1;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Modo oscuro para los títulos y descripciones */
+body.monochrome-mode .slider-title,
+body.monochrome-mode .slider-description {
+    color: #f1f1f1;
+}
+
+/* Modo oscuro para los botones de navegación */
+body.monochrome-mode .nav-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f1f1f1;
+}
+
+body.monochrome-mode .nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}

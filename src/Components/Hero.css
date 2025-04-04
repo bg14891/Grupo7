@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .hero-content {
@@ -179,6 +180,53 @@
   margin-top: 0.3rem;
 }
 
+/* Modo oscuro */
+body.monochrome-mode {
+  background-color: #121212; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+}
+
+/* Aplica el filtro de escala de grises solo al fondo, sin afectar las imágenes */
+
+body.monochrome-mode img {
+  filter: none; /* Las imágenes no se ven afectadas por el filtro */
+}
+
+body.monochrome-mode .hero-main-title,
+body.monochrome-mode .hero-subtitle,
+body.monochrome-mode .hero-highlight,
+body.monochrome-mode .feature-box h3 {
+  color: #ffffff; /* Colores de texto en blanco para visibilidad */
+}
+
+body.monochrome-mode .hero-btn-primary {
+  background-color: #5B21B6;
+}
+
+body.monochrome-mode .hero-btn-primary:hover {
+  background-color: #4C1D95;
+}
+
+body.monochrome-mode .hero-btn-secondary {
+  background-color: #BE185D;
+}
+
+body.monochrome-mode .hero-btn-secondary:hover {
+  background-color: #9D0D4F;
+}
+
+body.monochrome-mode .hero-image-overlay {
+  background: rgba(0, 0, 0, 0.7); /* Cambia el fondo de la superposición */
+}
+
+body.monochrome-mode .feature-box p {
+  color: #f8fafc;
+}
+
+body.monochrome-mode .hero-container {
+  background: linear-gradient(to right, #121212, #333333); /* Fondo oscuro */
+}
+
 @media (max-width: 960px) {
   .hero-content {
     grid-template-columns: 1fr;
@@ -202,3 +250,7 @@
     margin: 0 auto;
   }
 }
+
+
+
+

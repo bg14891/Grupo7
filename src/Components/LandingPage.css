@@ -234,4 +234,56 @@
   .design-options {
     grid-template-columns: 1fr;
   }
+  body.monochrome-mode .content-container {
+    background: rgba(40, 40, 40, 0.97); /* Fondo más oscuro en pantallas pequeñas */
+  }
+
 }
+
+body.monochrome-mode .landing-page {
+  background-color: #121212; /* Fondo oscuro */
+  color: #f1f1f1; /* Texto claro */
+}
+body.monochrome-mode .landing-page::before {
+  background: linear-gradient(135deg, #333 0%, #444 100%); /* Fondo degradado oscuro */
+}
+body.monochrome-mode .hero-section {
+  background-color: #1c1c1c; /* Fondo oscuro en la sección hero */
+}
+body.monochrome-mode .content-container {
+  background: rgba(40, 40, 40, 0.97); /* Fondo oscuro para el contenedor */
+  border-color: rgba(255, 255, 255, 0.2); /* Border más suave */
+}
+body.monochrome-mode .section-title {
+  color: #f1f1f1; /* Título claro en modo oscuro */
+}
+body.monochrome-mode .features-container,
+body.monochrome-mode .creation-options,
+body.monochrome-mode .design-options {
+  color: #f1f1f1; /* Color de texto claro en modo oscuro */
+}
+body.monochrome-mode .cta-button {
+  background: linear-gradient(45deg, #666, #555); /* Colores oscuros para el botón */
+  color: #f1f1f1;
+}
+body.monochrome-mode .cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(90, 43, 226, 0.6);
+}
+body.monochrome-mode .feature-card,
+body.monochrome-mode .option-card,
+body.monochrome-mode .design-card {
+  background: rgba(40, 40, 40, 0.8); /* Fondo oscuro para las tarjetas */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra más fuerte en modo oscuro */
+  color: #f1f1f1; /* Texto claro en modo oscuro */
+}
+body.monochrome-mode .feature-card:hover,
+body.monochrome-mode .option-card:hover,
+body.monochrome-mode .design-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(90, 43, 226, 0.5); /* Sombra más cálida en hover */
+}
+
+
+
+

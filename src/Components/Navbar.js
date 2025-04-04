@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import Hamburguesa from './Hamburguesa.js';
+import Hamburguesa from './Hamburguesa';
 import { Link } from 'react-router-dom';
 import { BsTranslate } from 'react-icons/bs';
 import { MdDarkMode } from "react-icons/md";
-import LandingPage from './LandingPage.js';
 
-function Navbar() {
+function Navbar({ toggleDarkMode }) {
   const [clicked, setClicked] = useState(false);
   const [language, setLanguage] = useState('es');
-  const [isMonochrome, setIsMonochrome] = useState(false);
 
   const handleClick = () => setClicked(!clicked);
   const closeMenu = () => setClicked(false);
-  const toggleMonochrome = () => {
-    setIsMonochrome(!isMonochrome);
-    document.body.classList.toggle('monochrome-mode');
-  };
-  const handleLanguageToggle = () => setLanguage(language === 'es' ? 'en' : 'es');
 
-  // Traducciones actualizadas con la traducción correcta para Landing Page
+  const handleLanguageToggle = () => {
+    setLanguage(language === 'es' ? 'en' : 'es');
+  };
+
   const translations = {
     es: {
       inicio: 'Inicio',
-      LandingPage: 'Página de Destino', // Cambiado a español
+      LandingPage: 'Página de Destino',
       login: 'Iniciar Sesión',
       testimonio: 'Testimonio',
       portafolio: 'Portafolio',
@@ -31,7 +27,7 @@ function Navbar() {
     },
     en: {
       inicio: 'Home',
-      LandingPage: 'Landing Page', // Mantenido en inglés
+      LandingPage: 'Landing Page',
       login: 'Login',
       testimonio: 'Testimony',
       portafolio: 'Portfolio',
@@ -45,12 +41,11 @@ function Navbar() {
         <img className="logo" src="../logo.jpg" alt="logo" />
         
         <div className="right-section">
-          <button className="dark-mode-button" onClick={toggleMonochrome}>
+          <button className="dark-mode-button" onClick={toggleDarkMode}>
             <MdDarkMode className="dark-mode-icon" />
           </button>
         </div>
 
-        {/* Menú con el orden solicitado */}
         <div className={`links ${clicked ? 'active' : ''}`}>
           <Link className="alink" onClick={closeMenu} to="/">
             {translations[language].inicio}
@@ -72,7 +67,6 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Botón de traducción (se mantiene igual) */}
         <button className="translate-btn" onClick={handleLanguageToggle}>
           <BsTranslate />
         </button>
@@ -87,3 +81,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
