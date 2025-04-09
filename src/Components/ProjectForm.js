@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import localforage from 'localforage';
+import localforage from 'localforage';//  para el almacenamiento de datos en el navegador
 import './Proyect.css';
 import jsPDF from 'jspdf'; //  para la generación de PDF
 import html2canvas from 'html2canvas';//  para el renderizado de HTML a canvas
@@ -9,7 +9,7 @@ function ProjectForm() {
     const [arrastrar, setArrastrar] = useState(false);
     const [files, setFiles] = useState([]);
     const [imagesUrl, setImagesUrl] = useState([]);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({ 
         nombre: '',
         descripcion: '',
         tecnologias: '',
@@ -19,10 +19,10 @@ function ProjectForm() {
     const fileInputRef = useRef(null); // Referencia para el input de archivos
 
     useEffect(() => { // Carga los datos guardados al montar el componente
-        const cargarDatos = async () => { 
+        const cargarDatos = async () => { // Carga los datos guardados al montar el componente
             try {
                 const datosGuardados = await localforage.getItem('proyecto');// Obtiene los datos guardados/
-                if (datosGuardados) {//si hay datos guardados, los establece en el estado
+                if (datosGuardados) {//si hay datos guardados, los establece en el estado formData
                     setFormData(datosGuardados);//
                     setImagesUrl(datosGuardados.imagenes || []); // Inicializa con imágenes guardadas
                 }
@@ -35,7 +35,8 @@ function ProjectForm() {
 
     useEffect(() => {
         // Genera URLs para las nuevas imágenes y combínalas con las existentes (base64)
-        const newFilesPreviews = files.map(file => URL.createObjectURL(file));
+        // Permite volver a cargar las imágenes al cambiar el estado de files
+        const newFilesPreviews = files.map(file => URL.createObjectURL(file)); 
         setImagesUrl([...formData.imagenes, ...newFilesPreviews]);
 
         return () => {
@@ -72,15 +73,15 @@ function ProjectForm() {
 
         html2canvas(input) // Convierte el formulario a un canvas
             .then((canvas) => {// Genera el PDF con el canvas
-                const imgData = canvas.toDataURL('image/png');
+                const imgData = canvas.toDataURL('image/png'); // Convierte el canvas a base64
                 const pdf = new jsPDF();
-                pdf.addImage(imgData, 'PNG', 0, 0);
-                pdf.save('proyecto.pdf');// Guarda el PDF con el nombre 'proyecto.pdf'
+                pdf.addImage(imgData, 'PNG', 0, 0); // Añade el canvas al PDF
+                pdf.save('Seccion_De_proyecto.pdf');// Guarda el PDF con el nombre 'proyecto.pdf'
             });
     };
 
     const handleSubmit = async (e) => { // Maneja el envío del formulario
-        e.preventDefault();
+        e.preventDefault();// Previene el comportamiento por defecto del formulario
 
         try { // Convierte las imágenes a base64 y guarda los datos en localforage 
             const imagenesBase64 = await convertirImagenesABase64(files);
@@ -109,6 +110,8 @@ function ProjectForm() {
         }
     };
 
+    
+
     const handleDragOver = (e) => { // Previene el comportamiento por defecto del navegador
         e.preventDefault();
         setArrastrar(true);
@@ -130,15 +133,16 @@ function ProjectForm() {
             alert('Por favor, selecciona solo archivos de imagen.');
             return;
         }
-        setFiles(prev => [...prev, ...validFiles]);// Añade los archivos al estado
+        setFiles(prev => [...prev, ...validFiles]);// actualiza el estado con los archivos de imagen válidos
         if (fileInputRef.current) { 
-            fileInputRef.current.value = ''; 
+            fileInputRef.current.value = ''; //  limpia el valor del campo de entrada de archivos.
         }
     };
 
     const handleFileChange = (e) => {
         handleFiles(Array.from(e.target.files));
     };
+
 
     return (
         <div className="container">
@@ -202,6 +206,7 @@ function ProjectForm() {
                         ))}
                     </div>
                 )}
+
 
                 <div
                     className="area"
