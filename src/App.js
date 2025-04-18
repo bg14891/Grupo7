@@ -14,6 +14,7 @@ import ForgotPassword from "./Components/ForgotPassword";
 import UpdateProfile from "./Components/UpdateProfile";
 import Signup from "./Components/Signup";
 import { useAuth } from "./contexts/AuthContext";
+import PersonalInfoForm from './Components/PersonalInfoForm';
 
 // Componente para rutas privadas
 function PrivateRoute() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/Testimonio" element={<Testimonio />} />
           <Route path="/Portafolio" element={<Portafolio />} />
           <Route path="/Nosotros" element={<Nosotros />} />
+          <Route path="/PersonalInfoForm" element={<PersonalInfoForm/>}/>
           
 
           {/* Agrupando rutas privadas */}
