@@ -19,7 +19,7 @@ export default function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/"); // Corrected: use navigate() to redirect
+      navigate("/PersonalInfoForm"); // Corrected: use navigate() to redirect
     } catch {
       setError("Failed to log in");
     }
