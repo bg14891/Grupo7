@@ -93,7 +93,7 @@ const Testimonio = () => {
 
   return (
     <section className="slider">
-      <h1 className="slider_title">Testimonios</h1>
+      <h1 className="slider_title">Testimonios </h1>
       <p className="slider_subtitle">Estos son algunos testimonios de nuestros clientes...</p>
       
       <div className="slider_content">

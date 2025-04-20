@@ -1,19 +1,18 @@
-orado-rosado (igual que en el hero) */
+/* Estilos para el contenedor del footer */
 .footer-wrapper {
   background: linear-gradient(135deg, #6a0dad 0%, #c71585 100%);
   padding: 3rem 0;
   width: 100%;
 }
 
-/* Contenedor blanco principal (se mantiene igual) */
+/* Contenedor blanco principal */
 .main-container {
-  background-color: white;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Secciones moradas claras (se mantiene igual) */
+/* Secciones moradas claras dentro del footer */
 .footer-section {
   background-color: rgba(147, 112, 219, 0.2);
   padding: 1.5rem;
@@ -47,14 +46,13 @@ orado-rosado (igual que en el hero) */
   color: #6a0dad;
 }
 
-/* Iconos sociales (se mantienen igual) */
+/* Iconos sociales */
 .social-icon a {
   font-size: 1.5rem;
   margin: 0 0.3rem;
   display: inline-block;
 }
 
-/* Colores originales de los iconos (igual) */
 .bi-facebook {
   color: #3b5998;
 }
@@ -71,14 +69,14 @@ orado-rosado (igual que en el hero) */
   color: #333333;
 }
 
-/* Responsive (igual) */
+/* Responsive */
 @media (max-width: 768px) {
   .footer-section {
     margin-bottom: 1rem;
   }
 }
 
-/* Modo oscuro global */
+/* **Modo oscuro** */
 body.monochrome-mode .footer-wrapper {
   background: linear-gradient(135deg, #1f1f1f 0%, #333333 100%); /* Fondo degradado oscuro */
 }
@@ -123,4 +121,3 @@ body.monochrome-mode .bi-twitter-x {
 body.monochrome-mode .bi-github {
   color: #b0b0b0; /* Color de icono de GitHub ajustado */
 }
-

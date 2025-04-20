@@ -1,6 +1,8 @@
 /* Estilo general del slider */
 .slider {
     position: relative;
+    background: linear-gradient(to right, #8A2BE2, #FF1493); /* Fondo similar al del hero-container */
+
     width: 100%;
     height: 100vh; 
     margin: 0 auto;
@@ -21,7 +23,7 @@
     padding: 0 10%; 
     overflow: hidden;
 }
-  
+
 /* Contenedor de la imagen */
 .slider-image-container {
     width: 100%;
@@ -96,11 +98,30 @@
 }
   
 /* Estilos para los títulos y descripciones */
-.slider-title {
-    font-size: 0.5em;
-    font-weight: 600; 
-    color: #f1f1f1; 
-}
+.slider_title {
+    font-size: 36px;
+    font-weight: 800;
+    color: black;
+    margin-bottom: 1rem;
+    position: relative; /* Necesario para el pseudoelemento */
+    display: inline-block;
+  }
+  
+  .slider_title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 50%;
+    height: 4px;
+    background: linear-gradient(to right, #000, #00aaff); /* Ajusta los colores como desees */
+    transform: translateX(-50%);
+    transition: width 0.3s;
+  }
+  
+  .slider_title:hover::after {
+    width: 100%; /* Cuando el título es hover, la línea se expande */
+  }
   
 .slider-description {
     margin-top: 10px;
@@ -153,13 +174,14 @@
 
 /* Fondo oscuro para el slider */
 body.monochrome-mode .slider {
-    background-color: #121212;
+    background: linear-gradient(to right, #121212, #333333);
 }
 
 /* Modo oscuro para el contenido del slider */
-body.monochrome-mode .slider_content {
-    background: none;
+body.monochrome-mode .slider_title {
+    color: #fff;
 }
+
 
 /* Modo oscuro para el contenedor de la imagen */
 body.monochrome-mode .slider-image-container {
@@ -195,3 +217,6 @@ body.monochrome-mode .nav-button {
 body.monochrome-mode .nav-button:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
+body.monochrome-mode .slider_title::after{
+    background: linear-gradient(to right, #555, #999);
+  }

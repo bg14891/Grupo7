@@ -1,0 +1,75 @@
+/* Estilo para la tarjeta del login */
+.card {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: none;
+    background-color: #ffffff;
+    transform: translateY(10px);
+}
+  
+  /* Estilo para los enlaces y texto debajo del Card */
+  .register-link-container {
+    width: 400px;
+    margin-left: auto;
+    margin-right: 50px;
+    margin-top: 10px;
+    text-align: left;
+  }
+  
+  /* Aplica el fondo solo al contenedor del login */
+  /* Estilo para el contenedor del login */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    background: linear-gradient(to right, #8A2BE2, #FF1493);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    transition: filter 0.5s ease;
+    animation: moveBackground 30s infinite linear;/* Añade la animación de movimiento */
+  }
+  
+  /* Define la animación de movimiento del fondo */
+  
+  
+  /* Aplica el fondo en modo monocromático */
+  body.monochrome-mode .login-container {
+    filter: grayscale(100%) contrast(100%) brightness(80%);
+  }
+  
+  /* Si no deseas un efecto monocromático total, puedes ajustar los valores de 'contrast' y 'brightness'. */
+  body.monochrome-mode .card {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo ligeramente opaco */
+    color: white; /* Cambia el texto a blanco */
+  }
+  
+  /* Si no deseas un efecto monocromático total, puedes ajustar los valores de 'contrast' y 'brightness'. */
+  
+  /* Cambiar el color del texto dentro del formulario cuando está en modo monocromático */
+  body.monochrome-mode .form-label,
+  body.monochrome-mode .form-control {
+    color: white; /* Cambia el color de las etiquetas y los campos de formulario */
+    background-color: rgba(6, 5, 5, 0.61); /* Da un fondo opaco a los campos */
+    border: 1px solid rgba(9, 9, 9, 0.23); /* Borde blanco y suave */
+  }
+
+  
+  /* Normal mode (sin filtro) */
+.login-container h2 {
+    color: #000; /* Color negro por defecto */
+  }
+  
+  /* Monochrome mode */
+  body.monochrome-mode .login-container h2 {
+    color: white; /* Cambia el color de las letras a blanco */
+  }
