@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert, CardBody } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +10,17 @@ export default function Login() {
   const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Corrected: use navigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const container = document.querySelector(".login-container");
+    if (container) container.classList.add("monochrome-mode");
+  
+    return () => {
+      if (container) container.classList.remove("monochrome-mode");
+    };
+  }, []);
+  
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +29,7 @@ export default function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/PersonalInfoForm"); // Corrected: use navigate() to redirect
+      navigate("/PersonalInfoForm");
     } catch {
       setError("Failed to log in");
     }
@@ -28,7 +38,7 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div className="login-container"> {/* Aplica aquí el fondo específico */}
       <Card>
         <CardBody>
           <h2 className="text-center mb-4">Iniciar sesión</h2>
@@ -36,24 +46,24 @@ export default function Login() {
           <Form onSubmit={handleSubmit}>
             <Form.Group id="Email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required /> {/* Corrected type */}
+              <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
             <Form.Group id="Contraseña">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required /> {/* Corrected type */}
+              <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="login-button" type="submit">
               Log In
             </Button>
           </Form>
-          <div className="w-100 text-center mt-3">
+          <div className="register-link-container">
             <Link to="/forgot-password">Olvidó su contraseña?</Link>
           </div>
-       </CardBody>
+        </CardBody>
       </Card>
-      <div className="w-100 text-center mt-2">
+      <div className="register-link-container">
         Necesita una cuenta? <Link to="/signup">Registro</Link>
       </div>
-    </>
+    </div>
   );
 }

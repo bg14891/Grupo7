@@ -284,6 +284,8 @@ body.monochrome-mode .design-card:hover {
   box-shadow: 0 15px 35px rgba(90, 43, 226, 0.5); /* Sombra más cálida en hover */
 }
 
-
+body.monochrome-mode .main-title {
+  color: #ffffff;
+}
 
 
