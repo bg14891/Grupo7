@@ -1,0 +1,193 @@
+{
+    "navbar": {
+      "inicio": "Home",
+      "landing": "Landing Page",
+      "login": "Login",
+      "testimonio": "Testimony",
+      "portafolio": "Portfolio",
+      "nosotros": "About Us"
+    },
+  
+  
+  
+    "hero": {
+      "title1": "Create your",
+      "title2": "portfolio in minutes",
+      "highlight": "portfolio",
+      "subtitle": "Design a unique, modern website ready to impress with easy to use tools.",
+      "feature1": "Modern Designs",
+      "feature1desc": "Elegant and responsive templates.",
+      "feature2": "Pro Tools",
+      "feature2desc": "Customize endlessly like a pro.",
+      "exploreBtn": "Explore",
+      "portfolioBtn": "See my work",
+      "createdPortfolios": "Portfolios created"
+    },
+    "footer": {
+    "section": "Section",
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "faqs": "FAQs",
+    "about": "About"
+  },
+
+  "card": {
+    "card1": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+    "card2": "Hi! I'm a Programming Language 3 student and this is a showcase of my learning journey and projects so far.",
+    "card3": "Some quick example text to build on the card title and make up the bulk of the card's content.",
+    "readMore": "Read More"
+  },
+
+  "landing": {
+    "hero": {
+      "highlight": "Stand Out Among",
+      "title": "the Creative Crowd",
+      "subtitle": "The professional platform to showcase your work\n with elegance and sophistication."
+    },
+    "benefits": "Exclusive Benefits",
+    "feature1": {
+      "title": "Quick Implementation",
+      "description": "Portfolio ready in less than 10 minutes with our optimized templates and setup assistant."
+    },
+    "feature2": {
+      "title": "Custom Design",
+      "description": "Total control over colors, typography, and layouts with our intuitive visual editor."
+    },
+    "feature3": {
+      "title": "Advanced Analytics",
+      "description": "Detailed metrics of visitors, time spent, and most viewed projects."
+    },
+    "creationOptions": "Creation Options",
+    "option1": {
+      "title": "Visual Editor",
+      "description": "Drag and drop elements to create unique designs with no code required."
+    },
+    "designOptions": "Design Options",
+    "design1": {
+      "title": "Color Palettes",
+      "description": "Choose from hundreds of professional combinations or create your own."
+    },
+    "cta": "Start Creating"
+  },
+
+  "testimonio": {
+    "title": "Testimonials",
+    "subtitle": "Here are some testimonials from our clients...",
+    "testimonios": [
+      {
+        "title": "Innovatech.",
+        "description": "Working with Theseven has been a transformative experience. Their strategic and personalized approach helped our company overcome key challenges and achieve our objectives efficiently. I highly recommend their consulting services. María Fernández, CEO of InnovateTech",
+        "image": "https://i.ytimg.com/vi/sGesd98SiL8/maxresdefault.jpg"
+      },
+      {
+        "title": "GreenEnergy & Company.",
+        "description": "Thanks to the consultancy of this company, we have successfully implemented sustainable practices that have improved both our operational efficiency and corporate image. Their comprehensive approach was exactly what we needed. Carlos Mendoza, Operations Manager of GreenEnergy",
+        "image": "https://static.wixstatic.com/media/ab32b9_cbfe9c62716146f3bded0eca158f61ea~mv2.jpg"
+      },
+      {
+        "title": "FinCorp.",
+        "description": "Their detailed market analysis and the growth strategies they provided were crucial in expanding our international presence. We are very satisfied with the work done. Laura Rodríguez, CFO of FinCorp",
+        "image": "https://cdn.slidesharecdn.com/ss_thumbnails/herofincorpbrandinsightsvf-171121093015-thumbnail-4.jpg"
+      },
+      {
+        "title": "DevSolutions",
+        "description": "Collaborating with this company has been one of the best decisions we made. They helped us elevate our technological infrastructure, allowing us to improve the experience of our users. Javier Martínez, Director of Technology at DevSolutions",
+        "image": "https://devlogicsol.com/wp-content/uploads/2020/10/73f60997190101.5ebf3c4565cdc.jpg"
+      },
+      {
+        "title": "TalentBridge",
+        "description": "The training they provided to our employees was exceptional. It not only improved our internal skills but also gave us the tools to face future challenges with confidence. Mariana López, Director of Human Resources at TalentBridge",
+        "image": "https://www.kindpng.com/picc/m/465-4652155_talentbridge-talentbridge-logo-hd-png-download.png"
+      },
+      {
+        "title": "Nintendo Company",
+        "description": "Working with this company was a game-changer for us. They guided us in implementing more sustainable practices, which not only improved our processes but also strengthened our corporate social responsibility. Roberto Pérez, CEO of EcoTech Solutions",
+        "image": "https://images.fastcompany.com/image/upload/f_webp,c_fit,w_1920,q_auto/wp-cms/uploads/2023/05/p-1-90891053-nintendo-logo.jpg"
+      },
+      {
+        "title": "Microsoft",
+        "description": "Working with this team has been instrumental in accelerating our digital transformation. Their customized solutions have enabled us to improve efficiency in our processes and deliver innovative products to our customers. They are true strategic partners in technological evolution. Satya Nadella, CEO of Microsoft",
+        "image": "https://searchengineland.com/wp-content/seloads/2023/11/shutterstock_2199173649.jpg"
+      },
+      {
+        "title": "LinkedIn",
+        "description": "Partnering with this company has been essential to our success. Their unique focus on customer experience and continuous improvement allowed us to expand our platform globally. They have played a key role in our growth strategy. Jeff Weiner, Ex-CEO of LinkedIn",
+        "image": "https://www.interhacktives.com/wp-content/uploads/2023/03/LINKEDIN-1.jpg"
+      },
+      {
+        "title": "Apple",
+        "description": "Working with this team has been a transformative experience. Their ability to tackle complex challenges and provide scalable solutions has been key to the development of our most advanced products. They are a trusted partner in our mission to revolutionize the tech world. Tim Cook, CEO of Apple",
+        "image": "https://tecnotvhn.com/wp-content/uploads/2022/01/apple-scaled.jpg"
+      },
+      {
+        "title": "ZSnes Company",
+        "description": "Their strategic and personalized approach allowed us to significantly improve our market visibility and presence. Thanks to their team, we now have innovative solutions that have optimized our operations. We highly recommend their services to any company looking for a reliable partner for growth and development. John Doe, CEO of ZSnes Company",
+        "image": "https://1.bp.blogspot.com/-MHd9X69Sfgs/YRCwBfm1U2I/AAAAAAAAYmA/l1r1KjJFPF8Ee5RDX2qcUVFetx4NCdChQCLcBGAsYHQ/s768/Zsnes_emulator.png"
+      }
+    ]
+  },
+
+  "nosotros": {
+    "titulo": "About Us",
+    "descripcion": "We are web developers passionate about creating innovative digital experiences.",
+    "biografia": {
+      "titulo": "Biography",
+      "descripcion": "With years of experience in web development, working on various projects using modern technologies like React, Node.js, and more.",
+      "cargo": "Freelancer",
+      "descripcion_cargo": "Custom web projects"
+    },
+    "habilidades": {
+      "titulo": "Skills",
+      "react": "React.js / JavaScript",
+      "htmlcss": "HTML / CSS",
+      "nodejs": "Node.js",
+      "gestion_bases": "Database Management"
+    },
+    "educacion": {
+      "titulo": "Education",
+      "titulo_grado": "B.S. in Administrative Computer Science",
+      "universidad": "National Autonomous University of Honduras"
+    },
+    "contacto": {
+      "titulo": "Contact",
+      "email": "Email"
+    }
+  },
+
+  "forgotPassword": {
+    "title": "Password Reset",
+    "emailLabel": "Email",
+    "resetButton": "Reset Password",
+    "loginLink": "Login",
+    "signupPrompt": "Need an account?",
+    "signupLink": "Sign Up",
+    "messageSuccess": "Check your inbox for further instructions",
+    "messageError": "Failed to reset password"
+  },
+
+  "login": {
+    "title": "Log In",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "loginButton": "Log In",
+    "forgotPasswordLink": "Forgot your password?",
+    "signupPrompt": "Need an account?",
+    "signupLink": "Sign Up",
+    "messageError": "Failed to log in"
+  },
+
+  "signup": {
+    "title": "Sign Up",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "passwordConfirmLabel": "Password Confirmation",
+    "signupButton": "Sign Up",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Log In",
+    "passwordMismatch": "Passwords do not match",
+    "invalidEmail": "Please enter a valid email address.",
+    "failedCreateAccount": "Failed to create an account"
+  }
+  }
+  
