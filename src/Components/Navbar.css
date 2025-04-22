@@ -7,21 +7,29 @@
   font-weight: 700;
 }
 
-.nav{
-
-  padding: .4rem;
-  background-color: #f8f8f8;
+.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+  padding: 0 1rem;
+  background-color: white;
+  height: 70px;
+}
+
+/* Nuevo contenedor que junta los enlaces y botones */
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-left: auto; /* Lo empuja completamente a la derecha */
 }
 
 .alink{
 
   color: black;
   text-decoration: none;
-  margin-right: 2rem;
+  margin-right: 1rem;
  
 }
 .alink:hover{
@@ -31,7 +39,7 @@ color:#007BFF
 .hamburguesa{;
   position:relative;
   z-index:3;
-  right: 30px;
+  
   .nav-icon-5{
       width: 35px;
       height: 30px;
@@ -101,8 +109,9 @@ left: -2000px;
 right: 0;
 margin-left: auto;
 margin-right: auto;
-text-align: center;
+
 transition: all .5s ease;
+justify-content: flex-end;
 
   
   a{
@@ -111,10 +120,12 @@ transition: all .5s ease;
       display: block;
 
   }
-  @media(min-width: 768px){
+  @media(min-width: 772px){
       display: flex;
-      position: initial;
+      justify-content: flex-end; 
+      position: static;
       margin: 0%;
+        
       a{
           font-family: 1rem;
           color: black;
@@ -143,7 +154,7 @@ z-index:3;
 }
 
 .ocultar{
-  @media(min-width: 768px){
+  @media(min-width: 772px){
       display: none;
       
   
@@ -173,9 +184,7 @@ z-index:2;
 }
 
 .translate-btn {
-  position: fixed;
-  top: 10px;
-  right: 10px;
+  
   background-color: transparent;
   border: none;
   font-size: 24px;
@@ -208,6 +217,7 @@ z-index:2;
   gap: 10px;
   margin-left: auto;
   z-index:9999;
+  flex-wrap: nowrap; 
 }
 
 /* Botón de la luna */

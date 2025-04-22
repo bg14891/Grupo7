@@ -2,47 +2,50 @@ import React from 'react';
 import './Nosotros.css';
 import 'animate.css';
 import { FaCode, FaLaptopCode, FaDatabase, FaGraduationCap, FaEnvelope, FaUserTie, FaUser } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';  // Importamos el hook para traducción
 
 const Nosotros = () => {
+  const { t } = useTranslation();  // Usamos el hook useTranslation para acceder a las funciones de traducción
+
   return (
     <div className="nosotros-container animate__animated animate__fadeIn">
-      <h1 className="animate__animated animate__slideInDown">Nosotros</h1>
+      <h1 className="animate__animated animate__slideInDown">{t('nosotros.titulo')}</h1>
       <p className="animate__animated animate__fadeIn">
-        Somos desarrolladores web apasionados por crear experiencias digitales innovadoras.
+        {t('nosotros.descripcion')}
       </p>
 
       {/* Biografía */}
       <section className="animate__animated animate__slideInLeft">
-        <h2><FaUserTie className="icon" /> Biografía</h2>
+        <h2><FaUserTie className="icon" /> {t('nosotros.biografia.titulo')}</h2>
         <p>
-          <strong>Con x tiempo en desarrollo web, trabajando en diversos proyectos utilizando tecnologías modernas como React, Node.js y más.</strong>
+          <strong>{t('nosotros.biografia.descripcion')}</strong>
         </p>
-        <p><strong>Freelancer</strong> - Proyectos web personalizados</p>
+        <p><strong>{t('nosotros.biografia.cargo')}</strong> - {t('nosotros.biografia.descripcion_cargo')}</p>
       </section>
 
       {/* Habilidades */}
       <section className="animate__animated animate__slideInLeft">
-        <h2><FaCode className="icon" /> Habilidades</h2>
+        <h2><FaCode className="icon" /> {t('nosotros.habilidades.titulo')}</h2>
         <ul className="habilidades">
-          <li><FaLaptopCode className="icon" /> React.js / JavaScript</li>
-          <li><FaCode className="icon" /> HTML / CSS</li>
-          <li><FaDatabase className="icon" /> Node.js</li>
-          <li><FaDatabase className="icon" /> Gestión de Bases de Datos</li>
+          <li><FaLaptopCode className="icon" /> {t('nosotros.habilidades.react')}</li>
+          <li><FaCode className="icon" /> {t('nosotros.habilidades.htmlcss')}</li>
+          <li><FaDatabase className="icon" /> {t('nosotros.habilidades.nodejs')}</li>
+          <li><FaDatabase className="icon" /> {t('nosotros.habilidades.gestion_bases')}</li>
         </ul>
       </section>
 
       {/* Educación */}
       <section className="animate__animated animate__slideInLeft">
-        <h2><FaGraduationCap className="icon" /> Educación</h2>
+        <h2><FaGraduationCap className="icon" /> {t('nosotros.educacion.titulo')}</h2>
         <p>
-          <strong>Lic. Informática Administrativa</strong> - Universidad Nacional Autónoma de Honduras
+          <strong>{t('nosotros.educacion.titulo_grado')}</strong> - {t('nosotros.educacion.universidad')}
         </p>
       </section>
 
       {/* Contacto */}
       <section className="contacto-section">
-        <h2><FaEnvelope className="icon" /> Contacto</h2>
-        <p>📩 Email:</p>
+        <h2><FaEnvelope className="icon" /> {t('nosotros.contacto.titulo')}</h2>
+        <p>📩 {t('nosotros.contacto.email')}</p>
         <ul>
           <li><FaUser className="icon" /> anyicanales@unah.hn</li>
           <li><FaUser className="icon" /> Bayron.godoy@unah.hn.</li>

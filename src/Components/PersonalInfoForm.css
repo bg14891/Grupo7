@@ -222,3 +222,133 @@ textarea {
 svg {
   font-size: 1rem;
 }
+
+
+/* Agregar estos estilos Vista Previa  ppp*/
+
+.form-background {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  min-height: 100vh;
+  position: relative;
+
+}
+
+.form-stack {
+  flex: 1;
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-sections-container {
+  flex: 1;
+  max-width: 60%;
+  overflow-y: auto;
+  padding-right: 20px;
+  height: calc(100vh - 40px);
+}
+
+.preview-container {
+  position: fixed; 
+  right: 30px;
+  top: 85px;
+  width: 35%;
+  height: calc(90vh - 60px);
+  overflow-y: auto;
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+/* Estilos adicionales para la vista previa */
+
+/* Estilos adicionales para la vista previa */
+.preview-section {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  
+}
+
+.preview-section h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #666;
+}
+
+.contact-info div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (max-width: 1024px) {
+  .form-stack {
+    max-width: 100%;
+  }
+  
+  .form-sections-container{
+    width: 100%;
+    flex: none;
+    height: auto;
+    padding-right: 0;
+
+  }
+  .preview-container {
+    
+    position: relative; 
+    right: auto;      
+    top: auto;    
+    width: 100%;
+    height: auto;
+    margin-top: 30px; 
+    border-radius: 0; 
+    box-shadow: none; 
+    padding: 15px; 
+  }
+}
+
+.form-container {
+  scroll-margin-top: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* Estilos para educacion */
+.education-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.education-item h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.institution {
+  font-weight: 500;
+  color: #34495e;
+}
+
+.dates {
+  color: #7f8c8d;
+  font-size: 0.9em;
+  margin: 0.5rem 0;
+}
+
+.description {
+  color: #34495e;
+  line-height: 1.6;
+}

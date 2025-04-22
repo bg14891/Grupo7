@@ -1,21 +1,291 @@
-import React, { useState, useEffect } from 'react';
+ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { FaTrash, FaEdit, FaPlus, FaGraduationCap, FaUserTie, FaBriefcase, FaStar, FaRegStar, FaLanguage, FaQuoteLeft, FaUser, FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaGlobe } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaPlus, FaGraduationCap, FaUserTie, FaBriefcase, FaStar, FaRegStar, FaLanguage, FaQuoteLeft, FaUser, FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaGlobe, FaPhone,FaMapMarker, FaQuoteRight} from 'react-icons/fa';
 import './PersonalInfoForm.css';
+
+const Preview = ({
+  personalInfo,
+  educations,
+  experiences,
+  skills,
+  languages,
+  references,
+  contactInfo,
+  formatDate,
+  renderStars,
+  skillCategories
+}) => {
+  return (
+    
+    <div className="preview-container">
+      {/* Sección de Información Personal */}
+      <section className="preview-section">
+        <h4>{"Vista Previa"}</h4>
+        <h2 >{"Portafolio Profecional"}</h2>
+        <h4>{personalInfo.fullName}</h4>
+        <p className="profession">{personalInfo.profession}</p>
+        <p className="occupation">{personalInfo.occupation}</p>
+        <div className="contact-info">
+          {personalInfo.email && <div><FaEnvelope /> {personalInfo.email}</div>}
+          {personalInfo.phone && <div><FaPhone /> {personalInfo.phone}</div>}
+          {personalInfo.location && <div><FaMapMarker /> {personalInfo.location}</div>}
+        </div>
+      </section>
+
+      {/* Educación */}
+      {educations?.length > 0 && (
+        <section className="preview-section">
+          <h2><FaGraduationCap /> Educación</h2>
+          {educations.map((edu, index) => (
+            <div key={index} className="education-item">
+              {edu.institution && (
+                <div className="responsibilities">
+                  <h4>Instituto:</h4>
+                  <p>{edu.institution}</p>
+                </div>
+              )}
+              {edu.degree && (
+                <div className="institution">
+                  <h4>Titulo:</h4>
+                  <p>{edu.degree}</p>
+                </div>
+              )}
+              <p className="dates">
+                {formatDate(edu?.startDate)} - {edu?.currentlyStudying ? 'Presente' : formatDate(edu?.endDate)}
+              </p>
+              {edu?.description && <p className="description">{edu.description}</p>}
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Experiencia Laboral */}
+      {experiences.length > 0 && (
+        <section className="preview-section">
+          <h2><FaBriefcase /> Experiencia Laboral</h2>
+          {experiences.map((exp, index) => (
+            <div key={index} className="experience-item">
+              <h3>{exp.position}</h3>
+              <p className="company">{exp.company}</p>
+              <p className="dates">
+                {formatDate(exp.startDate)} - {exp.currentlyWorking ? 'Presente' : formatDate(exp.endDate)}
+              </p>
+              {exp.startDate && (
+                <div className="responsibilities">
+                  <h4>Fecha De Inicio:</h4>
+                  <p>{exp.startDate}</p>
+                </div>
+              )}
+               {exp.endDate && (
+                <div className="responsibilities">
+                  <h4>Fecha Final:</h4>
+                  <p>{exp.endDate}</p>
+                </div>
+              )}
+              {exp.responsibilities && (
+                <div className="responsibilities">
+                  <h4>Responsabilidades:</h4>
+                  <p>{exp.responsibilities}</p>
+                </div>
+              )}
+               {exp.achievements && (
+                <div className="responsibilities">
+                  <h4>Logros:</h4>
+                  <p>{exp.achievements}</p>
+                </div>
+              )}
+             
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Habilidades */}
+      {skills.length > 0 && (
+        <section className="preview-section">
+          <h2><FaStar /> Habilidades</h2>
+          {skillCategories.map((category, catIndex) => {
+            const categorySkills = skills ?.filter(skill => skill ?.category === category);
+            return categorySkills.length > 0 && (
+              <div key={catIndex} className="skill-category">
+                <h4>{category}</h4>
+                <div className="skills-grid">
+                  {categorySkills.map((skill, index) => (
+                    <div key={index} className="skill-item">
+                      <span className="skill-name">{skill ?.name}</span>
+                      <div className="skill-level">{renderStars(skill ?.level || 1)}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </section>
+      )}
+
+      {/* Idiomas */}
+      {languages.length > 0 && (
+        <section className="preview-section">
+          <h2><FaLanguage /> Idiomas</h2>
+          <div className="languages-grid">
+            {languages.map((lang, index) => (
+              <div key={index} className="language-item">
+                <span className="language-name">{lang.name}</span>
+                {lang.level && (
+                <div className="responsibilities">
+                  <h4>Nivel:</h4>
+                  <p>{lang.level}</p>
+                </div>
+              )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Referencias */}
+      {references.length > 0 && (
+        <section className="preview-section">
+          <h2><FaQuoteLeft />Referencias<FaQuoteRight /></h2>
+          <div className="references-grid">
+            {references.map((ref, index) => (
+              <div key={index} className="reference-item">
+                <div className="quote-icon"></div>
+                <div className="reference-footer">
+
+                  {ref.name && (
+                <div className="reference-name">
+                  <h4>Nombre :</h4>
+                  <p>{ref.name}</p>
+                </div>
+              )}
+               {ref.relationship && (
+                <div className="reference-relationship">
+                  <h4>Relación :</h4>
+                  <p>{ref.relationship}</p>
+                </div>
+              )}
+               {ref.testimonial && (
+                <div className="reference-relationship">
+                  <h4>Testimonio :</h4>
+                  <p>{ref.testimonial}</p>
+                </div>
+              )}
+              {ref.contsact &&(
+                <div className="reference-contact">
+                  <h4>Contacto :</h4>
+                  <p>{ref.contact}</p>
+                </div>
+              )}
+              </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+
+
+
+
+      {/* Contacto */}
+      {(contactInfo.email || contactInfo.linkedin || contactInfo.github || contactInfo.twitter || contactInfo.website) && (
+        <section className="preview-section">
+          <h2><FaEnvelope /> Información De Contacto</h2>
+          <div className="contact-badges">
+            
+            {contactInfo.email &&(
+                <div className="reference-contact">
+                  <h4>Email:</h4>
+                  <a href={`mailto:${contactInfo.email}`} className="contact-badge">
+                  <FaEnvelope /> {contactInfo.email}
+                    </a>
+                </div>
+              )}
+            {contactInfo.linkedin && (
+              <div className='reference-contact'>
+                <h4>LinkedIn</h4>
+              <a href={contactInfo.linkedin} className="contact-badge">
+                <FaLinkedin /> {contactInfo.linkedin}
+              </a>
+              </div>
+            )}
+            {contactInfo.github && (
+              <div className='reference-contact'>
+                <h4>GitHub</h4>
+              <a href={contactInfo.github} className="contact-badge">
+                <FaGithub /> {contactInfo.github}
+              </a>
+              </div>
+            )}
+            {contactInfo.twitter && (
+              <div className='reference-contact'>
+                <h4>Twitter</h4>
+              <a href={contactInfo.twitter} className="contact-badge">
+                <FaTwitter /> {contactInfo.twitter}
+              </a>
+              </div>
+            )}
+            {contactInfo.website && (
+              <div className='reference-contact'>
+                <h4>Website</h4>
+              <a href={contactInfo.website} className="contact-badge">
+                <FaGlobe /> {contactInfo.website}
+              </a>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+    </div>
+  );
+};
+
+////
+
 
 export default function PersonalInfoForm() {
   const navigate = useNavigate();
 
   // 1. Sección de Información Personal
-  const { register: registerPersonal, handleSubmit: handlePersonalSubmit, reset: resetPersonal } = useForm();
+  const { register: registerPersonal, handleSubmit: handlePersonalSubmit, reset: resetPersonal,
+     watch: watchPersonal } = useForm();
   const [personalInfo, setPersonalInfo] = useState({});
 
-  // 2. Sección de Educación
-  const { register: registerEducation, handleSubmit: handleEducationSubmit, reset: resetEducation } = useForm();
-  const [educations, setEducations] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
+  useEffect(() => {
+    const subscription = watchPersonal((value) => {
+      setPersonalInfo(value);
+      localStorage.setItem('personalInfo', JSON.stringify(value));
+    });
+    return () => subscription.unsubscribe();
+  }, [watchPersonal]);
 
+
+  // 2. Sección de Educación
+  const { register: registerEducation, handleSubmit: handleEducationSubmit, reset: resetEducation,
+    watch: watchEducations } = useForm();
+    const [editingIndex, setEditingIndex] = useState(null);
+   const [educations, setEducations] = useState(() => {
+    try {
+      const savedEducations = localStorage.getItem('educations');
+      return savedEducations ? JSON.parse(savedEducations) : [];
+    } catch (error) {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    const subscription = watchEducations((value) => {
+      const currentEducations = Array.isArray(educations) ? educations : [];
+      const updatedEducations = [...currentEducations, value];
+      setEducations(updatedEducations);
+      localStorage.setItem('educations', JSON.stringify(updatedEducations));
+    });
+    return () => subscription.unsubscribe();
+  }, [watchEducations]);
+  
+  
   // 3. Sección de Experiencia Laboral
   const { register: registerExperience, handleSubmit: handleExperienceSubmit, reset: resetExperience } = useForm();
   const [experiences, setExperiences] = useState([]);
@@ -23,7 +293,18 @@ export default function PersonalInfoForm() {
 
   // 4. Sección de Habilidades
   const { register: registerSkill, handleSubmit: handleSkillSubmit, reset: resetSkill } = useForm();
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(() => {
+    try {
+    const savedSkills = localStorage.getItem('skills');
+    return savedSkills ? JSON.parse(savedSkills) : [];
+    }
+    catch (error) {
+    return []; 
+  }
+  });
+
+
+
   const [editingSkillIndex, setEditingSkillIndex] = useState(null);
   const [skillCategories] = useState(['Frontend', 'Backend', 'Base de Datos', 'DevOps', 'Soft Skills']);
 
@@ -38,19 +319,33 @@ export default function PersonalInfoForm() {
     register: registerReference, 
     handleSubmit: handleReferenceSubmit, 
     reset: resetReference,
-    formState: { isSubmitSuccessful } 
+    formState: { isSubmitSuccessful }
   } = useForm();
   const [references, setReferences] = useState([]);
   const [editingReferenceIndex, setEditingReferenceIndex] = useState(null);
+
+  
+
 
   // 7. Sección de Contacto (versión mejorada)
   const { 
     register: registerContact, 
     handleSubmit: handleContactSubmit, 
     reset: resetContact,
-    formState: { errors: contactErrors } 
+    formState: { errors: contactErrors },
+    watch: watchContact
   } = useForm();
   const [contactInfo, setContactInfo] = useState({});
+
+  useEffect(() => {
+    const subscription = watchContact((value) => {
+      setContactInfo(value);
+      localStorage.setItem('contactInfo', JSON.stringify(value));
+    });
+    return () => subscription.unsubscribe();
+  }, [watchContact]);
+
+
 
   // Cargar datos al iniciar
   useEffect(() => {
@@ -92,9 +387,11 @@ export default function PersonalInfoForm() {
 
   // Guardar educación
   const onEducationSubmit = (data) => {
+    const currentEducations = Array.isArray(educations) ? educations : [];
     const updatedEducations = editingIndex !== null ? 
-      educations.map((edu, i) => i === editingIndex ? data : edu) : 
-      [...educations, data];
+      currentEducations.map((edu, i) => i === editingIndex 
+      ? data : edu) : 
+      [...currentEducations, data];
     
     setEducations(updatedEducations);
     localStorage.setItem('educations', JSON.stringify(updatedEducations));
@@ -118,9 +415,10 @@ export default function PersonalInfoForm() {
 
   // Guardar habilidad
   const onSkillSubmit = (data) => {
+    const currentSkills = Array.isArray(skills) ? skills : []; // Validación extra
     const updatedSkills = editingSkillIndex !== null ? 
-      skills.map((skill, i) => i === editingSkillIndex ? data : skill) : 
-      [...skills, data];
+      currentSkills.map((skill, i) => i === editingSkillIndex ? data : skill) : 
+      [...currentSkills, data];
     
     setSkills(updatedSkills);
     localStorage.setItem('skills', JSON.stringify(updatedSkills));
@@ -296,6 +594,9 @@ export default function PersonalInfoForm() {
 
   return (
     <div className="form-background">
+       <div className="form-stack">
+       <div className="form-sections-container">
+
       {/* 1. Sección de Información Personal */}
       <div className="form-container personal-info-container">
         <h2><FaUserTie /> Información Personal</h2>
@@ -439,13 +740,13 @@ export default function PersonalInfoForm() {
           </div>
         </form>
 
-        {educations.length > 0 && (
+        {educations?.length > 0 && (
           <div className="education-list">
             <h3>Historial Académico</h3>
-            {educations.map((edu, index) => (
+            {educations?.map((edu, index) => (
               <div key={index} className="education-card">
                 <div className="card-header">
-                  <h4>{edu.degree}</h4>
+                  <h4>{edu?.degree}</h4>
                   <div className="card-actions">
                     <button onClick={() => handleEditEducation(index)} className="edit-button">
                       <FaEdit />
@@ -455,11 +756,11 @@ export default function PersonalInfoForm() {
                     </button>
                   </div>
                 </div>
-                <p className="institution">{edu.institution}</p>
+                <p className="institution">{edu?.institution}</p>
                 <p className="dates">
-                  {formatDate(edu.startDate)} - {edu.currentlyStudying ? 'Presente' : formatDate(edu.endDate)}
+                  {formatDate(edu?.startDate)} - {edu?.currentlyStudying ? 'Presente' : formatDate(edu?.endDate)}
                 </p>
-                {edu.description && <p className="description">{edu.description}</p>}
+                {edu?.description && <p className="description">{edu.description}</p>}
               </div>
             ))}
           </div>
@@ -633,14 +934,15 @@ export default function PersonalInfoForm() {
           </div>
         </form>
 
-        {skills.length > 0 && (
+        {skills ?.length > 0 && (
           <div className="skills-list">
             <h3>Tus Habilidades</h3>
             {skillCategories.map((category, catIndex) => {
-              const categorySkills = skills.filter(skill => skill.category === category);
+              const categorySkills = skills ?.filter(skill => skill.category === category) || [];
               if (categorySkills.length === 0) return null;
               
               return (
+                categorySkills.length > 0 && (
                 <div key={catIndex} className="skills-category">
                   <h4>{category}</h4>
                   <div className="skills-grid">
@@ -671,10 +973,11 @@ export default function PersonalInfoForm() {
                     ))}
                   </div>
                 </div>
+                )
               );
             })}
           </div>
-        )}
+          )}
       </div>
 
       {/* 5. Sección de Idiomas */}
@@ -1012,6 +1315,22 @@ export default function PersonalInfoForm() {
           </div>
         )}
       </div>
+      </div>
+      </div>
+
+      <Preview
+        personalInfo={personalInfo}
+        educations={educations}
+        experiences={experiences}
+        skills={skills}
+        languages={languages}
+        references={references}
+        contactInfo={contactInfo}
+        formatDate={formatDate}
+        renderStars={renderStars}
+        renderLanguageLevel={renderLanguageLevel}
+        skillCategories={skillCategories}
+      />
 
       <button onClick={() => navigate('/')} className="back-button">Volver al Inicio</button>
     </div>
