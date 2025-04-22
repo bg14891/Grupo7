@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+/* Modo oscuro global */
+body.monochrome-mode {
+  background-color: #121212; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+}
+
+body.monochrome-mode .nav {
+  background-color: #1f1f1f; /* Fondo oscuro para la barra de navegación */
+}
+
+body.monochrome-mode .alink {
+  color: #f1f1f1; /* Enlaces claros */
+}
+
+body.monochrome-mode .alink:hover {
+  color: #90caf9; /* Color de los enlaces al pasar el mouse */
+}
+
+body.monochrome-mode .dark-mode-button {
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+body.monochrome-mode .dark-mode-button:hover {
+  background-color: rgba(144, 202, 249, 0.2);
+  color: #90caf9;
+}
+
+/* Asegúrate de que las imágenes no se vean afectadas por el filtro */
+body.monochrome-mode img {
+  filter: none;
+}
+
+

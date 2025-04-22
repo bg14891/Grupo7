@@ -1,235 +1,390 @@
-import React, { useState, useEffect, useRef } from 'react';
-import localforage from 'localforage';//  para el almacenamiento de datos en el navegador
+import React, { useState, useEffect } from 'react';
+import Lightbox from 'react-image-lightbox'; 
+import 'react-image-lightbox/style.css';//  para el almacenamiento de datos en el navegador
 import './Proyect.css';
-import jsPDF from 'jspdf'; //  para la generación de PDF
-import html2canvas from 'html2canvas';//  para el renderizado de HTML a canvas
-import preview from './imagenes/preview.png';
+import jsPDF from 'jspdf';
 
-function ProjectForm() {
-    const [arrastrar, setArrastrar] = useState(false);
-    const [files, setFiles] = useState([]);
-    const [imagesUrl, setImagesUrl] = useState([]);
-    const [formData, setFormData] = useState({ 
-        nombre: '',
-        descripcion: '',
-        tecnologias: '',
-        imagenes: []
+
+const ProjectForm = ({ onSave }) => {
+  // Estado inicial cargando desde localStorage
+  const [projectName, setProjectName] = useState( 
+    localStorage.getItem('projectName') || ''   
+  );
+  const [description, setDescription] = useState(
+    localStorage.getItem('projectDescription') || ''
+  );
+  const [technologies, setTechnologies] = useState(
+    JSON.parse(localStorage.getItem('projectTechnologies')) || []
+  );
+  const [currentTech, setCurrentTech] = useState('');
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [showPreview, setShowPreview] = useState(false); // Estado para mostrar la vista previa
+
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    
+    // Configuración inicial
+    let yPos = 20;
+    
+    // Título
+    doc.setFontSize(22);
+    doc.text(`Proyecto: ${projectName}`, 20, yPos);
+    yPos += 15;
+  
+    // Descripción
+    doc.setFontSize(16);
+    doc.text('Descripción:', 20, yPos);
+    yPos += 10;
+    doc.setFontSize(12);
+    const splitDescription = doc.splitTextToSize(description, 170);
+    doc.text(splitDescription, 20, yPos);
+    yPos += splitDescription.length * 7 + 10;
+  
+    // Tecnologías
+    doc.setFontSize(16);
+    doc.text('Tecnologías:', 20, yPos);
+    yPos += 10;
+    doc.setFontSize(12);
+    technologies.forEach((tech, index) => {
+      doc.text(`• ${tech}`, 20, yPos);
+      yPos += 7;
     });
-
-    const fileInputRef = useRef(null); // Referencia para el input de archivos
-
-    useEffect(() => { // Carga los datos guardados al montar el componente
-        const cargarDatos = async () => { // Carga los datos guardados al montar el componente
-            try {
-                const datosGuardados = await localforage.getItem('proyecto');// Obtiene los datos guardados/
-                if (datosGuardados) {//si hay datos guardados, los establece en el estado formData
-                    setFormData(datosGuardados);//
-                    setImagesUrl(datosGuardados.imagenes || []); // Inicializa con imágenes guardadas
-                }
-            } catch (error) {
-                console.error('Error cargando datos:', error);
-            }
-        };
-        cargarDatos();
-    }, []); 
-
-    useEffect(() => {
-        // Genera URLs para las nuevas imágenes y combínalas con las existentes (base64)
-        // Permite volver a cargar las imágenes al cambiar el estado de files
-        const newFilesPreviews = files.map(file => URL.createObjectURL(file)); 
-        setImagesUrl([...formData.imagenes, ...newFilesPreviews]);
-
-        return () => {
-            // Revoca las URLs de las nuevas imágenes al desmontar
-            newFilesPreviews.forEach(preview => URL.revokeObjectURL(preview));
-        };
-    }, [files, formData.imagenes]);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    const convertirImagenesABase64 = (files) => {
-        return Promise.all(
-            files.map(file => {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = error => reject(error);
-                });
-            })
-        );
-    };
-
-
-                // Genera un PDF con los datos del proyecto
-    const guardarProyectoComoPDF = async () => { 
-        const input = document.getElementById('project-form-pdf'); // Obtiene el formulario
-
-        html2canvas(input) // Convierte el formulario a un canvas
-            .then((canvas) => {// Genera el PDF con el canvas
-                const imgData = canvas.toDataURL('image/png'); // Convierte el canvas a base64
-                const pdf = new jsPDF();
-                pdf.addImage(imgData, 'PNG', 0, 0); // Añade el canvas al PDF
-                pdf.save('Seccion_De_proyecto.pdf');// Guarda el PDF con el nombre 'proyecto.pdf'
-            });
-    };
-
-    const handleSubmit = async (e) => { // Maneja el envío del formulario
-        e.preventDefault();// Previene el comportamiento por defecto del formulario
-
-        try { // Convierte las imágenes a base64 y guarda los datos en localforage 
-            const imagenesBase64 = await convertirImagenesABase64(files);
-            const datosCompletos = {// Combina los datos del formulario con las imágenes en base64
-                ...formData,
-                imagenes: [...formData.imagenes, ...imagenesBase64]// Guarda los datos en localforage
-            };
-
-            await localforage.setItem('proyecto', datosCompletos);
-            setFormData({       // Limpia el formulario después de guardar
-                nombre: '',
-                descripcion: '',
-                tecnologias: '',
-                imagenes: []
-                
-            });
-            setImagesUrl([]); 
-            setFiles([]); 
-            
-            alert('Datos guardados exitosamente!');
-            guardarProyectoComoPDF();
-            
-        } catch (error) {
-            console.error('Error guardando datos:', error);
-            alert('Error al guardar los datos');
+    yPos += 10;
+  
+    // Imágenes
+    if (selectedImages.length > 0) {
+      doc.setFontSize(10);
+      doc.text('Imágenes:', 20, yPos);
+      yPos += 15;
+      
+      selectedImages.forEach((img, index) => {
+        if (index % 2 === 0 && index !== 0) {
+          doc.addPage();
+          yPos = 20;
         }
-    };
+        
+        const imgWidth = 80;
+        const imgHeight = (imgWidth * 0.75);
+        
+        doc.addImage(
+          img.preview,
+          'JPEG',
+          index % 2 === 0 ? 20 : 110,
+          yPos,
+          imgWidth,
+          imgHeight
+        );
+        
+        if (index % 2 !== 0) yPos += imgHeight + 10;
+      });
+    }
+  
+    // Guardar PDF
+    doc.save(`${projectName || 'proyecto'}.pdf`);
+  };
+
+
+
+
+  // Efecto para guardar automáticamente en localStorage
+  useEffect(() => {
+    localStorage.setItem('projectName', projectName);
+  }, [projectName]);
+
+  useEffect(() => {
+    localStorage.setItem('projectDescription', description);
+  }, [description]);
+
+  useEffect(() => {
+    localStorage.setItem('projectTechnologies', JSON.stringify(technologies));
+  }, [technologies]);
+
+  const handleImageChange = async (e) => {
+    const files = Array.from(e.target.files);
+    const validImages = files.filter(file => file.type.startsWith('image/'));
+
+    const imagesWithPreview = await Promise.all(
+      validImages.map(async (file) => {
+        const preview = await convertToBase64(file);
+        return {
+          file,
+          preview,
+          id: crypto.randomUUID() // Mejor método para IDs únicos
+        };
+      })
+    );
+
+    setSelectedImages(prev => [...prev, ...imagesWithPreview]);
+  };
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  };
+
+  const removeImage = (id) => { 
+    setSelectedImages(prev => {
+      const newImages = prev.filter(img => img.id !== id);
+      // Ajustar el lightboxIndex si es necesario
+      if (isOpen && newImages.length === 0) {
+        setIsOpen(false);
+      }
+      return newImages;
+    });
+  };
+
+  const handleAddTech = (e) => {
+    e.preventDefault();
+    if (currentTech.trim()) {
+      setTechnologies(prev => [...prev, currentTech.trim()]);
+      setCurrentTech('');
+    }
+  };
+
+  const handleRemoveTech = (index) => {
+    setTechnologies(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
     
-
-    const handleDragOver = (e) => { // Previene el comportamiento por defecto del navegador
-        e.preventDefault();
-        setArrastrar(true);
+    
+    const projectData = {  
+      projectName, 
+      description,
+      technologies,
+      images: selectedImages
     };
 
-    const handleDragLeave = () => { // Cambia el color de fondo al salir del área de arrastre
-        setArrastrar(false);
-    };
+    onSave(projectData);
 
-    const handleDrop = (e) => {  
-        e.preventDefault();
-        setArrastrar(false);
-        handleFiles(Array.from(e.dataTransfer.files));
-    };
-// Filtra los archivos de imagen y los añade al estado
-    const handleFiles = (fileList) => { 
-        const validFiles = fileList.filter(file => file.type.startsWith('image/'));
-        if (validFiles.length === 0) {
-            alert('Por favor, selecciona solo archivos de imagen.');
-            return;
-        }
-        setFiles(prev => [...prev, ...validFiles]);// actualiza el estado con los archivos de imagen válidos
-        if (fileInputRef.current) { 
-            fileInputRef.current.value = ''; //  limpia el valor del campo de entrada de archivos.
-        }
-    };
+    // Opción 1: Limpiar solo imágenes (mantener otros datos)
+    setSelectedImages([]);
+    
+    
+    setProjectName('');
+    setDescription('');
+    setTechnologies([]);
+    setSelectedImages([]);
+    // Opción 2: Limpiar completamente (descomentar si prefieres)
+    /*
+    localStorage.removeItem('projectName');
+    localStorage.removeItem('projectDescription');
+    localStorage.removeItem('projectTechnologies');
+    */
+  };
 
-    const handleFileChange = (e) => {
-        handleFiles(Array.from(e.target.files));
-    };
-
-
-    return (
-        <div className="container">
-            <h1>Seccion De Proyectos</h1>
-            <form onSubmit={handleSubmit} id="project-form-pdf">
-                <div className="form">
-                    <label htmlFor="nombre">Nombre Del Proyecto:</label>
-                    <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        value={formData.nombre}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="form">
-                    <label htmlFor="descripcion">Descripción:</label>
-                    <textarea
-                        id="descripcion"
-                        name="descripcion"
-                        value={formData.descripcion}
-                        onChange={handleInputChange}
-                    ></textarea>
-                </div>
-                <div className="form">
-                    <label htmlFor="tecnologias">Tecnologías Usadas:</label>
-                    <input
-                        type="text"
-                        id="tecnologias"
-                        name="tecnologias"
-                        value={formData.tecnologias}
-                        onChange={handleInputChange}
-                    />
-                </div>
-
-                <div className="form">
-                    <label htmlFor="url" className="imgbtn">
-                        Selecciona Imágenes
-                    </label>
-                    <input
-                        ref={fileInputRef}
-                        className="img"
-                        accept="image/*"
-                        multiple
-                        type="file"
-                        id="url"
-                        name="imagen"
-                        onChange={handleFileChange}
-                    />
-                </div>
-
-                {imagesUrl.length > 0 && (
-                    <div className="contenedor-imagenes">
-                        {imagesUrl.map((image, index) => (
-                            <img
-                                src={image}
-                                key={index}
-                                alt={`preview-${index}`}
-                                className="imagen-estilizada"
-                            />
-                        ))}
-                    </div>
-                )}
-
-
-                <div
-                    className="area"
-                    style={{ backgroundColor: arrastrar ? 'lightgray' : 'white' }} // Cambia el color de fondo al arrastrar
-                    onDragOver={handleDragOver} // Previene el comportamiento por defecto del navegador
-                    onDragLeave={handleDragLeave}// Cambia el color de fondo al salir del área de arrastre
-                    onDrop={handleDrop}// Maneja el evento de soltar los archivos
-                >
-                    <img className="preview" id="prw" src={preview} alt="preview" 
-                     style={{
-                      opacity: 0.5, // Ajusta la transparencia (0 a 1)
-                      display: 'block', // Necesario para centrar con margin: auto
-                      margin: 'auto', // Centra la imagen horizontalmente
-                      maxWidth: '100%', // Asegura que la imagen no exceda el ancho del contenedor
-                      maxHeight: '100%', // Asegura que la imagen no exceda el alto del contenedor
-                      objectFit: 'contain' // Asegura que la imagen se ajuste dentro del contenedor sin distorsionarse
-                  }}/>
-                </div>
-
-                <button type="submit">Subir</button>
-            </form>
+  return (
+    <div className="project-form">
+      <h2>Nuevo Proyecto</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Nombre del Proyecto:</label>
+          <input
+            type="text"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            required 
+          />
         </div>
-    );  
-}
+
+        <div className="form-group">
+          <label>Descripción:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Tecnologías utilizadas:</label>
+          <div className="tech-input">
+            <input
+              type="text"
+              value={currentTech}
+              onChange={(e) => setCurrentTech(e.target.value)}
+              placeholder="Agregar tecnología"
+            />
+            <button 
+              onClick={handleAddTech} 
+              className="save-button"
+              disabled={!currentTech.trim()}
+            >
+              Agregar
+            </button>
+          </div>
+          <div className="tech-list">
+            {technologies.map((tech, index) => (
+              <span key={index} className="tech-tag">
+                {tech}
+                <button 
+                  type="button" 
+                  onClick={() => handleRemoveTech(index)}
+                  className="tech-remove"
+                >
+                  x
+                </button>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label>Imágenes del proyecto:</label>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+            id="file-input"
+            className="file-input"
+          />
+          <label htmlFor="file-input" className="file-label">Seleccionar</label>
+          
+          <div className="image-preview">
+            {selectedImages.map((image, index) => (
+              <div key={image.id} className="preview-item">
+                <img
+                  src={image.preview}
+                  alt="preview"
+                  className="preview-image"
+                  onClick={() => {
+                    setLightboxIndex(index);
+                    setIsOpen(true);
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeImage(image.id);
+                  }}
+                  className="delete-button"
+                >
+                  x
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button 
+          type="button" 
+          className="preview-button"
+          onClick={() => setShowPreview(true)}
+          disabled={!projectName && !description && technologies.length === 0}
+      >
+         Vista Previa
+        </button>
+
+        <button 
+          type="submit" 
+          className="save-button"
+          disabled={!projectName || !description}
+        >
+          Guardar Proyecto
+        </button>
+
+        <button 
+    type="button" 
+    className="pdf-button"
+    onClick={generatePDF}
+    disabled={!projectName && !description && technologies.length === 0}
+  >
+    Descargar PDF
+  </button>
+      </form>
+
+      {isOpen && (
+        <Lightbox
+          mainSrc={selectedImages[lightboxIndex]?.preview}
+          nextSrc={selectedImages[(lightboxIndex + 1) % selectedImages.length]?.preview}
+          prevSrc={selectedImages[(lightboxIndex + selectedImages.length - 1) % selectedImages.length]?.preview}
+          onCloseRequest={() => setIsOpen(false)}
+          onMovePrevRequest={() =>
+            setLightboxIndex((prev) => (prev + selectedImages.length - 1) % selectedImages.length)
+          }
+          onMoveNextRequest={() =>
+            setLightboxIndex((prev) => (prev + 1) % selectedImages.length)
+          }
+          toolbarButtons={[
+            <button
+              key="delete"
+              className="lb-btn-delete"
+              onClick={() => {
+                removeImage(selectedImages[lightboxIndex].id);
+                if (selectedImages.length === 1) setIsOpen(false);
+                else setLightboxIndex(prev => Math.max(0, prev - 1));
+              }}
+            >
+              🗑️
+            </button>
+          ]}
+        />
+      )}
+
+
+
+{showPreview && (
+  <div className="preview-modal">
+    <div className="preview-content">
+      <button 
+        className="close-preview"
+        onClick={() => setShowPreview(false)}
+      >
+        &times;
+      </button>
+      
+      <h2>Vista Previa del Proyecto</h2>
+      
+      <div className="preview-section">
+        <h3>Nombre del Proyecto:</h3>
+        <p>{projectName}</p>
+      </div>
+      
+      <div className="preview-section">
+        <h3>Descripción:</h3>
+        <p>{description}</p>
+      </div>
+      
+      <div className="preview-section">
+        <h3>Tecnologías:</h3>
+        <ul>
+          {technologies.map((tech, index) => (
+            <li key={index}>{tech}</li>
+          ))}
+        </ul>
+      </div>
+      
+      {selectedImages.length > 0 && (
+        <div className="preview-section">
+          <h3>Imágenes:</h3>
+          <div className="preview-images">
+            {selectedImages.map((image, index) => (
+              <img
+                key={image.id}
+                src={image.preview}
+                alt={`Preview ${index + 1}`}
+                className="preview-thumbnail"
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+    </div>
+  );
+};
 
 export default ProjectForm;

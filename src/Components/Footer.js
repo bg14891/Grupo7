@@ -1,101 +1,52 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import './Footer.css'
-
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import './Footer.css';
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
-    return (
-      <div>
-      <div className="b-example-divider"></div>
+  const { t } = useTranslation();
 
-      <div className="container">
-      <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top justify-content-center">
-      <div className="col mb-3">
-      <h5>Section</h5>
-      <ul className="nav flex-column">
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-        style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Home</a>
-      </li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-        style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Features</a>
-      </li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-       style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Pricing</a>
-      </li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-       style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>FAQs</a>
-      </li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-       style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>About</a>
-      </li>
-      </ul>
-      <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-        <i className="bi-facebook"></i>
-      </a>
+  const footerLinks = [
+    { label: t('footer.home'), href: '#' },
+    { label: t('footer.features'), href: '#' },
+    { label: t('footer.pricing'), href: '#' },
+    { label: t('footer.faqs'), href: '#' },
+    { label: t('footer.about'), href: '#' },
+  ];
+
+  const socialLinks = [
+    { icon: 'facebook', url: 'https://www.facebook.com' },
+    { icon: 'instagram', url: 'https://www.instagram.com' },
+    { icon: 'twitter-x', url: 'https://www.twitter.com' },
+    { icon: 'github', url: 'https://www.github.com' },
+  ];
+
+  return (
+    <div className="footer-wrapper">
+      <div className="container main-container">
+        <div className="row justify-content-center">
+          {socialLinks.map((social, idx) => (
+            <div className="col-md-3 col-sm-6" key={idx}>
+              <div className="footer-section text-center">
+                <h5>{t('footer.section')}</h5>
+                <ul className="list-unstyled">
+                  {footerLinks.map((link, i) => (
+                    <li key={i}><a href={link.href}>{link.label}</a></li>
+                  ))}
+                </ul>
+                <div className="social-icon">
+                  <a href={social.url} target="_blank" rel="noopener noreferrer">
+                    <i className={`bi bi-${social.icon}`}></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-       
-      <div className="col mb-3">
-      <h5>Section</h5>
-      <ul className="nav flex-column">
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-       style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Home</a>
-      </li>
-
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-        style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Features</a>
-      </li>
-
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-       style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Pricing</a>
-      </li>
-
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" 
-       style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>FAQs</a>
-      </li>
-
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary"
-       style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>About</a>
-      </li>
-
-      </ul>
-      <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-      <i className="bi bi-instagram"></i>
-      </a>
-      </div>
-
-      <div className="col mb-3">
-      <h5>Section</h5>
-      <ul className="nav flex-column">
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Home</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Features</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Pricing</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>FAQs</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>About</a></li>
-      </ul>
-      <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-      <i className="bi-instagram"></i>
-      </a>
-      </div>
-      
-      <div className="col mb-3">
-      <h5>Section</h5>
-      <ul className="nav flex-column">
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Home</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Features</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>Pricing</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>FAQs</a></li>
-      <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-body-secondary" style={{ fontFamily: 'League Spartan, serif', fontWeight:650 }}>About</a></li>
-      </ul>
-      <a href="https://www.github.com" target="_blank" rel="noopener noreferrer">
-      <i className="bi-github"></i>
-      </a>
-      </div>
-      </footer>
-      </div>
-      </div>
-      
-    )
+    </div>
+  );
 }
-export default Footer
- 
+
+export default Footer;

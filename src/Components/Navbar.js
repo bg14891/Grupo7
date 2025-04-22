@@ -1,86 +1,67 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import Hamburguesa from './Hamburguesa.js';
+import Hamburguesa from './Hamburguesa';
 import { Link } from 'react-router-dom';
 import { BsTranslate } from 'react-icons/bs';
 import { MdDarkMode } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 
-function Navbar() {
+function Navbar({ toggleDarkMode }) {
   const [clicked, setClicked] = useState(false);
-  const [language, setLanguage] = useState('es'); // El idioma por defecto es español
-  const [isMonochrome, setIsMonochrome] = useState(false);
+  const { t, i18n } = useTranslation();
 
-  const handleClick = () => {
-    setClicked(!clicked); // Cambia el estado del menú hamburguesa
-  };
-
-  const closeMenu = () => {
-    setClicked(false); // Cierra el menú cuando se hace clic en un enlace
-  };
-
-  const toggleMonochrome = () => {
-    setIsMonochrome(!isMonochrome);
-    document.body.classList.toggle('monochrome-mode');
-  };
+  const handleClick = () => setClicked(!clicked);
+  const closeMenu = () => setClicked(false);
 
   const handleLanguageToggle = () => {
-    setLanguage(language === 'es' ? 'en' : 'es'); // Cambia el idioma entre español e inglés
-  };
-
-  // Objeto con las traducciones de los textos
-  const translations = {
-    es: {
-      inicio: 'Inicio',
-      testimonio: 'Testimonio',
-      portafolio: 'Portafolio',
-      nosotros: 'Nosotros',
-    },
-    en: {
-      inicio: 'Home',
-      testimonio: 'Testimony',
-      portafolio: 'Portfolio',
-      nosotros: 'About Us',
-    },
+    const newLang = i18n.language === 'es' ? 'en' : 'es';
+    i18n.changeLanguage(newLang);
   };
 
   return (
-    <>
-      <nav className="nav">
-        <img className="logo" src="../logo.jpg" alt="logo" />
-        <d className="right-section">
-        <button className="dark-mode-button" onClick={toggleMonochrome}>
-          <MdDarkMode className="dark-mode-icon" />
-        </button>
-        <Link className='alink' onClick={closeMenu} to='/Login'>Login</Link>
-        </d>
+    <nav className="nav">
+      <img className="logo" src="../logo.jpg" alt="logo" />
+
+      {/* CONTENEDOR para enlaces + botones */}
+      <div className="nav-right">
         <div className={`links ${clicked ? 'active' : ''}`}>
           <Link className="alink" onClick={closeMenu} to="/">
-            {translations[language].inicio}
+            {t('navbar.inicio')}
+          </Link>
+          <Link className="alink" onClick={closeMenu} to="/Pagina de Destino">
+            {t('navbar.landing')}
+          </Link>
+          <Link className="alink" onClick={closeMenu} to="/login">
+            {t('navbar.login')}
           </Link>
           <Link className="alink" onClick={closeMenu} to="/Testimonio">
-            {translations[language].testimonio}
+            {t('navbar.testimonio')}
           </Link>
           <Link className="alink" onClick={closeMenu} to="/Portafolio">
-            {translations[language].portafolio}
+            {t('navbar.portafolio')}
           </Link>
           <Link className="alink" onClick={closeMenu} to="/Nosotros">
-            {translations[language].nosotros}
+            {t('navbar.nosotros')}
           </Link>
-          </div>
-          {/* Botón de traducción */}
+        </div>
+
+        <div className="right-section">
+          <button className="dark-mode-button" onClick={toggleDarkMode}>
+            <MdDarkMode className="dark-mode-icon" />
+          </button>
           <button className="translate-btn" onClick={handleLanguageToggle}>
             <BsTranslate />
           </button>
-          
-
-        <div className="ocultar">
-          <Hamburguesa clicked={clicked} handleClick={handleClick} />
         </div>
-        <div className={`initial ${clicked ? 'active' : ''}`}></div>
-      </nav>
-    </>
+      </div>
+
+      <div className="ocultar">
+        <Hamburguesa clicked={clicked} handleClick={handleClick} />
+      </div>
+
+      <div className={`initial ${clicked ? 'active' : ''}`}></div>
+    </nav>
   );
 }
 
 export default Navbar;
-

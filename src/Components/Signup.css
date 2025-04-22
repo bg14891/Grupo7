@@ -1,0 +1,28 @@
+
+  .signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    background: linear-gradient(to right, #8A2BE2, #FF1493);    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    transition: filter 0.5s ease;
+    animation: moveBackground 30s infinite linear;/* Añade la animación de movimiento */
+  }
+
+  body.monochrome-mode .signup-container {
+    filter: grayscale(100%) contrast(100%) brightness(80%);
+  }
+  .signup-container h2 {
+    color: #000; /* Color negro por defecto */
+  }
+  
+  /* Monochrome mode */
+  body.monochrome-mode .signup-container h2 {
+    color: white; /* Cambia el color de las letras a blanco */
+  }
