@@ -48,13 +48,14 @@ const Nosotros = () => {
         <p>📩 {t('nosotros.contacto.email')}</p>
         <ul>
           <li><FaUser className="icon" /> anyicanales@unah.hn</li>
-          <li><FaUser className="icon" /> Bayron.godoy@unah.hn</li>
+          <li><FaUser className="icon" /> Bayron.godoy@unah.hn.</li>
           <li><FaUser className="icon" /> lpfonseca@unah.hn</li>
           <li><FaUser className="icon" /> knpaz@unah.hn</li>
           <li><FaUser className="icon" /> jeferson.salgado@unah.hn</li>
         </ul>
       </section>
     </div>
+    
   );
 };
 
