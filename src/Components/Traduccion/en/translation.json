@@ -39,37 +39,47 @@
     "readMore": "Read More"
   },
 
-  "landing": {
-    "hero": {
-      "highlight": "Stand Out Among",
-      "title": "the Creative Crowd",
-      "subtitle": "The professional platform to showcase your work\n with elegance and sophistication."
-    },
-    "benefits": "Exclusive Benefits",
-    "feature1": {
-      "title": "Quick Implementation",
-      "description": "Portfolio ready in less than 10 minutes with our optimized templates and setup assistant."
-    },
-    "feature2": {
-      "title": "Custom Design",
-      "description": "Total control over colors, typography, and layouts with our intuitive visual editor."
-    },
-    "feature3": {
-      "title": "Advanced Analytics",
-      "description": "Detailed metrics of visitors, time spent, and most viewed projects."
-    },
-    "creationOptions": "Creation Options",
-    "option1": {
-      "title": "Visual Editor",
-      "description": "Drag and drop elements to create unique designs with no code required."
-    },
-    "designOptions": "Design Options",
-    "design1": {
-      "title": "Color Palettes",
-      "description": "Choose from hundreds of professional combinations or create your own."
-    },
+  "landingPage": {
+    "titulo": "Stand Out Among",
+    "subtitulo": "The Creative Crowd",
+    "descripcion": "The professional platform to showcase your work\nwith elegance and sophistication.",
+    "beneficios_exclusivos": "Exclusive Benefits",
+    "implementacion_rapida": "Quick Implementation",
+    "descripcion_implementacion": "Portfolio ready in under 10 minutes with our optimized templates and setup assistant",
+    "diseno_personalizado": "Custom Design",
+    "descripcion_diseno": "Full control over colors, fonts, and layouts with our intuitive visual editor",
+    "analiticas_avanzadas": "Advanced Analytics",
+    "descripcion_analiticas": "Detailed metrics on visitors, time spent, and most viewed projects",
+    "opciones_creacion": "Creation Options",
+    "editor_visual": "Visual Editor",
+    "descripcion_editor": "Drag and drop elements to create unique designs without needing code",
+    "galeria_integrada": "Integrated Gallery",
+    "descripcion_galeria": "Upload and organize your projects in professional galleries with categories",
+    "dominio_personal": "Custom Domain",
+    "descripcion_dominio": "Connect your own domain for a unique professional presence",
+    "desde_cero": "From Scratch",
+    "descripcion_desde_cero": "Start with a blank canvas and design every detail to your liking",
+    "por_profesion": "By Profession",
+    "descripcion_profesion": "Templates specialized for designers, photographers, developers, and more",
+    "por_estilo_color": "By Color Style",
+    "descripcion_color": "Choose templates organized by color palettes and visual styles",
+    "opciones_diseno": "Design Options",
+    "paletas_color": "Color Palettes",
+    "descripcion_paletas": "Choose from hundreds of professional combinations or create your own",
+    "tipografias_premium": "Premium Fonts",
+    "descripcion_tipografias": "Access to over 500 professional fonts for your portfolio",
+    "efectos_visuales": "Visual Effects",
+    "descripcion_efectos": "Transitions, hover effects, and animations to highlight your work",
+    "plantillas_responsivas": "Responsive Templates",
+    "descripcion_plantillas": "Designs automatically adaptable to mobile, tablet, and desktop",
+    "iconos_personalizados": "Custom Icons",
+    "descripcion_iconos": "Library with thousands of editable icons to complement your design",
+    "espaciado_avanzado": "Advanced Spacing",
+    "descripcion_espaciado": "Precise control over margins, paddings, and element distribution",
     "cta": "Start Creating"
-  },
+  }
+  ,
+  
 
   "testimonio": {
     "title": "Testimonials",

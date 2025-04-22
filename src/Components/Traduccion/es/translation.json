@@ -38,35 +38,43 @@
     "readMore": "Leer Más"
   },
 
-  "landing": {
-    "hero": {
-      "highlight": "Destaca Entre",
-      "title": "la Multitud Creativa",
-      "subtitle": "La plataforma profesional para mostrar tu trabajo\n con elegancia y sofisticación."
-    },
-    "benefits": "Beneficios Exclusivos",
-    "feature1": {
-      "title": "Implementación Rápida",
-      "description": "Portafolio listo en menos de 10 minutos con nuestras plantillas optimizadas y asistente de configuración"
-    },
-    "feature2": {
-      "title": "Diseño Personalizado",
-      "description": "Total control sobre colores, tipografías y layouts con nuestro editor visual intuitivo"
-    },
-    "feature3": {
-      "title": "Analíticas Avanzadas",
-      "description": "Métricas detalladas de visitantes, tiempo de permanencia y proyectos más vistos"
-    },
-    "creationOptions": "Opciones de Creación",
-    "option1": {
-      "title": "Editor Visual",
-      "description": "Arrastra y suelta elementos para crear diseños únicos sin necesidad de código"
-    },
-    "designOptions": "Opciones de Diseño",
-    "design1": {
-      "title": "Paletas de Color",
-      "description": "Elige entre cientos de combinaciones profesionales o crea las tuyas"
-    },
+  "landingPage": {
+    "titulo": "Destaca Entre",
+    "subtitulo": "la Multitud Creativa",
+    "descripcion": "La plataforma profesional para mostrar tu trabajo\ncon elegancia y sofisticación.",
+    "beneficios_exclusivos": "Beneficios Exclusivos",
+    "implementacion_rapida": "Implementación Rápida",
+    "descripcion_implementacion": "Portafolio listo en menos de 10 minutos con nuestras plantillas optimizadas y asistente de configuración",
+    "diseno_personalizado": "Diseño Personalizado",
+    "descripcion_diseno": "Total control sobre colores, tipografías y layouts con nuestro editor visual intuitivo",
+    "analiticas_avanzadas": "Analíticas Avanzadas",
+    "descripcion_analiticas": "Métricas detalladas de visitantes, tiempo de permanencia y proyectos más vistos",
+    "opciones_creacion": "Opciones de Creación",
+    "editor_visual": "Editor Visual",
+    "descripcion_editor": "Arrastra y suelta elementos para crear diseños únicos sin necesidad de código",
+    "galeria_integrada": "Galería Integrada",
+    "descripcion_galeria": "Sube y organiza tus proyectos en galerías profesionales con categorías",
+    "dominio_personal": "Dominio Personal",
+    "descripcion_dominio": "Conecta tu propio dominio para una presencia profesional única",
+    "desde_cero": "Desde Cero",
+    "descripcion_desde_cero": "Comienza con un lienzo en blanco y diseña cada detalle a tu medida",
+    "por_profesion": "Por Profesión",
+    "descripcion_profesion": "Plantillas especializadas para diseñadores, fotógrafos, desarrolladores y más",
+    "por_estilo_color": "Por Estilo de Color",
+    "descripcion_color": "Elige plantillas organizadas por paletas cromáticas y estilos visuales",
+    "opciones_diseno": "Opciones de Diseño",
+    "paletas_color": "Paletas de Color",
+    "descripcion_paletas": "Elige entre cientos de combinaciones profesionales o crea las tuyas",
+    "tipografias_premium": "Tipografías Premium",
+    "descripcion_tipografias": "Acceso a más de 500 fuentes profesionales para tu portafolio",
+    "efectos_visuales": "Efectos Visuales",
+    "descripcion_efectos": "Transiciones, hover effects y animaciones para destacar tu trabajo",
+    "plantillas_responsivas": "Plantillas Responsivas",
+    "descripcion_plantillas": "Diseños adaptables a móviles, tablets y desktop automáticamente",
+    "iconos_personalizados": "Iconos Personalizados",
+    "descripcion_iconos": "Biblioteca con miles de iconos editables para complementar tu diseño",
+    "espaciado_avanzado": "Espaciado Avanzado",
+    "descripcion_espaciado": "Control preciso sobre márgenes, paddings y distribución de elementos",
     "cta": "Comenzar a Crear"
   },
 
