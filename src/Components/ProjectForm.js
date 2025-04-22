@@ -72,7 +72,7 @@ const ProjectForm = ({ onSave }) => {
       const spacing = 10;
 
       selectedImages.forEach((img, index) => {
-        const xPos = 20 + (index % 4) * (imgSize + spacing);
+        const xPos = 20 + (index % 4) * (imgSize + spacing);// colocación horizontal
 
         // Verificar espacio en página
         if (xPos + imgSize > doc.internal.pageSize.width - 20) {
