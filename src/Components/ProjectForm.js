@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+import 'react-image-lightbox/style.css';//  para el almacenamiento de datos en el navegador
 import './Proyect.css';
 import jsPDF from 'jspdf';
 
