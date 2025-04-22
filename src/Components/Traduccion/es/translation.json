@@ -1,0 +1,192 @@
+{
+    "navbar": {
+      "inicio": "Inicio",
+      "landing": "Página de Destino",
+      "login": "Iniciar Sesión",
+      "testimonio": "Testimonio",
+      "portafolio": "Portafolio",
+      "nosotros": "Nosotros"
+    },
+  
+  
+    "hero": {
+    "title1": "Crea tu",
+    "highlight": "portafolio",
+    "title2": "en minutos",
+    "subtitle": "Diseña un sitio único, moderno y listo para impresionar con herramientas fáciles de usar.",
+    "feature1": "Diseños Modernos",
+    "feature1desc": "Plantillas elegantes y responsivas.",
+    "feature2": "Herramientas Pro",
+    "feature2desc": "Personaliza sin límites como un profesional.",
+    "exploreBtn": "Explorar",
+    "portfolioBtn": "Ver mi trabajo",
+    "createdPortfolios": "Portafolios creados"
+  },
+  "footer": {
+    "section": "Sección",
+    "home": "Inicio",
+    "features": "Características",
+    "pricing": "Precios",
+    "faqs": "Preguntas Frecuentes",
+    "about": "Nosotros"
+  },
+
+  "card": {
+    "card1": "¡Bienvenido! Soy estudiante de Desarrollo Web y aquí comparto los proyectos y las habilidades que he adquirido durante mi carrera.",
+    "card2": "¡Hola! Soy estudiante de Lenguaje de Programación 3 y esto es una muestra de mi viaje de aprendizaje y mis proyectos hasta la fecha.",
+    "card3": "¡Hola! Como estudiante de tecnología, estoy constantemente construyendo y aprendiendo. Aquí podrás ver mis proyectos más recientes y cómo evolucionan mis habilidades.",
+    "readMore": "Leer Más"
+  },
+
+  "landing": {
+    "hero": {
+      "highlight": "Destaca Entre",
+      "title": "la Multitud Creativa",
+      "subtitle": "La plataforma profesional para mostrar tu trabajo\n con elegancia y sofisticación."
+    },
+    "benefits": "Beneficios Exclusivos",
+    "feature1": {
+      "title": "Implementación Rápida",
+      "description": "Portafolio listo en menos de 10 minutos con nuestras plantillas optimizadas y asistente de configuración"
+    },
+    "feature2": {
+      "title": "Diseño Personalizado",
+      "description": "Total control sobre colores, tipografías y layouts con nuestro editor visual intuitivo"
+    },
+    "feature3": {
+      "title": "Analíticas Avanzadas",
+      "description": "Métricas detalladas de visitantes, tiempo de permanencia y proyectos más vistos"
+    },
+    "creationOptions": "Opciones de Creación",
+    "option1": {
+      "title": "Editor Visual",
+      "description": "Arrastra y suelta elementos para crear diseños únicos sin necesidad de código"
+    },
+    "designOptions": "Opciones de Diseño",
+    "design1": {
+      "title": "Paletas de Color",
+      "description": "Elige entre cientos de combinaciones profesionales o crea las tuyas"
+    },
+    "cta": "Comenzar a Crear"
+  },
+
+  "testimonio": {
+    "title": "Testimonios",
+    "subtitle": "Estos son algunos testimonios de nuestros clientes...",
+    "testimonios": [
+      {
+        "title": "Innovatech.",
+        "description": "Trabajar con Theseven ha sido una experiencia transformadora. Su enfoque estratégico y personalizado ayudó a nuestra empresa a superar retos clave y alcanzar nuestros objetivos de manera eficiente. Recomiendo altamente sus servicios de consultoría. María Fernández, CEO de InnovateTech",
+        "image": "https://i.ytimg.com/vi/sGesd98SiL8/maxresdefault.jpg"
+      },
+      {
+        "title": "GreenEnergy & Company.",
+        "description": "Gracias a la asesoría de esta empresa, hemos logrado implementar prácticas sostenibles que han mejorado tanto nuestra eficiencia operativa como nuestra imagen corporativa. Su enfoque integral fue exactamente lo que necesitábamos. Carlos Mendoza, Gerente de Operaciones de GreenEnergy",
+        "image": "https://static.wixstatic.com/media/ab32b9_cbfe9c62716146f3bded0eca158f61ea~mv2.jpg"
+      },
+      {
+        "title": "FinCorp.",
+        "description": "Su análisis detallado del mercado y las estrategias de crecimiento que nos ofrecieron fueron fundamentales para expandir nuestra presencia a nivel internacional. Estamos muy satisfechos con el trabajo realizado. Laura Rodríguez, CFO de FinCorp",
+        "image": "https://cdn.slidesharecdn.com/ss_thumbnails/herofincorpbrandinsightsvf-171121093015-thumbnail-4.jpg"
+      },
+      {
+        "title": "DevSolutions",
+        "description": "La colaboración con esta empresa ha sido una de las mejores decisiones que hemos tomado. Nos ayudaron a llevar nuestra infraestructura tecnológica a un nuevo nivel, lo que nos permitió mejorar la experiencia de nuestros usuarios. Javier Martínez, Director de Tecnología de DevSolutions",
+        "image": "https://devlogicsol.com/wp-content/uploads/2020/10/73f60997190101.5ebf3c4565cdc.jpg"
+      },
+      {
+        "title": "TalentBridge",
+        "description": "La capacitación que nos ofrecieron a nuestros empleados fue excepcional. No solo mejoró nuestras habilidades internas, sino que también nos dio herramientas para abordar desafíos futuros con confianza. Mariana López, Directora de Recursos Humanos de TalentBridge",
+        "image": "https://www.kindpng.com/picc/m/465-4652155_talentbridge-talentbridge-logo-hd-png-download.png"
+      },
+      {
+        "title": "Nintendo Company",
+        "description": "Trabajar con esta empresa fue un cambio de paradigma para nosotros. Nos guiaron en la implementación de prácticas más sostenibles, lo que no solo mejoró nuestros procesos, sino que también reforzó nuestra responsabilidad social empresarial. Roberto Pérez, CEO de EcoTech Solutions",
+        "image": "https://images.fastcompany.com/image/upload/f_webp,c_fit,w_1920,q_auto/wp-cms/uploads/2023/05/p-1-90891053-nintendo-logo.jpg"
+      },
+      {
+        "title": "Microsoft",
+        "description": "La colaboración con este equipo ha sido fundamental para acelerar nuestra transformación digital. Sus soluciones personalizadas nos han permitido mejorar la eficiencia en nuestros procesos y ofrecer productos innovadores a nuestros clientes. Son verdaderos socios estratégicos en la evolución tecnológica. Satya Nadella, CEO de Microsoft",
+        "image": "https://searchengineland.com/wp-content/seloads/2023/11/shutterstock_2199173649.jpg"
+      },
+      {
+        "title": "LinkedIn",
+        "description": "La asociación con esta empresa ha sido esencial para nuestro éxito. Su enfoque único en la experiencia del cliente y la mejora continua nos permitió expandir nuestra plataforma globalmente. Han jugado un papel clave en nuestra estrategia de crecimiento. Jeff Weiner, Ex-CEO de LinkedIn",
+        "image": "https://www.interhacktives.com/wp-content/uploads/2023/03/LINKEDIN-1.jpg"
+      },
+      {
+        "title": "Apple",
+        "description": "Trabajar con este equipo ha sido una experiencia transformadora. Su capacidad para abordar desafíos complejos y proporcionar soluciones escalables ha sido esencial en el desarrollo de nuestros productos más avanzados. Son un socio confiable en nuestra misión de revolucionar el mundo de la tecnología. Tim Cook, CEO de Apple",
+        "image": "https://tecnotvhn.com/wp-content/uploads/2022/01/apple-scaled.jpg"
+      },
+      {
+        "title": "ZSnes Company",
+        "description": "Su enfoque estratégico y personalizado nos permitió mejorar significativamente nuestra visibilidad y presencia en el mercado. Gracias a su equipo, ahora contamos con soluciones innovadoras que han optimizado nuestras operaciones. Recomendamos encarecidamente sus servicios a cualquier empresa que busque un aliado confiable para el crecimiento y desarrollo. John Doe, CEO de ZSnes Company",
+        "image": "https://1.bp.blogspot.com/-MHd9X69Sfgs/YRCwBfm1U2I/AAAAAAAAYmA/l1r1KjJFPF8Ee5RDX2qcUVFetx4NCdChQCLcBGAsYHQ/s768/Zsnes_emulator.png"
+      }
+    ]
+  },
+
+  "nosotros": {
+    "titulo": "Nosotros",
+    "descripcion": "Somos desarrolladores web apasionados por crear experiencias digitales innovadoras.",
+    "biografia": {
+      "titulo": "Biografía",
+      "descripcion": "Con x tiempo en desarrollo web, trabajando en diversos proyectos utilizando tecnologías modernas como React, Node.js y más.",
+      "cargo": "Freelancer",
+      "descripcion_cargo": "Proyectos web personalizados"
+    },
+    "habilidades": {
+      "titulo": "Habilidades",
+      "react": "React.js / JavaScript",
+      "htmlcss": "HTML / CSS",
+      "nodejs": "Node.js",
+      "gestion_bases": "Gestión de Bases de Datos"
+    },
+    "educacion": {
+      "titulo": "Educación",
+      "titulo_grado": "Lic. Informática Administrativa",
+      "universidad": "Universidad Nacional Autónoma de Honduras"
+    },
+    "contacto": {
+      "titulo": "Contacto",
+      "email": "Email"
+    }
+  },
+
+  "forgotPassword": {
+    "title": "Restablecer Contraseña",
+    "emailLabel": "Correo Electrónico",
+    "resetButton": "Restablecer Contraseña",
+    "loginLink": "Iniciar sesión",
+    "signupPrompt": "¿Necesitas una cuenta?",
+    "signupLink": "Regístrate",
+    "messageSuccess": "Revisa tu bandeja de entrada para más instrucciones",
+    "messageError": "Error al restablecer la contraseña"
+  },
+
+  "login": {
+    "title": "Iniciar sesión",
+    "emailLabel": "Correo Electrónico",
+    "passwordLabel": "Contraseña",
+    "loginButton": "Iniciar sesión",
+    "forgotPasswordLink": "¿Olvidó su contraseña?",
+    "signupPrompt": "¿Necesita una cuenta?",
+    "signupLink": "Registro",
+    "messageError": "No se pudo iniciar sesión"
+  },
+
+  "signup": {
+    "title": "Registro",
+    "emailLabel": "Correo Electrónico",
+    "passwordLabel": "Contraseña",
+    "passwordConfirmLabel": "Confirmación de Contraseña",
+    "signupButton": "Registrarse",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "Iniciar sesión",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "invalidEmail": "Por favor, ingrese una dirección de correo válida.",
+    "failedCreateAccount": "No se pudo crear la cuenta"
+  }
+  }
+  

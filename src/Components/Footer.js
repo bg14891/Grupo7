@@ -2,91 +2,51 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Footer.css';
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
-    return (
-      <div className="footer-wrapper">
-        <div className="container main-container">
-          <div className="row justify-content-center">
-            {/* Columna 1 */}
-            <div className="col-md-3 col-sm-6">
-              <div className="footer-section text-center">
-                <h5>Section</h5>
-                <ul className="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Pricing</a></li>
-                  <li><a href="#">FAQs</a></li>
-                  <li><a href="#">About</a></li>
-                </ul>
-                <div className="social-icon">
-                  <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                    <i className="bi bi-facebook"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            
-            {/* Columna 2 */}
-            <div className="col-md-3 col-sm-6">
-              <div className="footer-section text-center">
-                <h5>Section</h5>
-                <ul className="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Pricing</a></li>
-                  <li><a href="#">FAQs</a></li>
-                  <li><a href="#">About</a></li>
-                </ul>
-                <div className="social-icon">
-                  <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                    <i className="bi bi-instagram"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+  const { t } = useTranslation();
 
-            {/* Columna 3 */}
-            <div className="col-md-3 col-sm-6">
+  const footerLinks = [
+    { label: t('footer.home'), href: '#' },
+    { label: t('footer.features'), href: '#' },
+    { label: t('footer.pricing'), href: '#' },
+    { label: t('footer.faqs'), href: '#' },
+    { label: t('footer.about'), href: '#' },
+  ];
+
+  const socialLinks = [
+    { icon: 'facebook', url: 'https://www.facebook.com' },
+    { icon: 'instagram', url: 'https://www.instagram.com' },
+    { icon: 'twitter-x', url: 'https://www.twitter.com' },
+    { icon: 'github', url: 'https://www.github.com' },
+  ];
+
+  return (
+    <div className="footer-wrapper">
+      <div className="container main-container">
+        <div className="row justify-content-center">
+          {socialLinks.map((social, idx) => (
+            <div className="col-md-3 col-sm-6" key={idx}>
               <div className="footer-section text-center">
-                <h5>Section</h5>
+                <h5>{t('footer.section')}</h5>
                 <ul className="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Pricing</a></li>
-                  <li><a href="#">FAQs</a></li>
-                  <li><a href="#">About</a></li>
+                  {footerLinks.map((link, i) => (
+                    <li key={i}><a href={link.href}>{link.label}</a></li>
+                  ))}
                 </ul>
                 <div className="social-icon">
-                  <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-                    <i className="bi bi-twitter-x"></i>
+                  <a href={social.url} target="_blank" rel="noopener noreferrer">
+                    <i className={`bi bi-${social.icon}`}></i>
                   </a>
                 </div>
               </div>
             </div>
-            
-            {/* Columna 4 */}
-            <div className="col-md-3 col-sm-6">
-              <div className="footer-section text-center">
-                <h5>Section</h5>
-                <ul className="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Pricing</a></li>
-                  <li><a href="#">FAQs</a></li>
-                  <li><a href="#">About</a></li>
-                </ul>
-                <div className="social-icon">
-                  <a href="https://www.github.com" target="_blank" rel="noopener noreferrer">
-                    <i className="bi bi-github"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-    );
+    </div>
+  );
 }
 
 export default Footer;

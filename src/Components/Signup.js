@@ -3,12 +3,14 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css"; // Asegúrate de importar el archivo CSS
+import { useTranslation } from "react-i18next";  // Importamos el hook para traducción
 
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { signup } = useAuth();
+  const { t } = useTranslation();  // Usamos el hook useTranslation para acceder a las funciones de traducción
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Obtén la función Navigate
@@ -18,13 +20,13 @@ export default function Signup() {
 
     // Verifica si las contraseñas coinciden
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
+      return setError(t("signup.passwordMismatch"));
     }
 
     // Validación del correo electrónico
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(emailRef.current.value)) {
-      return setError("Please enter a valid email address.");
+      return setError(t("signup.invalidEmail"));
     }
 
     try {
@@ -33,7 +35,7 @@ export default function Signup() {
       await signup(emailRef.current.value, passwordRef.current.value);
       navigate("/"); // Redirige al usuario después de crear la cuenta
     } catch {
-      setError("Failed to create an account");
+      setError(t("signup.failedCreateAccount"));
     }
 
     setLoading(false);
@@ -44,29 +46,29 @@ export default function Signup() {
       <div className="card-container">
         <Card>
           <Card.Body>
-            <h2 className="text-center mb-4">Sign Up</h2>
+            <h2 className="text-center mb-4">{t("signup.title")}</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
               <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>{t("signup.emailLabel")}</Form.Label>
                 <Form.Control type="email" ref={emailRef} required />
               </Form.Group>
               <Form.Group id="password">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>{t("signup.passwordLabel")}</Form.Label>
                 <Form.Control type="password" ref={passwordRef} required />
               </Form.Group>
               <Form.Group id="password-confirm">
-                <Form.Label>Password Confirmation</Form.Label>
+                <Form.Label>{t("signup.passwordConfirmLabel")}</Form.Label>
                 <Form.Control type="password" ref={passwordConfirmRef} required />
               </Form.Group>
               <Button disabled={loading} className="w-100" type="submit">
-                Sign Up
+                {t("signup.signupButton")}
               </Button>
             </Form>
           </Card.Body>
         </Card>
         <div className="register-link-container">
-          Already have an account? <Link to="/login">Log In</Link>
+          {t("signup.haveAccount")} <Link to="/login">{t("signup.loginLink")}</Link>
         </div>
       </div>
     </div>
