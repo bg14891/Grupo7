@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { FaTrash, FaEdit, FaPlus, FaGraduationCap, FaUserTie, FaBriefcase, FaStar, FaRegStar, FaLanguage, FaQuoteLeft, FaUser, FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaGlobe, FaPhone, FaMapMarker, FaQuoteRight, FaProjectDiagram, FaImage } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaPlus, FaGraduationCap, FaUserTie, FaBriefcase, FaStar, FaRegStar, FaLanguage, FaQuoteLeft, FaUser, FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaGlobe, FaPhone, FaMapMarker, FaQuoteRight, FaProjectDiagram, FaImage, FaFilePdf } from 'react-icons/fa';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 import './PersonalInfoForm.css';
 
 const Preview = ({
@@ -16,226 +18,250 @@ const Preview = ({
   formatDate,
   renderStars,
   skillCategories,
-  onEditSection
+  onEditSection,
+  progressPercentage,
+  onExportPDF
 }) => {
+  const previewRef = useRef();
+
   return (
     <div className="preview-container">
-      {personalInfo.fullName && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaUserTie /> Información Personal</h2>
-            <div className="section-actions">
-              <button onClick={() => onEditSection('personal')} className="edit-button">
-                <FaEdit /> Editar
-              </button>
-              <button onClick={() => onEditSection('personal', true)} className="delete-button">
-                <FaTrash /> Borrar
-              </button>
+      <div className="preview-header">
+        <h1>Vista Previa del Portafolio</h1>
+        <div className="preview-actions">
+          <div className="progress-container">
+            <div 
+              className="progress-bar" 
+              style={{ width: `${progressPercentage}%` }}
+              title={`${Math.round(progressPercentage)}% completado`}
+            >
+              <span>{Math.round(progressPercentage)}%</span>
             </div>
           </div>
-          <h3>{personalInfo.fullName}</h3>
-          <p className="profession">{personalInfo.profession}</p>
-          <p className="occupation">{personalInfo.occupation}</p>
-          <div className="contact-info">
-            {personalInfo.email && <div><FaEnvelope /> {personalInfo.email}</div>}
-            {personalInfo.phone && <div><FaPhone /> {personalInfo.phone}</div>}
-            {personalInfo.location && <div><FaMapMarker /> {personalInfo.location}</div>}
-          </div>
-        </section>
-      )}
+          <button onClick={onExportPDF} className="export-pdf-button">
+            <FaFilePdf /> Exportar a PDF
+          </button>
+        </div>
+      </div>
 
-      {educations?.length > 0 && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaGraduationCap /> Educación</h2>
-          </div>
-          {educations.map((edu, index) => (
-            <div key={index} className="education-item">
-              <div className="item-actions">
-                <button onClick={() => onEditSection('education', false, index)} className="edit-button">
+      <div ref={previewRef} className="preview-content">
+        {personalInfo.fullName && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaUserTie /> Información Personal</h2>
+              <div className="section-actions">
+                <button onClick={() => onEditSection('personal')} className="edit-button">
                   <FaEdit /> Editar
                 </button>
-                <button onClick={() => onEditSection('education', true, index)} className="delete-button">
+                <button onClick={() => onEditSection('personal', true)} className="delete-button">
                   <FaTrash /> Borrar
                 </button>
               </div>
-              {edu.institution && <p><strong>Institución:</strong> {edu.institution}</p>}
-              {edu.degree && <p><strong>Título:</strong> {edu.degree}</p>}
-              <p><strong>Periodo:</strong> {formatDate(edu.startDate)} - {edu.currentlyStudying ? 'Presente' : formatDate(edu.endDate)}</p>
-              {edu.description && <p><strong>Descripción:</strong> {edu.description}</p>}
             </div>
-          ))}
-        </section>
-      )}
-
-      {experiences.length > 0 && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaBriefcase /> Experiencia Laboral</h2>
-          </div>
-          {experiences.map((exp, index) => (
-            <div key={index} className="experience-item">
-              <div className="item-actions">
-                <button onClick={() => onEditSection('experience', false, index)} className="edit-button">
-                  <FaEdit /> Editar
-                </button>
-                <button onClick={() => onEditSection('experience', true, index)} className="delete-button">
-                  <FaTrash /> Borrar
-                </button>
-              </div>
-              <p><strong>Empresa:</strong> {exp.company}</p>
-              <p><strong>Cargo:</strong> {exp.position}</p>
-              <p><strong>Periodo:</strong> {formatDate(exp.startDate)} - {exp.currentlyWorking ? 'Presente' : formatDate(exp.endDate)}</p>
-              {exp.responsibilities && <p><strong>Responsabilidades:</strong> {exp.responsibilities}</p>}
-              {exp.achievements && <p><strong>Logros:</strong> {exp.achievements}</p>}
+            <h3>{personalInfo.fullName}</h3>
+            <p className="profession">{personalInfo.profession}</p>
+            <p className="occupation">{personalInfo.occupation}</p>
+            <div className="contact-info">
+              {personalInfo.email && <div><FaEnvelope /> {personalInfo.email}</div>}
+              {personalInfo.phone && <div><FaPhone /> {personalInfo.phone}</div>}
+              {personalInfo.location && <div><FaMapMarker /> {personalInfo.location}</div>}
             </div>
-          ))}
-        </section>
-      )}
+          </section>
+        )}
 
-      {projects.length > 0 && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaProjectDiagram /> Proyectos</h2>
-          </div>
-          <div className="projects-grid">
-            {projects.map((project, index) => (
-              <div key={index} className="project-item">
+        {educations?.length > 0 && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaGraduationCap /> Educación</h2>
+            </div>
+            {educations.map((edu, index) => (
+              <div key={index} className="education-item">
                 <div className="item-actions">
-                  <button onClick={() => onEditSection('projects', false, index)} className="edit-button">
+                  <button onClick={() => onEditSection('education', false, index)} className="edit-button">
                     <FaEdit /> Editar
                   </button>
-                  <button onClick={() => onEditSection('projects', true, index)} className="delete-button">
+                  <button onClick={() => onEditSection('education', true, index)} className="delete-button">
                     <FaTrash /> Borrar
                   </button>
                 </div>
-                <h3>{project.name}</h3>
-                {project.description && <p><strong>Descripción:</strong> {project.description}</p>}
-                {project.technologies && <p><strong>Tecnologías:</strong> {project.technologies}</p>}
-                {project.link && (
-                  <p>
-                    <strong>Enlace:</strong> 
-                    <a href={project.link} target="_blank" rel="noopener noreferrer">
-                      {project.link}
-                    </a>
-                  </p>
-                )}
-                {project.screenshots && project.screenshots.length > 0 && (
-                  <div className="project-screenshots">
-                    <strong>Capturas:</strong>
-                    <div className="screenshots-grid">
-                      {project.screenshots.map((screenshot, i) => (
-                        <div key={i} className="screenshot-thumbnail">
-                          <img 
-                            src={screenshot} 
-                            alt={`Captura ${i + 1} del proyecto ${project.name}`} 
-                            onClick={() => window.open(screenshot, '_blank')}
-                          />
-                        </div>
-                      ))}
-                    </div>
+                {edu.institution && <p><strong>Institución:</strong> {edu.institution}</p>}
+                {edu.degree && <p><strong>Título:</strong> {edu.degree}</p>}
+                <p><strong>Periodo:</strong> {formatDate(edu.startDate)} - {edu.currentlyStudying ? 'Presente' : formatDate(edu.endDate)}</p>
+                {edu.description && <p><strong>Descripción:</strong> {edu.description}</p>}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {experiences.length > 0 && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaBriefcase /> Experiencia Laboral</h2>
+            </div>
+            {experiences.map((exp, index) => (
+              <div key={index} className="experience-item">
+                <div className="item-actions">
+                  <button onClick={() => onEditSection('experience', false, index)} className="edit-button">
+                    <FaEdit /> Editar
+                  </button>
+                  <button onClick={() => onEditSection('experience', true, index)} className="delete-button">
+                    <FaTrash /> Borrar
+                  </button>
+                </div>
+                <p><strong>Empresa:</strong> {exp.company}</p>
+                <p><strong>Cargo:</strong> {exp.position}</p>
+                <p><strong>Periodo:</strong> {formatDate(exp.startDate)} - {exp.currentlyWorking ? 'Presente' : formatDate(exp.endDate)}</p>
+                {exp.responsibilities && <p><strong>Responsabilidades:</strong> {exp.responsibilities}</p>}
+                {exp.achievements && <p><strong>Logros:</strong> {exp.achievements}</p>}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {projects.length > 0 && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaProjectDiagram /> Proyectos</h2>
+            </div>
+            <div className="projects-grid">
+              {projects.map((project, index) => (
+                <div key={index} className="project-item">
+                  <div className="item-actions">
+                    <button onClick={() => onEditSection('projects', false, index)} className="edit-button">
+                      <FaEdit /> Editar
+                    </button>
+                    <button onClick={() => onEditSection('projects', true, index)} className="delete-button">
+                      <FaTrash /> Borrar
+                    </button>
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {skills.length > 0 && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaStar /> Habilidades</h2>
-          </div>
-          <div className="skills-grid">
-            {skills.map((skill, index) => (
-              <div key={index} className="skill-item">
-                <div className="item-actions">
-                  <button onClick={() => onEditSection('skills', false, index)} className="edit-button">
-                    <FaEdit /> Editar
-                  </button>
-                  <button onClick={() => onEditSection('skills', true, index)} className="delete-button">
-                    <FaTrash /> Borrar
-                  </button>
+                  <h3>{project.name}</h3>
+                  {project.description && <p><strong>Descripción:</strong> {project.description}</p>}
+                  {project.technologies && <p><strong>Tecnologías:</strong> {project.technologies}</p>}
+                  {project.link && (
+                    <p>
+                      <strong>Enlace:</strong> 
+                      <a href={project.link} target="_blank" rel="noopener noreferrer">
+                        {project.link}
+                      </a>
+                    </p>
+                  )}
+                  {project.screenshots && project.screenshots.length > 0 && (
+                    <div className="project-screenshots">
+                      <strong>Capturas:</strong>
+                      <div className="screenshots-grid">
+                        {project.screenshots.map((screenshot, i) => (
+                          <div key={i} className="screenshot-thumbnail">
+                            <img 
+                              src={screenshot} 
+                              alt={`Captura ${i + 1} del proyecto ${project.name}`} 
+                              onClick={() => window.open(screenshot, '_blank')}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <p><strong>{skill.name}</strong> ({skill.category})</p>
-                <div className="skill-level">{renderStars(skill.level)}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {languages.length > 0 && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaLanguage /> Idiomas</h2>
-          </div>
-          <div className="languages-grid">
-            {languages.map((lang, index) => (
-              <div key={index} className="language-item">
-                <div className="item-actions">
-                  <button onClick={() => onEditSection('languages', false, index)} className="edit-button">
-                    <FaEdit /> Editar
-                  </button>
-                  <button onClick={() => onEditSection('languages', true, index)} className="delete-button">
-                    <FaTrash /> Borrar
-                  </button>
-                </div>
-                <p><strong>{lang.name}</strong> - {lang.level}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {references.length > 0 && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaQuoteLeft /> Referencias</h2>
-          </div>
-          <div className="references-grid">
-            {references.map((ref, index) => (
-              <div key={index} className="reference-item">
-                <div className="item-actions">
-                  <button onClick={() => onEditSection('references', false, index)} className="edit-button">
-                    <FaEdit /> Editar
-                  </button>
-                  <button onClick={() => onEditSection('references', true, index)} className="delete-button">
-                    <FaTrash /> Borrar
-                  </button>
-                </div>
-                <p><strong>{ref.name}</strong> ({ref.relationship})</p>
-                <p>"{ref.testimonial}"</p>
-                {ref.contact && <p><strong>Contacto:</strong> {ref.contact}</p>}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {(contactInfo.email || contactInfo.linkedin || contactInfo.github || contactInfo.twitter || contactInfo.website) && (
-        <section className="preview-section">
-          <div className="section-header">
-            <h2><FaEnvelope /> Contacto</h2>
-            <div className="section-actions">
-              <button onClick={() => onEditSection('contact')} className="edit-button">
-                <FaEdit /> Editar
-              </button>
-              <button onClick={() => onEditSection('contact', true)} className="delete-button">
-                <FaTrash /> Borrar
-              </button>
+              ))}
             </div>
-          </div>
-          <div className="contact-info">
-            {contactInfo.email && <div><FaEnvelope /> {contactInfo.email}</div>}
-            {contactInfo.linkedin && <div><FaLinkedin /> {contactInfo.linkedin}</div>}
-            {contactInfo.github && <div><FaGithub /> {contactInfo.github}</div>}
-            {contactInfo.twitter && <div><FaTwitter /> {contactInfo.twitter}</div>}
-            {contactInfo.website && <div><FaGlobe /> {contactInfo.website}</div>}
-          </div>
-        </section>
-      )}
+          </section>
+        )}
+
+        {skills.length > 0 && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaStar /> Habilidades</h2>
+            </div>
+            <div className="skills-grid">
+              {skills.map((skill, index) => (
+                <div key={index} className="skill-item">
+                  <div className="item-actions">
+                    <button onClick={() => onEditSection('skills', false, index)} className="edit-button">
+                      <FaEdit /> Editar
+                    </button>
+                    <button onClick={() => onEditSection('skills', true, index)} className="delete-button">
+                      <FaTrash /> Borrar
+                    </button>
+                  </div>
+                  <p><strong>{skill.name}</strong> ({skill.category})</p>
+                  <div className="skill-level">{renderStars(skill.level)}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {languages.length > 0 && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaLanguage /> Idiomas</h2>
+            </div>
+            <div className="languages-grid">
+              {languages.map((lang, index) => (
+                <div key={index} className="language-item">
+                  <div className="item-actions">
+                    <button onClick={() => onEditSection('languages', false, index)} className="edit-button">
+                      <FaEdit /> Editar
+                    </button>
+                    <button onClick={() => onEditSection('languages', true, index)} className="delete-button">
+                      <FaTrash /> Borrar
+                    </button>
+                  </div>
+                  <p><strong>{lang.name}</strong> - {lang.level}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {references.length > 0 && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaQuoteLeft /> Referencias</h2>
+            </div>
+            <div className="references-grid">
+              {references.map((ref, index) => (
+                <div key={index} className="reference-item">
+                  <div className="item-actions">
+                    <button onClick={() => onEditSection('references', false, index)} className="edit-button">
+                      <FaEdit /> Editar
+                    </button>
+                    <button onClick={() => onEditSection('references', true, index)} className="delete-button">
+                      <FaTrash /> Borrar
+                    </button>
+                  </div>
+                  <p><strong>{ref.name}</strong> ({ref.relationship})</p>
+                  <p>"{ref.testimonial}"</p>
+                  {ref.contact && <p><strong>Contacto:</strong> {ref.contact}</p>}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {(contactInfo.email || contactInfo.linkedin || contactInfo.github || contactInfo.twitter || contactInfo.website) && (
+          <section className="preview-section">
+            <div className="section-header">
+              <h2><FaEnvelope /> Contacto</h2>
+              <div className="section-actions">
+                <button onClick={() => onEditSection('contact')} className="edit-button">
+                  <FaEdit /> Editar
+                </button>
+                <button onClick={() => onEditSection('contact', true)} className="delete-button">
+                  <FaTrash /> Borrar
+                </button>
+              </div>
+            </div>
+            <div className="contact-info">
+              {contactInfo.email && <div><FaEnvelope /> {contactInfo.email}</div>}
+              {contactInfo.linkedin && <div><FaLinkedin /> {contactInfo.linkedin}</div>}
+              {contactInfo.github && <div><FaGithub /> {contactInfo.github}</div>}
+              {contactInfo.twitter && <div><FaTwitter /> {contactInfo.twitter}</div>}
+              {contactInfo.website && <div><FaGlobe /> {contactInfo.website}</div>}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 };
@@ -243,6 +269,8 @@ const Preview = ({
 export default function PersonalInfoForm() {
   const navigate = useNavigate();
   const [editingIndex, setEditingIndex] = useState(null);
+  const [progressPercentage, setProgressPercentage] = useState(0);
+  const previewRef = useRef();
 
   // 1. Información Personal
   const { 
@@ -260,6 +288,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('personalInfo', JSON.stringify(personalInfo));
+    calculateProgress();
   }, [personalInfo]);
 
   const onPersonalSubmit = (data) => {
@@ -284,6 +313,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('educations', JSON.stringify(educations));
+    calculateProgress();
   }, [educations]);
 
   const onEducationSubmit = (data) => {
@@ -314,6 +344,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('experiences', JSON.stringify(experiences));
+    calculateProgress();
   }, [experiences]);
 
   const onExperienceSubmit = (data) => {
@@ -343,6 +374,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('projects', JSON.stringify(projects));
+    calculateProgress();
   }, [projects]);
 
   const onProjectSubmit = (data) => {
@@ -378,6 +410,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('skills', JSON.stringify(skills));
+    calculateProgress();
   }, [skills]);
 
   const onSkillSubmit = (data) => {
@@ -409,6 +442,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('languages', JSON.stringify(languages));
+    calculateProgress();
   }, [languages]);
 
   const onLanguageSubmit = (data) => {
@@ -438,6 +472,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('references', JSON.stringify(references));
+    calculateProgress();
   }, [references]);
 
   const onReferenceSubmit = (data) => {
@@ -468,6 +503,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     localStorage.setItem('contactInfo', JSON.stringify(contactInfo));
+    calculateProgress();
   }, [contactInfo]);
 
   const onContactSubmit = (data) => {
@@ -490,6 +526,44 @@ export default function PersonalInfoForm() {
 
   const isValidUrl = (url) => {
     try { new URL(url); return true; } catch { return false; }
+  };
+
+  const calculateProgress = () => {
+    let totalSections = 8;
+    let completedSections = 0;
+
+    // Información Personal
+    if (personalInfo.fullName && personalInfo.profession && personalInfo.occupation && 
+        personalInfo.email && personalInfo.phone && personalInfo.location) {
+      completedSections++;
+    }
+
+    // Educación
+    if (educations.length > 0) completedSections++;
+
+    // Experiencia
+    if (experiences.length > 0) completedSections++;
+
+    // Proyectos
+    if (projects.length > 0) completedSections++;
+
+    // Habilidades
+    if (skills.length > 0) completedSections++;
+
+    // Idiomas
+    if (languages.length > 0) completedSections++;
+
+    // Referencias
+    if (references.length > 0) completedSections++;
+
+    // Contacto
+    if (contactInfo.email || contactInfo.linkedin || contactInfo.github || 
+        contactInfo.twitter || contactInfo.website) {
+      completedSections++;
+    }
+
+    const percentage = Math.round((completedSections / totalSections) * 100);
+    setProgressPercentage(percentage);
   };
 
   const handleEditFromPreview = (section, isDelete = false, index = null) => {
@@ -565,6 +639,37 @@ export default function PersonalInfoForm() {
     }
 
     document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleExportPDF = () => {
+    const input = document.querySelector('.preview-content');
+    
+    html2canvas(input, {
+      scale: 2,
+      logging: true,
+      useCORS: true,
+      allowTaint: true
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 295; // A4 height in mm
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save('mi-portafolio.pdf');
+    });
   };
 
   return (
@@ -1037,6 +1142,8 @@ export default function PersonalInfoForm() {
         renderStars={renderStars}
         skillCategories={skillCategories}
         onEditSection={handleEditFromPreview}
+        progressPercentage={progressPercentage}
+        onExportPDF={handleExportPDF}
       />
 
       <button onClick={() => navigate('/')} className="back-button">

@@ -1,447 +1,900 @@
-/* Estilos base y fondo */
 
 .form-background {
-  background: linear-gradient(135deg, #ffb6c1 0%, #e0b0ff 100%);
+  background: linear-gradient(135deg, #ff9bb3 0%, #d8a4ff 100%);
   min-height: 100vh;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.5s ease;
 }
 
-/* Contenedores principales */
+/* Barra de progreso mejorada */
+.progress-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  margin: 15px 0;
+  height: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #8a4fff, #c17dff);
+  border-radius: 20px;
+  transition: width 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  box-shadow: 0 0 15px rgba(138, 79, 255, 0.4);
+}
+
+/* Contenedores principales con efecto vidrio mejorado */
 .form-container {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
   width: 100%;
   max-width: 800px;
-  margin-bottom: 2rem;
-  padding: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 2.5rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+  position: relative;
 }
 
-/* Títulos principales CON subrayado grueso (único subrayado que queda) */
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  transition: all 0.6s ease;
+}
+
+.form-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+.form-container:hover::before {
+  transform: translate(50%, 50%);
+}
+
+/* Títulos mejorados con gradiente */
 .form-container h2 {
   text-align: center;
-  color: #6a287d;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #9c64ff; /* Este es el único subrayado que se mantiene */
+  background: linear-gradient(90deg, #7d3cff, #b56bff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid rgba(156, 100, 255, 0.3);
   width: 100%;
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.4s ease;
+}
+
+.form-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #9c64ff, #e0b0ff);
+  border-radius: 4px;
+  transition: all 0.4s ease;
+}
+
+.form-container:hover h2::after {
+  width: 120px;
 }
 
 .form-container h2 svg {
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
+  transition: all 0.5s ease;
+  filter: drop-shadow(0 2px 4px rgba(156, 100, 255, 0.3));
 }
 
-/* Subtítulos SIN NINGÚN subrayado (cambio realizado) */
-.education-list h3,
-.experience-list h3,
-.skills-list h3,
-.skills-category h4 {
-  text-align: center;
-  color: #6a287d;
-  margin-bottom: 1.5rem;
-  /* Se eliminaron completamente estas propiedades: */
-  /* padding-bottom: 0.5rem; */
-  /* border-bottom: 1px solid #e0b0ff; */
+.form-container:hover h2 svg {
+  transform: rotate(15deg) scale(1.2);
 }
 
-/* [Todo el resto del CSS permanece EXACTAMENTE IGUAL] */
+/* Formularios con transiciones */
 .education-form,
 .experience-form,
 .skills-form {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.8rem;
+  transition: all 0.3s ease;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
   color: #5a287d;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 input,
 select,
 textarea {
   width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(221, 221, 221, 0.6);
+  border-radius: 12px;
   font-size: 1rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #9c64ff;
+  box-shadow: 0 0 0 3px rgba(156, 100, 255, 0.25);
+  background: white;
+  transform: translateY(-2px);
 }
 
 textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 120px;
 }
 
+/* Botones mejorados con efectos */
 .form-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .submit-button,
 .cancel-button,
-.back-button {
-  padding: 0.8rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 500;
+.back-button,
+.edit-button,
+.delete-button,
+.export-pdf-button {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.submit-button {
-  background: linear-gradient(to right, #9c64ff, #e0b0ff);
+.submit-button,
+.edit-button,
+.export-pdf-button {
+  background: linear-gradient(135deg, #8a4fff 0%, #c17dff 100%);
   color: white;
-  border: none;
+  box-shadow: 0 6px 20px rgba(138, 79, 255, 0.3);
+}
+
+.delete-button {
+  background: linear-gradient(135deg, #ff4f4f 0%, #ff7d7d 100%);
+  color: white;
+  box-shadow: 0 6px 20px rgba(255, 79, 79, 0.3);
 }
 
 .cancel-button {
-  background: #f0f0f0;
+  background: rgba(255, 255, 255, 0.95);
   color: #6a287d;
   border: 1px solid #e0b0ff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .back-button {
   background: white;
   color: #6a287d;
   border: 1px solid #e0b0ff;
-  margin-top: 1rem;
-}
-
-.education-list,
-.experience-list,
-.skills-list {
   margin-top: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
+.submit-button:hover,
+.edit-button:hover,
+.export-pdf-button:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(138, 79, 255, 0.4);
+}
+
+.delete-button:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(255, 79, 79, 0.4);
+}
+
+.cancel-button:hover,
+.back-button:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  background: white;
+}
+
+/* Efecto onda para botones */
+.submit-button::after,
+.edit-button::after,
+.delete-button::after,
+.export-pdf-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.submit-button:hover::after,
+.edit-button:hover::after,
+.delete-button:hover::after,
+.export-pdf-button:hover::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(25, 25);
+    opacity: 0;
+  }
+}
+
+/* Tarjetas mejoradas con difuminado */
 .education-card,
 .experience-card,
-.skill-card {
-  background: #f9f0ff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  border-left: 4px solid #9c64ff;
+.skill-card,
+.education-item,
+.experience-item,
+.project-item,
+.skill-item,
+.language-item,
+.reference-item {
+  background: rgba(249, 240, 255, 0.75);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.education-card::before,
+.experience-card::before,
+.skill-card::before,
+.education-item::before,
+.experience-item::before,
+.project-item::before,
+.skill-item::before,
+.language-item::before,
+.reference-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #9c64ff, #e0b0ff);
+  transition: all 0.4s ease;
+}
+
+.education-card:hover,
+.experience-card:hover,
+.skill-card:hover,
+.education-item:hover,
+.experience-item:hover,
+.project-item:hover,
+.skill-item:hover,
+.language-item:hover,
+.reference-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+  background: rgba(249, 240, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.education-card:hover::before,
+.experience-card:hover::before,
+.skill-card:hover::before,
+.education-item:hover::before,
+.experience-item:hover::before,
+.project-item:hover::before,
+.skill-item:hover::before,
+.language-item:hover::before,
+.reference-item:hover::before {
+  height: 6px;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
 }
 
 .card-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
+  transition: all 0.3s ease;
 }
 
+/* Habilidades con estrellas animadas */
 .skills-category {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  transition: all 0.3s ease;
 }
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 .skill-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
 }
 
+/* ESTILOS PARA ESTRELLAS (ACTUALIZADO) */
 .skill-level {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.star-filled {
-  color: #ffd700;
-}
-
-.star-empty {
-  color: #ddd;
-}
-
-@media (max-width: 768px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-  
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .form-container {
-    padding: 1.5rem;
-  }
-}
-
-.error {
-  border-color: #ff3860 !important;
-}
-
-.error-message {
-  color: #ff3860;
-  font-size: 0.85rem;
-  margin-top: 0.3rem;
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
   margin-top: 0.5rem;
 }
 
-.checkbox-group input {
-  width: auto;
+.star-filled {
+  color: #FFD700;
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.7));
+  transition: all 0.3s ease;
 }
 
-svg {
-  font-size: 1rem;
+.star-empty {
+  color: #E0E0E0;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
 }
 
-
-/* Agregar estos estilos Vista Previa  ppp*/
-
-.form-background {
-  display: flex;
-  gap: 30px;
-  padding: 20px;
-  min-height: 100vh;
-  position: relative;
-
+.star-filled:hover {
+  transform: scale(1.3);
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.9));
 }
 
+/* Vista Previa mejorada */
 .form-stack {
   flex: 1;
   max-width: 70%;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 30px;
+  transition: all 0.3s ease;
 }
 
 .form-sections-container {
   flex: 1;
   max-width: 60%;
   overflow-y: auto;
-  padding-right: 20px;
+  padding-right: 25px;
   height: calc(100vh - 40px);
+  transition: all 0.3s ease;
 }
 
 .preview-container {
   position: fixed; 
-  right: 30px;
-  top: 85px;
+  right: 40px;
+  top: 100px;
   width: 35%;
-  height: calc(90vh - 60px);
+  height: calc(85vh - 60px);
   overflow-y: auto;
-  background: white;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 10;
 }
-/* Estilos adicionales para la vista previa */
 
-/* Estilos adicionales para la vista previa */
+.preview-container:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+}
+
 .preview-section {
-  margin-bottom: 30px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
-  
+  margin-bottom: 35px;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+  padding-bottom: 25px;
+  transition: all 0.4s ease;
+}
+
+.preview-section:hover {
+  border-bottom-color: #d8a4ff;
 }
 
 .preview-section h2 {
-  color: #2c3e50;
-  margin-bottom: 15px;
+  color: #5a287d;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  background: linear-gradient(90deg, #7d3cff, #b56bff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.preview-section h2 svg {
+  color: #9c64ff;
+  transition: all 0.5s ease;
+  filter: drop-shadow(0 2px 5px rgba(156, 100, 255, 0.3));
+}
+
+.preview-section:hover h2 svg {
+  transform: rotate(15deg) scale(1.2);
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  color: #666;
+  gap: 10px;
+  color: #555;
+  transition: all 0.3s ease;
 }
 
 .contact-info div {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(249, 240, 255, 0.5);
 }
-@media (max-width: 1024px) {
+
+.contact-info div:hover {
+  color: #8a4fff;
+  transform: translateX(8px);
+  background: rgba(249, 240, 255, 0.8);
+}
+
+.contact-info svg {
+  transition: all 0.4s ease;
+  color: #9c64ff;
+}
+
+.contact-info div:hover svg {
+  transform: scale(1.3);
+  color: #8a4fff;
+}
+
+/* Responsive design con transiciones */
+@media (max-width: 1200px) {
   .form-stack {
     max-width: 100%;
+    transition: all 0.3s ease;
   }
   
-  .form-sections-container{
-    width: 100%;
-    flex: none;
-    height: auto;
-    padding-right: 0;
-
+  .form-sections-container {
+    max-width: 100%;
+    transition: all 0.3s ease;
   }
+  
   .preview-container {
-    
-    position: relative; 
-    right: auto;      
-    top: auto;    
+    position: relative;
     width: 100%;
-    height: auto;
-    margin-top: 30px; 
-    border-radius: 0; 
-    box-shadow: none; 
-    padding: 15px; 
+    right: auto;
+    top: auto;
+    margin-top: 40px;
+    transition: all 0.3s ease;
   }
 }
 
-.form-container {
-  scroll-margin-top: 20px;
-  transition: transform 0.3s ease;
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    transition: all 0.3s ease;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+    transition: all 0.3s ease;
+  }
+  
+  .form-container {
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-buttons {
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+  
+  button {
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .preview-container {
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
 }
 
-/* Estilos para educacion */
-.education-item {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
+/* Efectos de error animados */
+.error {
+  border-color: #ff3860 !important;
+  animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
 }
 
-.education-item h3 {
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
 }
 
-.institution {
+.error-message {
+  color: #ff3860;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  animation: fadeInUp 0.5s ease;
   font-weight: 500;
-  color: #34495e;
 }
 
-.dates {
-  color: #7f8c8d;
-  font-size: 0.9em;
-  margin: 0.5rem 0;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.description {
-  color: #34495e;
-  line-height: 1.6;
+/* Checkbox personalizado con animación */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  transition: all 0.3s ease;
 }
 
-
-
-/* Estilos base para el modo monocromático */
-body.monochrome-mode {
-  background-color: #333 !important; /* Fondo oscuro */
-  color: white !important; /* Texto blanco */
+.checkbox-group input {
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  border: 2px solid #e0b0ff;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
-body.monochrome-mode .form-background {
-  background: #222 !important; /* Fondo oscuro en el contenedor principal */
+.checkbox-group input:checked {
+  background: #9c64ff;
+  border-color: #9c64ff;
 }
 
-body.monochrome-mode .form-container {
-  background-color: #444 !important; /* Fondo oscuro */
-  color: white !important; /* Texto blanco */
-  border: 1px solid #555 !important; /* Borde oscuro */
+.checkbox-group input:checked::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: checkAnim 0.3s ease;
 }
 
-body.monochrome-mode .form-container h2 {
-  color: white !important; /* Títulos blancos */
-  border-bottom: 2px solid #777 !important; /* Subrayado claro */
+@keyframes checkAnim {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
-body.monochrome-mode .form-container h2 svg {
-  color: white !important; /* Íconos blancos */
+/* Iconos con sombra y animación */
+svg {
+  font-size: 1.1rem;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
 }
 
-body.monochrome-mode .form-group label {
-  color: white !important; /* Labels blancos */
+/* Proyectos con efecto zoom */
+.project-screenshots {
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
 }
 
-body.monochrome-mode input,
-body.monochrome-mode select,
-body.monochrome-mode textarea {
-  background-color: #555 !important; /* Fondo oscuro para inputs */
-  color: white !important; /* Texto blanco en inputs */
-  border: 1px solid #666 !important; /* Borde oscuro en inputs */
+.screenshots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+  transition: all 0.3s ease;
 }
 
-body.monochrome-mode .submit-button {
-  background: #777 !important; /* Fondo más oscuro en botones */
-  color: white !important;
-  border: none !important;
+.screenshot-thumbnail {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-body.monochrome-mode .cancel-button {
-  background: #444 !important; /* Fondo más oscuro para el botón de cancelar */
-  color: white !important;
-  border: 1px solid #666 !important;
+.screenshot-thumbnail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(156,100,255,0.2) 0%, rgba(224,176,255,0.1) 100%);
+  opacity: 0;
+  transition: all 0.4s ease;
 }
 
-body.monochrome-mode .back-button {
-  background: #333 !important;
-  color: white !important;
-  border: 1px solid #666 !important;
+.screenshot-thumbnail:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-body.monochrome-mode .education-card,
-body.monochrome-mode .experience-card,
-body.monochrome-mode .skill-card {
-  background: #555 !important; /* Fondo oscuro en las tarjetas */
-  color: white !important; /* Texto blanco */
+.screenshot-thumbnail:hover::after {
+  opacity: 1;
 }
 
-body.monochrome-mode .card-header {
-  color: white !important; /* Texto blanco en los encabezados de las tarjetas */
+.screenshot-thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: all 0.6s ease;
 }
 
-body.monochrome-mode .contact-info {
-  color: white !important; /* Color blanco en la información de contacto */
+.screenshot-thumbnail:hover img {
+  transform: scale(1.1);
 }
 
-
-body.monochrome-mode .preview-section,
-body.monochrome-mode .project-item,
-body.monochrome-mode .education-item,
-body.monochrome-mode .experience-item {
-  background-color: #333 !important;
-  color: white !important;
-  border: 1px solid #444 !important;
+/* Sección de acciones mejorada */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
 }
 
-
-body.monochrome-mode .preview-container {
-  background: #333 !important;  /* Fondo oscuro */
-  color: white !important;      /* Color de texto blanco */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important; /* Sombra más intensa */
+.section-actions {
+  display: flex;
+  gap: 1.2rem;
+  transition: all 0.3s ease;
 }
 
+.item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+/* Scroll personalizado con animación */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 182, 193, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#9c64ff, #e0b0ff);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9c64ff;
+  box-shadow: 0 0 10px rgba(156,100,255,0.5);
+}
+
+/* Efecto de carga pulsante */
+@keyframes pulse {
+  0% { opacity: 0.6; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(0.98); }
+}
+
+.loading {
+  animation: pulse 1.5s infinite ease-in-out;
+  background: #f5f5f5 !important;
+  color: transparent !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* Botón de volver mejorado */
+.back-button {
+  margin: 2rem auto;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: white;
+  color: #7d3cff;
+  border: 2px solid #e0b0ff;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.back-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #f8f4ff 0%, #ffffff 100%);
+  color: #8a4fff;
+  border-color: #c17dff;
+}
+
+.back-button svg {
+  transition: all 0.4s ease;
+}
+
+.back-button:hover svg {
+  transform: translateX(-5px);
+}
+
+/* Efecto de hover para todos los elementos interactivos */
+button, input[type="checkbox"], select, .screenshot-thumbnail, .preview-section {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Mejoras adicionales para el botón de borrar */
+.delete-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.delete-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: 0.5s;
+}
+
+.delete-button:hover::before {
+  left: 100%;
+}
+
+/* Efecto de hover para las tarjetas del preview */
+.preview-section {
+  position: relative;
+}
+
+.preview-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0b0ff, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s ease;
+}
+
+.preview-section:hover::after {
+  transform: scaleX(1);
+}
+
+/* Mejoras para los campos del formulario */
+.form-group {
+  position: relative;
+}
+
+.form-group::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #9c64ff, #e0b0ff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
 
 
