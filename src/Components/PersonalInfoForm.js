@@ -1,240 +1,238 @@
- import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { FaTrash, FaEdit, FaPlus, FaGraduationCap, FaUserTie, FaBriefcase, FaStar, FaRegStar, FaLanguage, FaQuoteLeft, FaUser, FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaGlobe, FaPhone,FaMapMarker, FaQuoteRight} from 'react-icons/fa';
+import { FaTrash, FaEdit, FaPlus, FaGraduationCap, FaUserTie, FaBriefcase, FaStar, FaRegStar, FaLanguage, FaQuoteLeft, FaUser, FaLinkedin, FaGithub, FaTwitter, FaEnvelope, FaGlobe, FaPhone, FaMapMarker, FaQuoteRight, FaProjectDiagram, FaImage } from 'react-icons/fa';
 import './PersonalInfoForm.css';
 
 const Preview = ({
   personalInfo,
   educations,
   experiences,
+  projects,
   skills,
   languages,
   references,
   contactInfo,
   formatDate,
   renderStars,
-  skillCategories
+  skillCategories,
+  onEditSection
 }) => {
   return (
-    
     <div className="preview-container">
-      {/* Sección de Información Personal */}
-      <section className="preview-section">
-        <h4>{"Vista Previa"}</h4>
-        <h2 >{"Portafolio Profecional"}</h2>
-        <h4>{personalInfo.fullName}</h4>
-        <p className="profession">{personalInfo.profession}</p>
-        <p className="occupation">{personalInfo.occupation}</p>
-        <div className="contact-info">
-          {personalInfo.email && <div><FaEnvelope /> {personalInfo.email}</div>}
-          {personalInfo.phone && <div><FaPhone /> {personalInfo.phone}</div>}
-          {personalInfo.location && <div><FaMapMarker /> {personalInfo.location}</div>}
-        </div>
-      </section>
+      {personalInfo.fullName && (
+        <section className="preview-section">
+          <div className="section-header">
+            <h2><FaUserTie /> Información Personal</h2>
+            <div className="section-actions">
+              <button onClick={() => onEditSection('personal')} className="edit-button">
+                <FaEdit /> Editar
+              </button>
+              <button onClick={() => onEditSection('personal', true)} className="delete-button">
+                <FaTrash /> Borrar
+              </button>
+            </div>
+          </div>
+          <h3>{personalInfo.fullName}</h3>
+          <p className="profession">{personalInfo.profession}</p>
+          <p className="occupation">{personalInfo.occupation}</p>
+          <div className="contact-info">
+            {personalInfo.email && <div><FaEnvelope /> {personalInfo.email}</div>}
+            {personalInfo.phone && <div><FaPhone /> {personalInfo.phone}</div>}
+            {personalInfo.location && <div><FaMapMarker /> {personalInfo.location}</div>}
+          </div>
+        </section>
+      )}
 
-      {/* Educación */}
       {educations?.length > 0 && (
         <section className="preview-section">
-          <h2><FaGraduationCap /> Educación</h2>
+          <div className="section-header">
+            <h2><FaGraduationCap /> Educación</h2>
+          </div>
           {educations.map((edu, index) => (
             <div key={index} className="education-item">
-              {edu.institution && (
-                <div className="responsibilities">
-                  <h4>Instituto:</h4>
-                  <p>{edu.institution}</p>
-                </div>
-              )}
-              {edu.degree && (
-                <div className="institution">
-                  <h4>Titulo:</h4>
-                  <p>{edu.degree}</p>
-                </div>
-              )}
-              <p className="dates">
-                {formatDate(edu?.startDate)} - {edu?.currentlyStudying ? 'Presente' : formatDate(edu?.endDate)}
-              </p>
-              {edu?.description && <p className="description">{edu.description}</p>}
+              <div className="item-actions">
+                <button onClick={() => onEditSection('education', false, index)} className="edit-button">
+                  <FaEdit /> Editar
+                </button>
+                <button onClick={() => onEditSection('education', true, index)} className="delete-button">
+                  <FaTrash /> Borrar
+                </button>
+              </div>
+              {edu.institution && <p><strong>Institución:</strong> {edu.institution}</p>}
+              {edu.degree && <p><strong>Título:</strong> {edu.degree}</p>}
+              <p><strong>Periodo:</strong> {formatDate(edu.startDate)} - {edu.currentlyStudying ? 'Presente' : formatDate(edu.endDate)}</p>
+              {edu.description && <p><strong>Descripción:</strong> {edu.description}</p>}
             </div>
           ))}
         </section>
       )}
 
-      {/* Experiencia Laboral */}
       {experiences.length > 0 && (
         <section className="preview-section">
-          <h2><FaBriefcase /> Experiencia Laboral</h2>
+          <div className="section-header">
+            <h2><FaBriefcase /> Experiencia Laboral</h2>
+          </div>
           {experiences.map((exp, index) => (
             <div key={index} className="experience-item">
-              <h3>{exp.position}</h3>
-              <p className="company">{exp.company}</p>
-              <p className="dates">
-                {formatDate(exp.startDate)} - {exp.currentlyWorking ? 'Presente' : formatDate(exp.endDate)}
-              </p>
-              {exp.startDate && (
-                <div className="responsibilities">
-                  <h4>Fecha De Inicio:</h4>
-                  <p>{exp.startDate}</p>
-                </div>
-              )}
-               {exp.endDate && (
-                <div className="responsibilities">
-                  <h4>Fecha Final:</h4>
-                  <p>{exp.endDate}</p>
-                </div>
-              )}
-              {exp.responsibilities && (
-                <div className="responsibilities">
-                  <h4>Responsabilidades:</h4>
-                  <p>{exp.responsibilities}</p>
-                </div>
-              )}
-               {exp.achievements && (
-                <div className="responsibilities">
-                  <h4>Logros:</h4>
-                  <p>{exp.achievements}</p>
-                </div>
-              )}
-             
+              <div className="item-actions">
+                <button onClick={() => onEditSection('experience', false, index)} className="edit-button">
+                  <FaEdit /> Editar
+                </button>
+                <button onClick={() => onEditSection('experience', true, index)} className="delete-button">
+                  <FaTrash /> Borrar
+                </button>
+              </div>
+              <p><strong>Empresa:</strong> {exp.company}</p>
+              <p><strong>Cargo:</strong> {exp.position}</p>
+              <p><strong>Periodo:</strong> {formatDate(exp.startDate)} - {exp.currentlyWorking ? 'Presente' : formatDate(exp.endDate)}</p>
+              {exp.responsibilities && <p><strong>Responsabilidades:</strong> {exp.responsibilities}</p>}
+              {exp.achievements && <p><strong>Logros:</strong> {exp.achievements}</p>}
             </div>
           ))}
         </section>
       )}
 
-      {/* Habilidades */}
-      {skills.length > 0 && (
+      {projects.length > 0 && (
         <section className="preview-section">
-          <h2><FaStar /> Habilidades</h2>
-          {skillCategories.map((category, catIndex) => {
-            const categorySkills = skills ?.filter(skill => skill ?.category === category);
-            return categorySkills.length > 0 && (
-              <div key={catIndex} className="skill-category">
-                <h4>{category}</h4>
-                <div className="skills-grid">
-                  {categorySkills.map((skill, index) => (
-                    <div key={index} className="skill-item">
-                      <span className="skill-name">{skill ?.name}</span>
-                      <div className="skill-level">{renderStars(skill ?.level || 1)}</div>
-                    </div>
-                  ))}
+          <div className="section-header">
+            <h2><FaProjectDiagram /> Proyectos</h2>
+          </div>
+          <div className="projects-grid">
+            {projects.map((project, index) => (
+              <div key={index} className="project-item">
+                <div className="item-actions">
+                  <button onClick={() => onEditSection('projects', false, index)} className="edit-button">
+                    <FaEdit /> Editar
+                  </button>
+                  <button onClick={() => onEditSection('projects', true, index)} className="delete-button">
+                    <FaTrash /> Borrar
+                  </button>
                 </div>
+                <h3>{project.name}</h3>
+                {project.description && <p><strong>Descripción:</strong> {project.description}</p>}
+                {project.technologies && <p><strong>Tecnologías:</strong> {project.technologies}</p>}
+                {project.link && (
+                  <p>
+                    <strong>Enlace:</strong> 
+                    <a href={project.link} target="_blank" rel="noopener noreferrer">
+                      {project.link}
+                    </a>
+                  </p>
+                )}
+                {project.screenshots && project.screenshots.length > 0 && (
+                  <div className="project-screenshots">
+                    <strong>Capturas:</strong>
+                    <div className="screenshots-grid">
+                      {project.screenshots.map((screenshot, i) => (
+                        <div key={i} className="screenshot-thumbnail">
+                          <img 
+                            src={screenshot} 
+                            alt={`Captura ${i + 1} del proyecto ${project.name}`} 
+                            onClick={() => window.open(screenshot, '_blank')}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            );
-          })}
+            ))}
+          </div>
         </section>
       )}
 
-      {/* Idiomas */}
+      {skills.length > 0 && (
+        <section className="preview-section">
+          <div className="section-header">
+            <h2><FaStar /> Habilidades</h2>
+          </div>
+          <div className="skills-grid">
+            {skills.map((skill, index) => (
+              <div key={index} className="skill-item">
+                <div className="item-actions">
+                  <button onClick={() => onEditSection('skills', false, index)} className="edit-button">
+                    <FaEdit /> Editar
+                  </button>
+                  <button onClick={() => onEditSection('skills', true, index)} className="delete-button">
+                    <FaTrash /> Borrar
+                  </button>
+                </div>
+                <p><strong>{skill.name}</strong> ({skill.category})</p>
+                <div className="skill-level">{renderStars(skill.level)}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {languages.length > 0 && (
         <section className="preview-section">
-          <h2><FaLanguage /> Idiomas</h2>
+          <div className="section-header">
+            <h2><FaLanguage /> Idiomas</h2>
+          </div>
           <div className="languages-grid">
             {languages.map((lang, index) => (
               <div key={index} className="language-item">
-                <span className="language-name">{lang.name}</span>
-                {lang.level && (
-                <div className="responsibilities">
-                  <h4>Nivel:</h4>
-                  <p>{lang.level}</p>
+                <div className="item-actions">
+                  <button onClick={() => onEditSection('languages', false, index)} className="edit-button">
+                    <FaEdit /> Editar
+                  </button>
+                  <button onClick={() => onEditSection('languages', true, index)} className="delete-button">
+                    <FaTrash /> Borrar
+                  </button>
                 </div>
-              )}
+                <p><strong>{lang.name}</strong> - {lang.level}</p>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {/* Referencias */}
       {references.length > 0 && (
         <section className="preview-section">
-          <h2><FaQuoteLeft />Referencias<FaQuoteRight /></h2>
+          <div className="section-header">
+            <h2><FaQuoteLeft /> Referencias</h2>
+          </div>
           <div className="references-grid">
             {references.map((ref, index) => (
               <div key={index} className="reference-item">
-                <div className="quote-icon"></div>
-                <div className="reference-footer">
-
-                  {ref.name && (
-                <div className="reference-name">
-                  <h4>Nombre :</h4>
-                  <p>{ref.name}</p>
+                <div className="item-actions">
+                  <button onClick={() => onEditSection('references', false, index)} className="edit-button">
+                    <FaEdit /> Editar
+                  </button>
+                  <button onClick={() => onEditSection('references', true, index)} className="delete-button">
+                    <FaTrash /> Borrar
+                  </button>
                 </div>
-              )}
-               {ref.relationship && (
-                <div className="reference-relationship">
-                  <h4>Relación :</h4>
-                  <p>{ref.relationship}</p>
-                </div>
-              )}
-               {ref.testimonial && (
-                <div className="reference-relationship">
-                  <h4>Testimonio :</h4>
-                  <p>{ref.testimonial}</p>
-                </div>
-              )}
-              {ref.contsact &&(
-                <div className="reference-contact">
-                  <h4>Contacto :</h4>
-                  <p>{ref.contact}</p>
-                </div>
-              )}
-              </div>
+                <p><strong>{ref.name}</strong> ({ref.relationship})</p>
+                <p>"{ref.testimonial}"</p>
+                {ref.contact && <p><strong>Contacto:</strong> {ref.contact}</p>}
               </div>
             ))}
           </div>
         </section>
       )}
 
-
-
-
-
-      {/* Contacto */}
       {(contactInfo.email || contactInfo.linkedin || contactInfo.github || contactInfo.twitter || contactInfo.website) && (
         <section className="preview-section">
-          <h2><FaEnvelope /> Información De Contacto</h2>
-          <div className="contact-badges">
-            
-            {contactInfo.email &&(
-                <div className="reference-contact">
-                  <h4>Email:</h4>
-                  <a href={`mailto:${contactInfo.email}`} className="contact-badge">
-                  <FaEnvelope /> {contactInfo.email}
-                    </a>
-                </div>
-              )}
-            {contactInfo.linkedin && (
-              <div className='reference-contact'>
-                <h4>LinkedIn</h4>
-              <a href={contactInfo.linkedin} className="contact-badge">
-                <FaLinkedin /> {contactInfo.linkedin}
-              </a>
-              </div>
-            )}
-            {contactInfo.github && (
-              <div className='reference-contact'>
-                <h4>GitHub</h4>
-              <a href={contactInfo.github} className="contact-badge">
-                <FaGithub /> {contactInfo.github}
-              </a>
-              </div>
-            )}
-            {contactInfo.twitter && (
-              <div className='reference-contact'>
-                <h4>Twitter</h4>
-              <a href={contactInfo.twitter} className="contact-badge">
-                <FaTwitter /> {contactInfo.twitter}
-              </a>
-              </div>
-            )}
-            {contactInfo.website && (
-              <div className='reference-contact'>
-                <h4>Website</h4>
-              <a href={contactInfo.website} className="contact-badge">
-                <FaGlobe /> {contactInfo.website}
-              </a>
-              </div>
-            )}
+          <div className="section-header">
+            <h2><FaEnvelope /> Contacto</h2>
+            <div className="section-actions">
+              <button onClick={() => onEditSection('contact')} className="edit-button">
+                <FaEdit /> Editar
+              </button>
+              <button onClick={() => onEditSection('contact', true)} className="delete-button">
+                <FaTrash /> Borrar
+              </button>
+            </div>
+          </div>
+          <div className="contact-info">
+            {contactInfo.email && <div><FaEnvelope /> {contactInfo.email}</div>}
+            {contactInfo.linkedin && <div><FaLinkedin /> {contactInfo.linkedin}</div>}
+            {contactInfo.github && <div><FaGithub /> {contactInfo.github}</div>}
+            {contactInfo.twitter && <div><FaTwitter /> {contactInfo.twitter}</div>}
+            {contactInfo.website && <div><FaGlobe /> {contactInfo.website}</div>}
           </div>
         </section>
       )}
@@ -242,1097 +240,808 @@ const Preview = ({
   );
 };
 
-////
-
-
 export default function PersonalInfoForm() {
   const navigate = useNavigate();
+  const [editingIndex, setEditingIndex] = useState(null);
 
-  // 1. Sección de Información Personal
-  const { register: registerPersonal, handleSubmit: handlePersonalSubmit, reset: resetPersonal,
-     watch: watchPersonal } = useForm();
-  const [personalInfo, setPersonalInfo] = useState({});
+  // 1. Información Personal
+  const { 
+    register: registerPersonal, 
+    handleSubmit: handlePersonalSubmit, 
+    reset: resetPersonal,
+    formState: { errors: personalErrors },
+    setValue: setPersonalValue
+  } = useForm();
 
-  useEffect(() => {
-    const subscription = watchPersonal((value) => {
-      setPersonalInfo(value);
-      localStorage.setItem('personalInfo', JSON.stringify(value));
-    });
-    return () => subscription.unsubscribe();
-  }, [watchPersonal]);
-
-
-  // 2. Sección de Educación
-  const { register: registerEducation, handleSubmit: handleEducationSubmit, reset: resetEducation,
-    watch: watchEducations } = useForm();
-    const [editingIndex, setEditingIndex] = useState(null);
-   const [educations, setEducations] = useState(() => {
-    try {
-      const savedEducations = localStorage.getItem('educations');
-      return savedEducations ? JSON.parse(savedEducations) : [];
-    } catch (error) {
-      return [];
-    }
+  const [personalInfo, setPersonalInfo] = useState(() => {
+    const savedInfo = localStorage.getItem('personalInfo');
+    return savedInfo ? JSON.parse(savedInfo) : {};
   });
 
   useEffect(() => {
-    const subscription = watchEducations((value) => {
-      const currentEducations = Array.isArray(educations) ? educations : [];
-      const updatedEducations = [...currentEducations, value];
-      setEducations(updatedEducations);
-      localStorage.setItem('educations', JSON.stringify(updatedEducations));
-    });
-    return () => subscription.unsubscribe();
-  }, [watchEducations]);
-  
-  
-  // 3. Sección de Experiencia Laboral
-  const { register: registerExperience, handleSubmit: handleExperienceSubmit, reset: resetExperience } = useForm();
-  const [experiences, setExperiences] = useState([]);
-  const [editingExpIndex, setEditingExpIndex] = useState(null);
+    localStorage.setItem('personalInfo', JSON.stringify(personalInfo));
+  }, [personalInfo]);
 
-  // 4. Sección de Habilidades
-  const { register: registerSkill, handleSubmit: handleSkillSubmit, reset: resetSkill } = useForm();
+  const onPersonalSubmit = (data) => {
+    setPersonalInfo(data);
+    resetPersonal();
+    setEditingIndex(null);
+  };
+
+  // 2. Educación
+  const { 
+    register: registerEducation, 
+    handleSubmit: handleEducationSubmit, 
+    reset: resetEducation,
+    watch: watchEducation,
+    setValue: setEducationValue
+  } = useForm();
+
+  const [educations, setEducations] = useState(() => {
+    const saved = localStorage.getItem('educations');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('educations', JSON.stringify(educations));
+  }, [educations]);
+
+  const onEducationSubmit = (data) => {
+    if (editingIndex !== null) {
+      const updated = [...educations];
+      updated[editingIndex] = data;
+      setEducations(updated);
+    } else {
+      setEducations([...educations, data]);
+    }
+    resetEducation();
+    setEditingIndex(null);
+  };
+
+  // 3. Experiencia
+  const { 
+    register: registerExperience, 
+    handleSubmit: handleExperienceSubmit, 
+    reset: resetExperience,
+    watch: watchExperience,
+    setValue: setExperienceValue
+  } = useForm();
+
+  const [experiences, setExperiences] = useState(() => {
+    const saved = localStorage.getItem('experiences');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('experiences', JSON.stringify(experiences));
+  }, [experiences]);
+
+  const onExperienceSubmit = (data) => {
+    if (editingIndex !== null) {
+      const updated = [...experiences];
+      updated[editingIndex] = data;
+      setExperiences(updated);
+    } else {
+      setExperiences([...experiences, data]);
+    }
+    resetExperience();
+    setEditingIndex(null);
+  };
+
+  // 4. Proyectos
+  const { 
+    register: registerProject, 
+    handleSubmit: handleProjectSubmit, 
+    reset: resetProject,
+    setValue: setProjectValue
+  } = useForm();
+
+  const [projects, setProjects] = useState(() => {
+    const saved = localStorage.getItem('projects');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('projects', JSON.stringify(projects));
+  }, [projects]);
+
+  const onProjectSubmit = (data) => {
+    if (data.screenshots && typeof data.screenshots === 'string') {
+      data.screenshots = data.screenshots.split('\n').filter(url => url.trim() !== '');
+    }
+
+    if (editingIndex !== null) {
+      const updated = [...projects];
+      updated[editingIndex] = data;
+      setProjects(updated);
+    } else {
+      setProjects([...projects, data]);
+    }
+    resetProject();
+    setEditingIndex(null);
+  };
+
+  // 5. Habilidades
+  const { 
+    register: registerSkill, 
+    handleSubmit: handleSkillSubmit, 
+    reset: resetSkill,
+    setValue: setSkillValue
+  } = useForm();
+
   const [skills, setSkills] = useState(() => {
-    try {
-    const savedSkills = localStorage.getItem('skills');
-    return savedSkills ? JSON.parse(savedSkills) : [];
-    }
-    catch (error) {
-    return []; 
-  }
+    const saved = localStorage.getItem('skills');
+    return saved ? JSON.parse(saved) : [];
   });
 
+  const skillCategories = ['Frontend', 'Backend', 'Base de Datos', 'DevOps', 'Soft Skills'];
 
+  useEffect(() => {
+    localStorage.setItem('skills', JSON.stringify(skills));
+  }, [skills]);
 
-  const [editingSkillIndex, setEditingSkillIndex] = useState(null);
-  const [skillCategories] = useState(['Frontend', 'Backend', 'Base de Datos', 'DevOps', 'Soft Skills']);
+  const onSkillSubmit = (data) => {
+    if (editingIndex !== null) {
+      const updated = [...skills];
+      updated[editingIndex] = data;
+      setSkills(updated);
+    } else {
+      setSkills([...skills, data]);
+    }
+    resetSkill();
+    setEditingIndex(null);
+  };
 
-  // 5. Sección de Idiomas
-  const { register: registerLanguage, handleSubmit: handleLanguageSubmit, reset: resetLanguage } = useForm();
-  const [languages, setLanguages] = useState([]);
-  const [editingLanguageIndex, setEditingLanguageIndex] = useState(null);
+  // 6. Idiomas
+  const { 
+    register: registerLanguage, 
+    handleSubmit: handleLanguageSubmit, 
+    reset: resetLanguage,
+    setValue: setLanguageValue
+  } = useForm();
+
+  const [languages, setLanguages] = useState(() => {
+    const saved = localStorage.getItem('languages');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const languageLevels = ['Básico', 'Intermedio', 'Avanzado', 'Nativo'];
 
-  // 6. Sección de Referencias Profesionales
+  useEffect(() => {
+    localStorage.setItem('languages', JSON.stringify(languages));
+  }, [languages]);
+
+  const onLanguageSubmit = (data) => {
+    if (editingIndex !== null) {
+      const updated = [...languages];
+      updated[editingIndex] = data;
+      setLanguages(updated);
+    } else {
+      setLanguages([...languages, data]);
+    }
+    resetLanguage();
+    setEditingIndex(null);
+  };
+
+  // 7. Referencias
   const { 
     register: registerReference, 
     handleSubmit: handleReferenceSubmit, 
     reset: resetReference,
-    formState: { isSubmitSuccessful }
+    setValue: setReferenceValue
   } = useForm();
-  const [references, setReferences] = useState([]);
-  const [editingReferenceIndex, setEditingReferenceIndex] = useState(null);
 
-  
+  const [references, setReferences] = useState(() => {
+    const saved = localStorage.getItem('references');
+    return saved ? JSON.parse(saved) : [];
+  });
 
+  useEffect(() => {
+    localStorage.setItem('references', JSON.stringify(references));
+  }, [references]);
 
-  // 7. Sección de Contacto (versión mejorada)
+  const onReferenceSubmit = (data) => {
+    if (editingIndex !== null) {
+      const updated = [...references];
+      updated[editingIndex] = data;
+      setReferences(updated);
+    } else {
+      setReferences([...references, data]);
+    }
+    resetReference();
+    setEditingIndex(null);
+  };
+
+  // 8. Contacto
   const { 
     register: registerContact, 
     handleSubmit: handleContactSubmit, 
     reset: resetContact,
     formState: { errors: contactErrors },
-    watch: watchContact
+    setValue: setContactValue
   } = useForm();
-  const [contactInfo, setContactInfo] = useState({});
+
+  const [contactInfo, setContactInfo] = useState(() => {
+    const saved = localStorage.getItem('contactInfo');
+    return saved ? JSON.parse(saved) : {};
+  });
 
   useEffect(() => {
-    const subscription = watchContact((value) => {
-      setContactInfo(value);
-      localStorage.setItem('contactInfo', JSON.stringify(value));
-    });
-    return () => subscription.unsubscribe();
-  }, [watchContact]);
+    localStorage.setItem('contactInfo', JSON.stringify(contactInfo));
+  }, [contactInfo]);
 
-
-
-  // Cargar datos al iniciar
-  useEffect(() => {
-    const savedPersonalInfo = localStorage.getItem('personalInfo');
-    const savedEducations = localStorage.getItem('educations');
-    const savedExperiences = localStorage.getItem('experiences');
-    const savedSkills = localStorage.getItem('skills');
-    const savedLanguages = localStorage.getItem('languages');
-    const savedReferences = localStorage.getItem('references');
-    const savedContactInfo = localStorage.getItem('contactInfo');
-    
-    if (savedPersonalInfo) setPersonalInfo(JSON.parse(savedPersonalInfo));
-    if (savedEducations) setEducations(JSON.parse(savedEducations));
-    if (savedExperiences) setExperiences(JSON.parse(savedExperiences));
-    if (savedSkills) setSkills(JSON.parse(savedSkills));
-    if (savedLanguages) setLanguages(JSON.parse(savedLanguages));
-    if (savedReferences) setReferences(JSON.parse(savedReferences));
-    if (savedContactInfo) setContactInfo(JSON.parse(savedContactInfo));
-  }, []);
-
-  // Resetear formulario de referencias cuando el submit es exitoso
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      resetReference({
-        name: '',
-        relationship: '',
-        testimonial: '',
-        contact: ''
-      });
-    }
-  }, [isSubmitSuccessful, resetReference]);
-
-  // Guardar información personal
-  const onPersonalSubmit = (data) => {
-    localStorage.setItem('personalInfo', JSON.stringify(data));
-    setPersonalInfo(data);
-    resetPersonal();
-  };
-
-  // Guardar educación
-  const onEducationSubmit = (data) => {
-    const currentEducations = Array.isArray(educations) ? educations : [];
-    const updatedEducations = editingIndex !== null ? 
-      currentEducations.map((edu, i) => i === editingIndex 
-      ? data : edu) : 
-      [...currentEducations, data];
-    
-    setEducations(updatedEducations);
-    localStorage.setItem('educations', JSON.stringify(updatedEducations));
-    resetEducation();
-    setEditingIndex(null);
-  };
-
-  // Guardar experiencia laboral
-  const onExperienceSubmit = (data) => {
-    const updatedExperiences = editingExpIndex !== null ? 
-      experiences.map((exp, i) => i === editingExpIndex ? data : exp) : 
-      [...experiences, data];
-    
-    updatedExperiences.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
-    
-    setExperiences(updatedExperiences);
-    localStorage.setItem('experiences', JSON.stringify(updatedExperiences));
-    resetExperience();
-    setEditingExpIndex(null);
-  };
-
-  // Guardar habilidad
-  const onSkillSubmit = (data) => {
-    const currentSkills = Array.isArray(skills) ? skills : []; // Validación extra
-    const updatedSkills = editingSkillIndex !== null ? 
-      currentSkills.map((skill, i) => i === editingSkillIndex ? data : skill) : 
-      [...currentSkills, data];
-    
-    setSkills(updatedSkills);
-    localStorage.setItem('skills', JSON.stringify(updatedSkills));
-    resetSkill();
-    setEditingSkillIndex(null);
-  };
-
-  // Guardar idioma
-  const onLanguageSubmit = (data) => {
-    const updatedLanguages = editingLanguageIndex !== null ? 
-      languages.map((lang, i) => i === editingLanguageIndex ? data : lang) : 
-      [...languages, data];
-    
-    setLanguages(updatedLanguages);
-    localStorage.setItem('languages', JSON.stringify(updatedLanguages));
-    resetLanguage();
-    setEditingLanguageIndex(null);
-  };
-
-  // Guardar referencia
-  const onReferenceSubmit = (data) => {
-    const updatedReferences = editingReferenceIndex !== null ? 
-      references.map((ref, i) => i === editingReferenceIndex ? data : ref) : 
-      [...references, data];
-    
-    setReferences(updatedReferences);
-    localStorage.setItem('references', JSON.stringify(updatedReferences));
-    setEditingReferenceIndex(null);
-  };
-
-  // Guardar información de contacto (versión mejorada)
   const onContactSubmit = (data) => {
-    localStorage.setItem('contactInfo', JSON.stringify(data));
     setContactInfo(data);
-  };
-
-  // Validar URL
-  const isValidUrl = (url) => {
-    try {
-      new URL(url);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  // Manejo de educación
-  const handleEditEducation = (index) => {
-    setEditingIndex(index);
-    resetEducation(educations[index]);
-  };
-
-  const handleDeleteEducation = (index) => {
-    const updatedEducations = educations.filter((_, i) => i !== index);
-    setEducations(updatedEducations);
-    localStorage.setItem('educations', JSON.stringify(updatedEducations));
-  };
-
-  // Manejo de experiencia laboral
-  const handleEditExperience = (index) => {
-    setEditingExpIndex(index);
-    resetExperience(experiences[index]);
-  };
-
-  const handleDeleteExperience = (index) => {
-    const updatedExperiences = experiences.filter((_, i) => i !== index);
-    setExperiences(updatedExperiences);
-    localStorage.setItem('experiences', JSON.stringify(updatedExperiences));
-  };
-
-  // Manejo de habilidades
-  const handleEditSkill = (index) => {
-    setEditingSkillIndex(index);
-    resetSkill(skills[index]);
-  };
-
-  const handleDeleteSkill = (index) => {
-    const updatedSkills = skills.filter((_, i) => i !== index);
-    setSkills(updatedSkills);
-    localStorage.setItem('skills', JSON.stringify(updatedSkills));
-  };
-
-  // Manejo de idiomas
-  const handleEditLanguage = (index) => {
-    setEditingLanguageIndex(index);
-    resetLanguage(languages[index]);
-  };
-
-  const handleDeleteLanguage = (index) => {
-    const updatedLanguages = languages.filter((_, i) => i !== index);
-    setLanguages(updatedLanguages);
-    localStorage.setItem('languages', JSON.stringify(updatedLanguages));
-  };
-
-  // Manejo de referencias
-  const handleEditReference = (index) => {
-    setEditingReferenceIndex(index);
-    resetReference(references[index]);
-  };
-
-  const handleDeleteReference = (index) => {
-    const updatedReferences = references.filter((_, i) => i !== index);
-    setReferences(updatedReferences);
-    localStorage.setItem('references', JSON.stringify(updatedReferences));
-  };
-
-  // Funciones de cancelar
-  const handleCancelEdit = () => {
+    resetContact();
     setEditingIndex(null);
-    resetEducation();
   };
 
-  const handleCancelExpEdit = () => {
-    setEditingExpIndex(null);
-    resetExperience();
-  };
-
-  const handleCancelSkillEdit = () => {
-    setEditingSkillIndex(null);
-    resetSkill();
-  };
-
-  const handleCancelLanguageEdit = () => {
-    setEditingLanguageIndex(null);
-    resetLanguage();
-  };
-
-  const handleCancelReferenceEdit = () => {
-    setEditingReferenceIndex(null);
-    resetReference({
-      name: '',
-      relationship: '',
-      testimonial: '',
-      contact: ''
-    });
-  };
-
-  // Renderizar estrellas de habilidad
   const renderStars = (level) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        i <= level ? 
-        <FaStar key={i} className="star-filled" /> : 
-        <FaRegStar key={i} className="star-empty" />
-      );
-    }
-    return stars;
+    return Array(5).fill(0).map((_, i) => 
+      i < level ? <FaStar key={i} className="star-filled" /> : <FaRegStar key={i} className="star-empty" />
+    );
   };
 
-  // Formatear fecha
   const formatDate = (dateString) => {
     if (!dateString) return 'Presente';
     const options = { year: 'numeric', month: 'short' };
     return new Date(dateString).toLocaleDateString('es-ES', options);
   };
 
-  // Renderizar nivel de idioma
-  const renderLanguageLevel = (level) => {
-    switch(level) {
-      case 'Básico':
-        return <span className="language-level basic">{level}</span>;
-      case 'Intermedio':
-        return <span className="language-level intermediate">{level}</span>;
-      case 'Avanzado':
-        return <span className="language-level advanced">{level}</span>;
-      case 'Nativo':
-        return <span className="language-level native">{level}</span>;
-      default:
-        return <span className="language-level">{level}</span>;
+  const isValidUrl = (url) => {
+    try { new URL(url); return true; } catch { return false; }
+  };
+
+  const handleEditFromPreview = (section, isDelete = false, index = null) => {
+    if (isDelete) {
+      if (section === 'personal') {
+        setPersonalInfo({});
+        localStorage.removeItem('personalInfo');
+      } 
+      else if (section === 'contact') {
+        setContactInfo({});
+        localStorage.removeItem('contactInfo');
+      }
+      else if (index !== null) {
+        const updateState = {
+          education: setEducations,
+          experience: setExperiences,
+          projects: setProjects,
+          skills: setSkills,
+          languages: setLanguages,
+          references: setReferences
+        };
+        const currentData = {
+          education: educations,
+          experience: experiences,
+          projects: projects,
+          skills: skills,
+          languages: languages,
+          references: references
+        };
+        
+        const updated = currentData[section].filter((_, i) => i !== index);
+        updateState[section](updated);
+      }
+      return;
     }
+
+    setEditingIndex(index);
+
+    if (index !== null) {
+      const data = {
+        education: educations[index],
+        experience: experiences[index],
+        projects: projects[index],
+        skills: skills[index],
+        languages: languages[index],
+        references: references[index]
+      };
+      
+      const resetFunctions = {
+        education: resetEducation,
+        experience: resetExperience,
+        projects: resetProject,
+        skills: resetSkill,
+        languages: resetLanguage,
+        references: resetReference
+      };
+      
+      resetFunctions[section](data[section]);
+
+      if (section === 'projects' && data.projects.screenshots) {
+        setProjectValue('screenshots', data.projects.screenshots.join('\n'));
+      }
+    } 
+    else if (section === 'personal') {
+      Object.entries(personalInfo).forEach(([key, value]) => {
+        setPersonalValue(key, value);
+      });
+    } 
+    else if (section === 'contact') {
+      Object.entries(contactInfo).forEach(([key, value]) => {
+        setContactValue(key, value);
+      });
+    }
+
+    document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <div className="form-background">
-       <div className="form-stack">
-       <div className="form-sections-container">
-
-      {/* 1. Sección de Información Personal */}
-      <div className="form-container personal-info-container">
-        <h2><FaUserTie /> Información Personal</h2>
-        <form onSubmit={handlePersonalSubmit(onPersonalSubmit)}>
-          <div className="form-group">
-            <label>Nombre Completo</label>
-            <input
-              type="text"
-              {...registerPersonal('fullName')}
-              placeholder="Tu nombre completo"
-            />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Profesión</label>
-              <input
-                type="text"
-                {...registerPersonal('profession')}
-                placeholder="Tu profesión"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Ocupación</label>
-              <select {...registerPersonal('occupation')}>
-                <option value="">Seleccione una opción</option>
-                <option value="Estudiante">Estudiante</option>
-                <option value="Profesional">Profesional</option>
-                <option value="Independiente">Independiente</option>
-                <option value="Empleado">Empleado</option>
-                <option value="Desempleado">Desempleado</option>
-                <option value="Jubilado">Jubilado</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              {...registerPersonal('email')}
-              placeholder="tu@email.com"
-            />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Teléfono</label>
-              <input
-                type="tel"
-                {...registerPersonal('phone')}
-                placeholder="Número de teléfono"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Ubicación</label>
-              <input
-                type="text"
-                {...registerPersonal('location')}
-                placeholder="Ciudad, País"
-              />
-            </div>
-          </div>
-
-          <button type="submit" className="submit-button">Guardar Información</button>
-        </form>
-      </div>
-
-      {/* 2. Sección de Educación */}
-      <div className="form-container education-container">
-        <h2><FaGraduationCap /> Formación Académica</h2>
-        
-        <form onSubmit={handleEducationSubmit(onEducationSubmit)} className="education-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label>Institución</label>
-              <input
-                type="text"
-                {...registerEducation('institution')}
-                placeholder="Nombre de la institución"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Título</label>
-              <input
-                type="text"
-                {...registerEducation('degree')}
-                placeholder="Título obtenido"
-              />
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Fecha Inicio</label>
-              <input
-                type="date"
-                {...registerEducation('startDate')}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Fecha Fin</label>
-              <input
-                type="date"
-                {...registerEducation('endDate')}
-                disabled={editingIndex !== null && educations[editingIndex]?.currentlyStudying}
-              />
-              <div className="checkbox-group">
+      <div className="form-stack">
+        <div className="form-sections-container">
+          
+          <div id="personal" className="form-container personal-info-container">
+            <h2><FaUserTie /> Información Personal</h2>
+            <form onSubmit={handlePersonalSubmit(onPersonalSubmit)}>
+              <div className="form-group">
+                <label>Nombre Completo*</label>
                 <input
-                  type="checkbox"
-                  id="currentlyStudying"
-                  {...registerEducation('currentlyStudying')}
+                  type="text"
+                  {...registerPersonal('fullName', { required: 'Campo requerido' })}
+                  placeholder="Tu nombre completo"
                 />
-                <label htmlFor="currentlyStudying">Actualmente estudiando</label>
+                {personalErrors.fullName && <span className="error">{personalErrors.fullName.message}</span>}
               </div>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Descripción</label>
-            <textarea
-              {...registerEducation('description')}
-              rows="3"
-              placeholder="Logros, actividades relevantes..."
-            />
-          </div>
-
-          <div className="form-buttons">
-            <button type="submit" className="submit-button">
-              {editingIndex !== null ? <><FaEdit /> Actualizar</> : <><FaPlus /> Agregar</>}
-            </button>
-            {editingIndex !== null && (
-              <button type="button" onClick={handleCancelEdit} className="cancel-button">
-                Cancelar
-              </button>
-            )}
-          </div>
-        </form>
-
-        {educations?.length > 0 && (
-          <div className="education-list">
-            <h3>Historial Académico</h3>
-            {educations?.map((edu, index) => (
-              <div key={index} className="education-card">
-                <div className="card-header">
-                  <h4>{edu?.degree}</h4>
-                  <div className="card-actions">
-                    <button onClick={() => handleEditEducation(index)} className="edit-button">
-                      <FaEdit />
-                    </button>
-                    <button onClick={() => handleDeleteEducation(index)} className="delete-button">
-                      <FaTrash />
-                    </button>
-                  </div>
-                </div>
-                <p className="institution">{edu?.institution}</p>
-                <p className="dates">
-                  {formatDate(edu?.startDate)} - {edu?.currentlyStudying ? 'Presente' : formatDate(edu?.endDate)}
-                </p>
-                {edu?.description && <p className="description">{edu.description}</p>}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* 3. Sección de Experiencia Laboral */}
-      <div className="form-container experience-container">
-        <h2><FaBriefcase /> Experiencia Laboral</h2>
-        
-        <form onSubmit={handleExperienceSubmit(onExperienceSubmit)} className="experience-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label>Empresa</label>
-              <input
-                type="text"
-                {...registerExperience('company')}
-                placeholder="Nombre de la empresa"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Cargo/Posición</label>
-              <input
-                type="text"
-                {...registerExperience('position')}
-                placeholder="Tu puesto de trabajo"
-              />
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Fecha Inicio</label>
-              <input
-                type="date"
-                {...registerExperience('startDate')}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Fecha Fin</label>
-              <input
-                type="date"
-                {...registerExperience('endDate')}
-                disabled={editingExpIndex !== null && experiences[editingExpIndex]?.currentlyWorking}
-              />
-              <div className="checkbox-group">
-                <input
-                  type="checkbox"
-                  id="currentlyWorking"
-                  {...registerExperience('currentlyWorking')}
-                />
-                <label htmlFor="currentlyWorking">Actualmente trabajo aquí</label>
-              </div>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Responsabilidades</label>
-            <textarea
-              {...registerExperience('responsibilities')}
-              rows="3"
-              placeholder="Describe tus responsabilidades principales..."
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Logros</label>
-            <textarea
-              {...registerExperience('achievements')}
-              rows="2"
-              placeholder="Logros destacados en este puesto..."
-            />
-          </div>
-
-          <div className="form-buttons">
-            <button type="submit" className="submit-button">
-              {editingExpIndex !== null ? <><FaEdit /> Actualizar</> : <><FaPlus /> Agregar</>}
-            </button>
-            {editingExpIndex !== null && (
-              <button type="button" onClick={handleCancelExpEdit} className="cancel-button">
-                Cancelar
-              </button>
-            )}
-          </div>
-        </form>
-
-        {experiences.length > 0 && (
-          <div className="experience-list">
-            <h3>Historial Laboral</h3>
-            {experiences.map((exp, index) => (
-              <div key={index} className="experience-card">
-                <div className="card-header">
-                  <h4>{exp.position} - {exp.company}</h4>
-                  <div className="card-actions">
-                    <button onClick={() => handleEditExperience(index)} className="edit-button">
-                      <FaEdit />
-                    </button>
-                    <button onClick={() => handleDeleteExperience(index)} className="delete-button">
-                      <FaTrash />
-                    </button>
-                  </div>
-                </div>
-                <p className="dates">
-                  {formatDate(exp.startDate)} - {exp.currentlyWorking ? 'Presente' : formatDate(exp.endDate)}
-                </p>
-                <div className="responsibilities">
-                  <h5>Responsabilidades:</h5>
-                  <p>{exp.responsibilities}</p>
-                </div>
-                {exp.achievements && (
-                  <div className="achievements">
-                    <h5>Logros:</h5>
-                    <p>{exp.achievements}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* 4. Sección de Habilidades */}
-      <div className="form-container skills-container">
-        <h2><FaStar /> Habilidades</h2>
-        
-        <form onSubmit={handleSkillSubmit(onSkillSubmit)} className="skills-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label>Nombre de la Habilidad</label>
-              <input
-                type="text"
-                {...registerSkill('name')}
-                placeholder="Ej: JavaScript, React, Comunicación"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Categoría</label>
-              <select {...registerSkill('category')}>
-                <option value="">Seleccione categoría</option>
-                {skillCategories.map((category, index) => (
-                  <option key={index} value={category}>{category}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Nivel (1-5)</label>
-            <select {...registerSkill('level', { valueAsNumber: true })}>
-              <option value="">Seleccione nivel</option>
-              <option value="1">1 - Básico</option>
-              <option value="2">2 - Principiante</option>
-              <option value="3">3 - Intermedio</option>
-              <option value="4">4 - Avanzado</option>
-              <option value="5">5 - Experto</option>
-            </select>
-          </div>
-
-          <div className="form-buttons">
-            <button type="submit" className="submit-button">
-              {editingSkillIndex !== null ? <><FaEdit /> Actualizar</> : <><FaPlus /> Agregar</>}
-            </button>
-            {editingSkillIndex !== null && (
-              <button type="button" onClick={handleCancelSkillEdit} className="cancel-button">
-                Cancelar
-              </button>
-            )}
-          </div>
-        </form>
-
-        {skills ?.length > 0 && (
-          <div className="skills-list">
-            <h3>Tus Habilidades</h3>
-            {skillCategories.map((category, catIndex) => {
-              const categorySkills = skills ?.filter(skill => skill.category === category) || [];
-              if (categorySkills.length === 0) return null;
               
-              return (
-                categorySkills.length > 0 && (
-                <div key={catIndex} className="skills-category">
-                  <h4>{category}</h4>
-                  <div className="skills-grid">
-                    {categorySkills.map((skill, index) => (
-                      <div key={index} className="skill-card">
-                        <div className="skill-header">
-                          <span className="skill-name">{skill.name}</span>
-                          <div className="skill-actions">
-                            <button onClick={() => handleEditSkill(skills.findIndex(s => s === skill))} className="edit-button">
-                              <FaEdit />
-                            </button>
-                            <button onClick={() => handleDeleteSkill(skills.findIndex(s => s === skill))} className="delete-button">
-                              <FaTrash />
-                            </button>
-                          </div>
-                        </div>
-                        <div className="skill-level">
-                          {renderStars(skill.level)}
-                          <span className="level-text">
-                            {skill.level === 1 && 'Básico'}
-                            {skill.level === 2 && 'Principiante'}
-                            {skill.level === 3 && 'Intermedio'}
-                            {skill.level === 4 && 'Avanzado'}
-                            {skill.level === 5 && 'Experto'}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Profesión*</label>
+                  <input
+                    type="text"
+                    {...registerPersonal('profession', { required: 'Campo requerido' })}
+                    placeholder="Tu profesión"
+                  />
                 </div>
-                )
-              );
-            })}
-          </div>
-          )}
-      </div>
-
-      {/* 5. Sección de Idiomas */}
-      <div className="form-container languages-container">
-        <h2><FaLanguage /> Idiomas</h2>
-        
-        <form onSubmit={handleLanguageSubmit(onLanguageSubmit)} className="languages-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label>Idioma</label>
-              <input
-                type="text"
-                {...registerLanguage('name')}
-                placeholder="Ej: Inglés, Francés, Español"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Nivel</label>
-              <select {...registerLanguage('level')}>
-                <option value="">Seleccione nivel</option>
-                {languageLevels.map((level, index) => (
-                  <option key={index} value={level}>{level}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="form-buttons">
-            <button type="submit" className="submit-button">
-              {editingLanguageIndex !== null ? <><FaEdit /> Actualizar</> : <><FaPlus /> Agregar</>}
-            </button>
-            {editingLanguageIndex !== null && (
-              <button type="button" onClick={handleCancelLanguageEdit} className="cancel-button">
-                Cancelar
+                
+                <div className="form-group">
+                  <label>Ocupación*</label>
+                  <select
+                    {...registerPersonal('occupation', { required: 'Campo requerido' })}
+                  >
+                    <option value="">Seleccione</option>
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Profesional">Profesional</option>
+                    <option value="Independiente">Independiente</option>
+                    <option value="Empleado">Empleado</option>
+                    <option value="Desempleado">Desempleado</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label>Email*</label>
+                <input
+                  type="email"
+                  {...registerPersonal('email', { 
+                    required: 'Campo requerido',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Email inválido"
+                    }
+                  })}
+                  placeholder="tu@email.com"
+                />
+                {personalErrors.email && <span className="error">{personalErrors.email.message}</span>}
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Teléfono*</label>
+                  <input
+                    type="tel"
+                    {...registerPersonal('phone', { required: 'Campo requerido' })}
+                    placeholder="Número de teléfono"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label>Ubicación*</label>
+                  <input
+                    type="text"
+                    {...registerPersonal('location', { required: 'Campo requerido' })}
+                    placeholder="Ciudad, País"
+                  />
+                </div>
+              </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Guardar'}
               </button>
-            )}
+            </form>
           </div>
-        </form>
 
-        {languages.length > 0 && (
-          <div className="languages-list">
-            <h3>Tus Idiomas</h3>
-            <div className="languages-grid">
-              {languages.map((language, index) => (
-                <div key={index} className="language-card">
-                  <div className="language-header">
-                    <h4>{language.name}</h4>
-                    <div className="language-actions">
-                      <button onClick={() => handleEditLanguage(index)} className="edit-button">
-                        <FaEdit />
-                      </button>
-                      <button onClick={() => handleDeleteLanguage(index)} className="delete-button">
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="language-level-container">
-                    {renderLanguageLevel(language.level)}
-                  </div>
+          <div id="education" className="form-container education-container">
+            <h2><FaGraduationCap /> Educación</h2>
+            <form onSubmit={handleEducationSubmit(onEducationSubmit)}>
+              <div className="form-group">
+                <label>Institución*</label>
+                <input
+                  type="text"
+                  {...registerEducation('institution', { required: 'Campo requerido' })}
+                  placeholder="Nombre de la institución"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Título*</label>
+                <input
+                  type="text"
+                  {...registerEducation('degree', { required: 'Campo requerido' })}
+                  placeholder="Título obtenido"
+                />
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Fecha Inicio*</label>
+                  <input
+                    type="date"
+                    {...registerEducation('startDate', { required: 'Campo requerido' })}
+                  />
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 6. Sección de Referencias Profesionales */}
-      <div className="form-container references-container">
-        <h2><FaQuoteLeft /> Referencias Profesionales</h2>
-        
-        <form 
-          onSubmit={handleReferenceSubmit(onReferenceSubmit)} 
-          className="references-form"
-          key={references.length}
-        >
-          <div className="form-row">
-            <div className="form-group">
-              <label>Nombre</label>
-              <input
-                type="text"
-                {...registerReference('name')}
-                placeholder="Nombre completo"
-                defaultValue=""
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Relación</label>
-              <input
-                type="text"
-                {...registerReference('relationship')}
-                placeholder="Ej: Jefe, Colega, Cliente"
-                defaultValue=""
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Testimonio</label>
-            <textarea
-              {...registerReference('testimonial')}
-              rows="4"
-              placeholder="Lo que esta persona dice sobre tu trabajo..."
-              defaultValue=""
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Contacto (opcional)</label>
-            <input
-              type="text"
-              {...registerReference('contact')}
-              placeholder="Email o teléfono"
-              defaultValue=""
-            />
-          </div>
-
-          <div className="form-buttons">
-            <button type="submit" className="submit-button">
-              {editingReferenceIndex !== null ? <><FaEdit /> Actualizar</> : <><FaPlus /> Agregar</>}
-            </button>
-            {editingReferenceIndex !== null && (
-              <button 
-                type="button" 
-                onClick={handleCancelReferenceEdit} 
-                className="cancel-button"
-              >
-                Cancelar
+                
+                <div className="form-group">
+                  <label>Fecha Fin</label>
+                  <input
+                    type="date"
+                    {...registerEducation('endDate')}
+                    disabled={watchEducation('currentlyStudying')}
+                  />
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      {...registerEducation('currentlyStudying')}
+                    />
+                    Actualmente estudiando
+                  </label>
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label>Descripción</label>
+                <textarea
+                  {...registerEducation('description')}
+                  rows="3"
+                  placeholder="Logros, actividades relevantes..."
+                />
+              </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Agregar'}
               </button>
-            )}
+            </form>
           </div>
-        </form>
 
-        {references.length > 0 && (
-          <div className="references-list">
-            <h3>Tus Referencias</h3>
-            <div className="references-grid">
-              {references.map((reference, index) => (
-                <div key={index} className="reference-card">
-                  <div className="reference-header">
-                    <div className="reference-avatar">
-                      <FaUser />
-                    </div>
-                    <div>
-                      <h4>{reference.name}</h4>
-                      <p className="reference-relationship">{reference.relationship}</p>
-                    </div>
-                    <div className="reference-actions">
-                      <button onClick={() => handleEditReference(index)} className="edit-button">
-                        <FaEdit />
-                      </button>
-                      <button onClick={() => handleDeleteReference(index)} className="delete-button">
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="reference-testimonial">
-                    <FaQuoteLeft className="quote-icon" />
-                    <p>{reference.testimonial}</p>
-                  </div>
-                  {reference.contact && (
-                    <div className="reference-contact">
-                      <strong>Contacto:</strong> {reference.contact}
-                    </div>
-                  )}
+          <div id="experience" className="form-container experience-container">
+            <h2><FaBriefcase /> Experiencia Laboral</h2>
+            <form onSubmit={handleExperienceSubmit(onExperienceSubmit)}>
+              <div className="form-group">
+                <label>Empresa*</label>
+                <input
+                  type="text"
+                  {...registerExperience('company', { required: 'Campo requerido' })}
+                  placeholder="Nombre de la empresa"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Posición*</label>
+                <input
+                  type="text"
+                  {...registerExperience('position', { required: 'Campo requerido' })}
+                  placeholder="Tu puesto de trabajo"
+                />
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Fecha Inicio*</label>
+                  <input
+                    type="date"
+                    {...registerExperience('startDate', { required: 'Campo requerido' })}
+                  />
                 </div>
-              ))}
-            </div>
+                
+                <div className="form-group">
+                  <label>Fecha Fin</label>
+                  <input
+                    type="date"
+                    {...registerExperience('endDate')}
+                    disabled={watchExperience('currentlyWorking')}
+                  />
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      {...registerExperience('currentlyWorking')}
+                    />
+                    Actualmente trabajo aquí
+                  </label>
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label>Responsabilidades*</label>
+                <textarea
+                  {...registerExperience('responsibilities', { required: 'Campo requerido' })}
+                  rows="3"
+                  placeholder="Describe tus responsabilidades principales..."
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Logros</label>
+                <textarea
+                  {...registerExperience('achievements')}
+                  rows="2"
+                  placeholder="Logros destacados en este puesto..."
+                />
+              </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Agregar'}
+              </button>
+            </form>
           </div>
-        )}
-      </div>
 
-      {/* 7. Sección de Contacto - Versión Mejorada */}
-      <div className="form-container contact-container">
-        <h2><FaEnvelope /> Información de Contacto</h2>
-        
-        <form onSubmit={handleContactSubmit(onContactSubmit)} className="contact-form">
-          <div className="form-group">
-            <label>Email Principal*</label>
-            <div className="input-with-icon">
-              <FaEnvelope className="input-icon" />
-              <input
-                type="email"
-                {...registerContact('email', {
-                  required: "El email es requerido",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Ingrese un email válido"
-                  }
-                })}
-                placeholder="tu.email@ejemplo.com"
-              />
-            </div>
-            {contactErrors.email && <span className="error-message">{contactErrors.email.message}</span>}
+          <div id="projects" className="form-container projects-container">
+            <h2><FaProjectDiagram /> Proyectos</h2>
+            <form onSubmit={handleProjectSubmit(onProjectSubmit)}>
+              <div className="form-group">
+                <label>Nombre del Proyecto*</label>
+                <input
+                  type="text"
+                  {...registerProject('name', { required: 'Campo requerido' })}
+                  placeholder="Nombre del proyecto"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Descripción*</label>
+                <textarea
+                  {...registerProject('description', { required: 'Campo requerido' })}
+                  rows="3"
+                  placeholder="Descripción del proyecto, objetivos..."
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Tecnologías Usadas*</label>
+                <input
+                  type="text"
+                  {...registerProject('technologies', { required: 'Campo requerido' })}
+                  placeholder="Ej: React, Node.js, MongoDB"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Enlace al Proyecto</label>
+                <input
+                  type="url"
+                  {...registerProject('link', {
+                    validate: v => !v || isValidUrl(v) || "URL inválida"
+                  })}
+                  placeholder="https://tusitio.com/proyecto"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Capturas de Pantalla (URLs)</label>
+                <textarea
+                  {...registerProject('screenshots')}
+                  rows="3"
+                  placeholder="Pega una URL por línea\nEj: https://ejemplo.com/imagen1.png\nhttps://ejemplo.com/imagen2.png"
+                />
+                <small className="help-text">Puedes subir imágenes a servicios como Imgur y pegar las URLs aquí</small>
+              </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Agregar'}
+              </button>
+            </form>
           </div>
 
-          <div className="social-networks-grid">
-            {/* LinkedIn */}
-            <div className="form-group">
-              <label>LinkedIn</label>
-              <div className="input-with-icon">
-                <FaLinkedin className="input-icon" />
+          <div id="skills" className="form-container skills-container">
+            <h2><FaStar /> Habilidades</h2>
+            <form onSubmit={handleSkillSubmit(onSkillSubmit)}>
+              <div className="form-group">
+                <label>Nombre*</label>
+                <input
+                  type="text"
+                  {...registerSkill('name', { required: 'Campo requerido' })}
+                  placeholder="Ej: JavaScript, React"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Categoría*</label>
+                <select
+                  {...registerSkill('category', { required: 'Campo requerido' })}
+                >
+                  <option value="">Seleccione categoría</option>
+                  {skillCategories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label>Nivel (1-5)*</label>
+                <select
+                  {...registerSkill('level', { 
+                    required: 'Campo requerido',
+                    valueAsNumber: true 
+                  })}
+                >
+                  <option value="">Seleccione nivel</option>
+                  <option value="1">1 - Básico</option>
+                  <option value="2">2 - Principiante</option>
+                  <option value="3">3 - Intermedio</option>
+                  <option value="4">4 - Avanzado</option>
+                  <option value="5">5 - Experto</option>
+                </select>
+              </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Agregar'}
+              </button>
+            </form>
+          </div>
+
+          <div id="languages" className="form-container languages-container">
+            <h2><FaLanguage /> Idiomas</h2>
+            <form onSubmit={handleLanguageSubmit(onLanguageSubmit)}>
+              <div className="form-group">
+                <label>Idioma*</label>
+                <input
+                  type="text"
+                  {...registerLanguage('name', { required: 'Campo requerido' })}
+                  placeholder="Ej: Inglés, Francés"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Nivel*</label>
+                <select
+                  {...registerLanguage('level', { required: 'Campo requerido' })}
+                >
+                  <option value="">Seleccione nivel</option>
+                  {languageLevels.map(level => (
+                    <option key={level} value={level}>{level}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Agregar'}
+              </button>
+            </form>
+          </div>
+
+          <div id="references" className="form-container references-container">
+            <h2><FaQuoteLeft /> Referencias</h2>
+            <form onSubmit={handleReferenceSubmit(onReferenceSubmit)}>
+              <div className="form-group">
+                <label>Nombre*</label>
+                <input
+                  type="text"
+                  {...registerReference('name', { required: 'Campo requerido' })}
+                  placeholder="Nombre completo"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Relación*</label>
+                <input
+                  type="text"
+                  {...registerReference('relationship', { required: 'Campo requerido' })}
+                  placeholder="Ej: Jefe, Colega"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Testimonio*</label>
+                <textarea
+                  {...registerReference('testimonial', { required: 'Campo requerido' })}
+                  rows="4"
+                  placeholder="Lo que dice sobre tu trabajo..."
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Contacto</label>
+                <input
+                  type="text"
+                  {...registerReference('contact')}
+                  placeholder="Email o teléfono"
+                />
+              </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Agregar'}
+              </button>
+            </form>
+          </div>
+
+          <div id="contact" className="form-container contact-container">
+            <h2><FaEnvelope /> Contacto</h2>
+            <form onSubmit={handleContactSubmit(onContactSubmit)}>
+              <div className="form-group">
+                <label>Email*</label>
+                <input
+                  type="email"
+                  {...registerContact('email', { 
+                    required: 'Campo requerido',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Email inválido"
+                    }
+                  })}
+                  placeholder="tu@email.com"
+                />
+                {contactErrors.email && <span className="error">{contactErrors.email.message}</span>}
+              </div>
+              
+              <div className="form-group">
+                <label>LinkedIn</label>
                 <input
                   type="url"
                   {...registerContact('linkedin', {
-                    validate: {
-                      validUrl: value => !value || isValidUrl(value) || "URL inválida",
-                      linkedinDomain: value => !value || value.includes('linkedin.com') || "Debe ser un enlace de LinkedIn"
-                    }
+                    validate: v => !v || isValidUrl(v) || "URL inválida"
                   })}
                   placeholder="https://linkedin.com/in/tu-perfil"
                 />
               </div>
-              {contactErrors.linkedin && <span className="error-message">{contactErrors.linkedin.message}</span>}
-            </div>
-
-            {/* GitHub */}
-            <div className="form-group">
-              <label>GitHub</label>
-              <div className="input-with-icon">
-                <FaGithub className="input-icon" />
+              
+              <div className="form-group">
+                <label>GitHub</label>
                 <input
                   type="url"
                   {...registerContact('github', {
-                    validate: {
-                      validUrl: value => !value || isValidUrl(value) || "URL inválida",
-                      githubDomain: value => !value || value.includes('github.com') || "Debe ser un enlace de GitHub"
-                    }
+                    validate: v => !v || isValidUrl(v) || "URL inválida"
                   })}
                   placeholder="https://github.com/tu-usuario"
                 />
               </div>
-              {contactErrors.github && <span className="error-message">{contactErrors.github.message}</span>}
-            </div>
-
-            {/* Twitter/X */}
-            <div className="form-group">
-              <label>Twitter/X</label>
-              <div className="input-with-icon">
-                <FaTwitter className="input-icon" />
-                <input
-                  type="url"
-                  {...registerContact('twitter', {
-                    validate: {
-                      validUrl: value => !value || isValidUrl(value) || "URL inválida",
-                      twitterDomain: value => !value || 
-                        (value.includes('twitter.com') || value.includes('x.com')) || 
-                        "Debe ser un enlace de Twitter/X"
-                    }
-                  })}
-                  placeholder="https://twitter.com/tu-usuario"
-                />
-              </div>
-              {contactErrors.twitter && <span className="error-message">{contactErrors.twitter.message}</span>}
-            </div>
-
-            {/* Sitio Web/Portafolio */}
-            <div className="form-group">
-              <label>Sitio Web/Portafolio</label>
-              <div className="input-with-icon">
-                <FaGlobe className="input-icon" />
+              
+              <div className="form-group">
+                <label>Sitio Web</label>
                 <input
                   type="url"
                   {...registerContact('website', {
-                    validate: value => !value || isValidUrl(value) || "URL inválida"
+                    validate: v => !v || isValidUrl(v) || "URL inválida"
                   })}
                   placeholder="https://tu-portafolio.com"
                 />
               </div>
-              {contactErrors.website && <span className="error-message">{contactErrors.website.message}</span>}
-            </div>
+              
+              <button type="submit" className="submit-button">
+                {editingIndex !== null ? 'Actualizar' : 'Guardar'}
+              </button>
+            </form>
           </div>
-
-          <div className="form-buttons">
-            <button type="submit" className="submit-button">Guardar Contacto</button>
-            <button 
-              type="button" 
-              onClick={() => {
-                resetContact({
-                  email: '',
-                  linkedin: '',
-                  github: '',
-                  twitter: '',
-                  website: ''
-                });
-                setContactInfo({});
-              }} 
-              className="cancel-button"
-            >
-              Limpiar Todo
-            </button>
-          </div>
-        </form>
-
-        {Object.keys(contactInfo).length > 0 && (
-          <div className="contact-preview">
-            <h3>Tus Enlaces de Contacto</h3>
-            <div className="contact-badges">
-              {contactInfo.email && (
-                <a href={`mailto:${contactInfo.email}`} className="contact-badge" target="_blank" rel="noopener noreferrer">
-                  <FaEnvelope className="badge-icon" />
-                  <span>Email</span>
-                </a>
-              )}
-              
-              {contactInfo.linkedin && (
-                <a href={contactInfo.linkedin} className="contact-badge" target="_blank" rel="noopener noreferrer">
-                  <FaLinkedin className="badge-icon" />
-                  <span>LinkedIn</span>
-                </a>
-              )}
-              
-              {contactInfo.github && (
-                <a href={contactInfo.github} className="contact-badge" target="_blank" rel="noopener noreferrer">
-                  <FaGithub className="badge-icon" />
-                  <span>GitHub</span>
-                </a>
-              )}
-              
-              {contactInfo.twitter && (
-                <a href={contactInfo.twitter} className="contact-badge" target="_blank" rel="noopener noreferrer">
-                  <FaTwitter className="badge-icon" />
-                  <span>Twitter/X</span>
-                </a>
-              )}
-              
-              {contactInfo.website && (
-                <a href={contactInfo.website} className="contact-badge" target="_blank" rel="noopener noreferrer">
-                  <FaGlobe className="badge-icon" />
-                  <span>Sitio Web</span>
-                </a>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-      </div>
+        </div>
       </div>
 
       <Preview
         personalInfo={personalInfo}
         educations={educations}
         experiences={experiences}
+        projects={projects}
         skills={skills}
         languages={languages}
         references={references}
         contactInfo={contactInfo}
         formatDate={formatDate}
         renderStars={renderStars}
-        renderLanguageLevel={renderLanguageLevel}
         skillCategories={skillCategories}
+        onEditSection={handleEditFromPreview}
       />
 
-      <button onClick={() => navigate('/')} className="back-button">Volver al Inicio</button>
+      <button onClick={() => navigate('/')} className="back-button">
+        Volver al Inicio
+      </button>
     </div>
   );
 }
