@@ -14,7 +14,7 @@
 
 /* Secciones moradas claras dentro del footer */
 .footer-section {
-  background-color: rgba(147, 112, 219, 0.2);
+  background-color:  rgba(230, 218, 255, 0.8);
   padding: 1.5rem;
   border-radius: 8px;
   height: 100%;
@@ -22,7 +22,7 @@
 }
 
 .footer-section h5 {
-  color: #6a0dad;
+  color:rgb(14, 7, 19);
   margin-bottom: 1rem;
 }
 
@@ -121,3 +121,4 @@ body.monochrome-mode .bi-twitter-x {
 body.monochrome-mode .bi-github {
   color: #b0b0b0; /* Color de icono de GitHub ajustado */
 }
+

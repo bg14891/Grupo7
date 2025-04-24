@@ -1,150 +1,154 @@
 .nosotros-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    
-    background: linear-gradient(to right, #8A2BE2, #FF1493);
-    
-  }
-  
-  /* Títulos con efecto llamativo */
-  .nosotros-container h1,.nosotros-container h2 {
-    color: #000;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 15px;
-    position: relative;
-    display: inline-block;
-    font-size: 28px;
-    transition: 0.3s ease-in-out;
-  }
-  .nosotros-container h1{
-    font-size: 36px;
-  }
-  .nosotros-container h1::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -5px;
-    width: 50%;
-    height: 4px;
-    background: linear-gradient(to right, #000, #00aaff);
-    transform: translateX(-50%);
-    transition: width 0.3s;
-  }
-  
-  .nosotros-container h1:hover::after {
-    width: 90%;
-  }
-  
-  
-  .nosotros-container h2::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -5px;
-    width: 50%;
-    height: 4px;
-    background: linear-gradient(to right, #000, #00aaff);
-    transform: translateX(-50%);
-    transition: width 0.3s;
-  }
-  
-  .nosotros-container h2:hover::after {
-    width: 80%;
-  }
-  
-  /* Estilo del texto */
-  p, li {
-    color: #333;
-    font-size: 18px;
-    line-height: 1.6;
-  }
-  
-  /* Íconos */
-  .icon {
-    color: #00aaff;
-    margin-right: 8px;
-    font-size: 22px;
-  }
-  
-  /* Lista de habilidades */
-  .habilidades {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .habilidades li {
-    background: rgba(0, 170, 255, 0.1);
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .habilidades li:hover {
-    transform: scale(1.05);
-    background: rgba(0, 170, 255, 0.2);
-  }
-  
-  /* Contacto */
-  .contacto-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .contacto-section li {
-    display: flex;
-    align-items: center;
-    background: rgba(0, 170, 255, 0.1);
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 5px;
-  }
-  
-  .contacto-section li:hover {
-    background: rgba(0, 170, 255, 0.2);
-  }
-  
-  
-  body.monochrome-mode .nosotros-container {
-    background-color: #1a1a1a;
-    color: #f1f1f1;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.05);
-  }
-  
-  body.monochrome-mode .nosotros-container h1,
-  body.monochrome-mode .nosotros-container h2 {
-    color: #f1f1f1;
-  }
-  
-  body.monochrome-mode .nosotros-container h1::after,
-  body.monochrome-mode .nosotros-container h2::after {
-    background: linear-gradient(to right, #555, #999);
-  }
-  
-  body.monochrome-mode .nosotros-container p,
-  body.monochrome-mode .nosotros-container li {
-    color: #ccc;
-  }
-  
-  body.monochrome-mode .icon {
-    color: #999;
-  }
-  
-  body.monochrome-mode .habilidades li,
-  body.monochrome-mode .contacto-section li {
-    background: rgba(255, 255, 255, 0.05);
-  }
-  
-  body.monochrome-mode .habilidades li:hover,
-  body.monochrome-mode .contacto-section li:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background: linear-gradient(to right,rgb(95, 25, 161),rgb(195, 46, 125));
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.84);
+  text-align: center;
+}
+
+body {
+  background: linear-gradient(to right, #8A2BE2, #FF1493);
+}
+
+/* Títulos con efecto llamativo */
+.nosotros-container h1,.nosotros-container h2 {
+  color: #000;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+  font-size: 28px;
+  transition: 0.3s ease-in-out;
+}
+.nosotros-container h1{
+  font-size: 36px;
+}
+.nosotros-container h1::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 50%;
+  height: 4px;
+  background: linear-gradient(to right, #000, #00aaff);
+  transform: translateX(-50%);
+  transition: width 0.3s;
+}
+
+.nosotros-container h1:hover::after {
+  width: 90%;
+}
+
+
+.nosotros-container h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 50%;
+  height: 4px;
+  background: linear-gradient(to right, #000, #00aaff);
+  transform: translateX(-50%);
+  transition: width 0.3s;
+}
+
+.nosotros-container h2:hover::after {
+  width: 80%;
+}
+
+/* Estilo del texto */
+p, li {
+  color: #000;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Íconos */
+.icon {
+  color: #00aaff;
+  margin-right: 8px;
+  font-size: 22px;
+}
+
+/* Lista de habilidades */
+.habilidades {
+  list-style: none;
+  padding: 0;
+}
+
+.habilidades li {
+  background: rgba(6, 6, 6, 0.1);
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.habilidades li:hover {
+  transform: scale(1.05);
+  background: rgba(0, 170, 255, 0.2);
+}
+
+/* Contacto */
+.contacto-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contacto-section li {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 170, 255, 0.1);
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.contacto-section li:hover {
+  background: rgba(0, 170, 255, 0.2);
+}
+body.monochrome-mode {
+  background: linear-gradient(to right, #111, #333); /* Fondo general más oscuro */
+}
+
+body.monochrome-mode .nosotros-container {
+  background: linear-gradient(to right, #1a1a1a, #2a2a2a); /* Fondo contenedor monocromo */
+  color: #f1f1f1;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.05);
+}
+
+body.monochrome-mode .nosotros-container h1,
+body.monochrome-mode .nosotros-container h2 {
+  color: #f1f1f1;
+}
+
+body.monochrome-mode .nosotros-container h1::after,
+body.monochrome-mode .nosotros-container h2::after {
+  background: linear-gradient(to right, #555, #999);
+}
+
+body.monochrome-mode .nosotros-container p,
+body.monochrome-mode .nosotros-container li {
+  color: #ccc;
+}
+
+body.monochrome-mode .icon {
+  color: #999;
+}
+
+body.monochrome-mode .habilidades li,
+body.monochrome-mode .contacto-section li {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.monochrome-mode .habilidades li:hover,
+body.monochrome-mode .contacto-section li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
