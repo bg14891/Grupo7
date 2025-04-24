@@ -18,8 +18,9 @@ function Footer() {
   const socialLinks = [
     { icon: 'facebook', url: 'https://www.facebook.com' },
     { icon: 'instagram', url: 'https://www.instagram.com' },
-    { icon: 'twitter-x', url: 'https://www.twitter.com' },
     { icon: 'github', url: 'https://www.github.com' },
+    { icon: 'question-circle', url: '#' },
+    
   ];
 
   return (
@@ -50,3 +51,4 @@ function Footer() {
 }
 
 export default Footer;
+
