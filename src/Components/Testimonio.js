@@ -9,7 +9,7 @@ const Testimonio = () => {
   const images = [
     {
       id: '1',
-      image: 'https://i.ytimg.com/vi/sGesd98SiL8/maxresdefault.jpg',
+      image: 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/72fb24198960209.664a05bd1137d.png',
       title: t('testimonio.testimonios.0.title'),
       description: t('testimonio.testimonios.0.description'),
     },
@@ -22,7 +22,7 @@ const Testimonio = () => {
     {
       id: '3',
       title: t('testimonio.testimonios.2.title'),
-      image: 'https://cdn.slidesharecdn.com/ss_thumbnails/herofincorpbrandinsightsvf-171121093015-thumbnail-4.jpg',
+      image: 'https://www.financialexpress.com/wp-content/uploads/2024/03/My-project-2024-03-13T170119.618.png',
       description: t('testimonio.testimonios.2.description'),
     },
     {
@@ -34,7 +34,7 @@ const Testimonio = () => {
     {
       id: '5',
       title: t('testimonio.testimonios.4.title'),
-      image: 'https://www.kindpng.com/picc/m/465-4652155_talentbridge-talentbridge-logo-hd-png-download.png',
+      image: 'https://media.licdn.com/dms/image/C4D10AQGD5CJ8usOKyg/videocover-high/0/1702457507571/Excerpt_JennMiller_A_16_9mp4?e=2147483647&v=beta&t=ElrYtIDz3ZvGxjlq7TBjwBlVeS4uC48QC7tmV1RgEwI',
       description: t('testimonio.testimonios.4.description'),
     },
     {
@@ -126,3 +126,5 @@ const Testimonio = () => {
 };
 
 export default Testimonio;
+
+

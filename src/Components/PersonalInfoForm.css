@@ -1,4 +1,4 @@
-/* Estilos base con fondo rosado degradado */
+
 .form-background {
   background: linear-gradient(135deg, #ff9bb3 0%, #d8a4ff 100%);
   min-height: 100vh;
@@ -897,6 +897,4 @@ button, input[type="checkbox"], select, .screenshot-thumbnail, .preview-section 
   transition: transform 0.4s ease;
 }
 
-.form-group:focus-within::after {
-  transform: scaleX(1);
-}
+
